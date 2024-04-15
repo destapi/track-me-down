@@ -6,16 +6,20 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SelectField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getAdministrator } from "../graphql/queries";
-import { updateAdministrator } from "../graphql/mutations";
+import { createPassenger } from "../graphql/mutations";
 const client = generateClient();
-export default function AdministratorUpdateForm(props) {
+export default function PassengerCreateForm(props) {
   const {
-    id: idProp,
-    administrator: administratorModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -29,8 +33,8 @@ export default function AdministratorUpdateForm(props) {
     lastName: "",
     phoneNumber: "",
     emailAddress: "",
-    copyOfId: "",
     dateRegistered: "",
+    activeStatus: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
@@ -40,48 +44,29 @@ export default function AdministratorUpdateForm(props) {
   const [emailAddress, setEmailAddress] = React.useState(
     initialValues.emailAddress
   );
-  const [copyOfId, setCopyOfId] = React.useState(initialValues.copyOfId);
   const [dateRegistered, setDateRegistered] = React.useState(
     initialValues.dateRegistered
   );
+  const [activeStatus, setActiveStatus] = React.useState(
+    initialValues.activeStatus
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = administratorRecord
-      ? { ...initialValues, ...administratorRecord }
-      : initialValues;
-    setFirstName(cleanValues.firstName);
-    setLastName(cleanValues.lastName);
-    setPhoneNumber(cleanValues.phoneNumber);
-    setEmailAddress(cleanValues.emailAddress);
-    setCopyOfId(cleanValues.copyOfId);
-    setDateRegistered(cleanValues.dateRegistered);
+    setFirstName(initialValues.firstName);
+    setLastName(initialValues.lastName);
+    setPhoneNumber(initialValues.phoneNumber);
+    setEmailAddress(initialValues.emailAddress);
+    setDateRegistered(initialValues.dateRegistered);
+    setActiveStatus(initialValues.activeStatus);
     setErrors({});
   };
-  const [administratorRecord, setAdministratorRecord] = React.useState(
-    administratorModelProp
-  );
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getAdministrator.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getAdministrator
-        : administratorModelProp;
-      setAdministratorRecord(record);
-    };
-    queryData();
-  }, [idProp, administratorModelProp]);
-  React.useEffect(resetStateValues, [administratorRecord]);
   const validations = {
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
     phoneNumber: [{ type: "Required" }, { type: "Phone" }],
     emailAddress: [{ type: "Required" }, { type: "Email" }],
-    copyOfId: [{ type: "URL" }],
-    dateRegistered: [{ type: "Required" }],
+    dateRegistered: [],
+    activeStatus: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -113,8 +98,8 @@ export default function AdministratorUpdateForm(props) {
           lastName,
           phoneNumber,
           emailAddress,
-          copyOfId: copyOfId ?? null,
           dateRegistered,
+          activeStatus,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -145,16 +130,18 @@ export default function AdministratorUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateAdministrator.replaceAll("__typename", ""),
+            query: createPassenger.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: administratorRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -163,16 +150,11 @@ export default function AdministratorUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "AdministratorUpdateForm")}
+      {...getOverrideProps(overrides, "PassengerCreateForm")}
       {...rest}
     >
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>First name</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="First name"
         isRequired={true}
         isReadOnly={false}
         value={firstName}
@@ -184,8 +166,8 @@ export default function AdministratorUpdateForm(props) {
               lastName,
               phoneNumber,
               emailAddress,
-              copyOfId,
               dateRegistered,
+              activeStatus,
             };
             const result = onChange(modelFields);
             value = result?.firstName ?? value;
@@ -201,12 +183,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "firstName")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Last name</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Last name"
         isRequired={true}
         isReadOnly={false}
         value={lastName}
@@ -218,8 +195,8 @@ export default function AdministratorUpdateForm(props) {
               lastName: value,
               phoneNumber,
               emailAddress,
-              copyOfId,
               dateRegistered,
+              activeStatus,
             };
             const result = onChange(modelFields);
             value = result?.lastName ?? value;
@@ -235,12 +212,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "lastName")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Phone number</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Phone number"
         isRequired={true}
         isReadOnly={false}
         type="tel"
@@ -253,8 +225,8 @@ export default function AdministratorUpdateForm(props) {
               lastName,
               phoneNumber: value,
               emailAddress,
-              copyOfId,
               dateRegistered,
+              activeStatus,
             };
             const result = onChange(modelFields);
             value = result?.phoneNumber ?? value;
@@ -270,12 +242,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "phoneNumber")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Email address</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Email address"
         isRequired={true}
         isReadOnly={false}
         value={emailAddress}
@@ -287,8 +254,8 @@ export default function AdministratorUpdateForm(props) {
               lastName,
               phoneNumber,
               emailAddress: value,
-              copyOfId,
               dateRegistered,
+              activeStatus,
             };
             const result = onChange(modelFields);
             value = result?.emailAddress ?? value;
@@ -304,42 +271,8 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "emailAddress")}
       ></TextField>
       <TextField
-        label="Copy of id"
+        label="Date registered"
         isRequired={false}
-        isReadOnly={false}
-        value={copyOfId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              phoneNumber,
-              emailAddress,
-              copyOfId: value,
-              dateRegistered,
-            };
-            const result = onChange(modelFields);
-            value = result?.copyOfId ?? value;
-          }
-          if (errors.copyOfId?.hasError) {
-            runValidationTasks("copyOfId", value);
-          }
-          setCopyOfId(value);
-        }}
-        onBlur={() => runValidationTasks("copyOfId", copyOfId)}
-        errorMessage={errors.copyOfId?.errorMessage}
-        hasError={errors.copyOfId?.hasError}
-        {...getOverrideProps(overrides, "copyOfId")}
-      ></TextField>
-      <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Date registered</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
-        isRequired={true}
         isReadOnly={false}
         type="date"
         value={dateRegistered}
@@ -351,8 +284,8 @@ export default function AdministratorUpdateForm(props) {
               lastName,
               phoneNumber,
               emailAddress,
-              copyOfId,
               dateRegistered: value,
+              activeStatus,
             };
             const result = onChange(modelFields);
             value = result?.dateRegistered ?? value;
@@ -367,19 +300,68 @@ export default function AdministratorUpdateForm(props) {
         hasError={errors.dateRegistered?.hasError}
         {...getOverrideProps(overrides, "dateRegistered")}
       ></TextField>
+      <SelectField
+        label="Active status"
+        placeholder="Please select an option"
+        isDisabled={false}
+        value={activeStatus}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              phoneNumber,
+              emailAddress,
+              dateRegistered,
+              activeStatus: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.activeStatus ?? value;
+          }
+          if (errors.activeStatus?.hasError) {
+            runValidationTasks("activeStatus", value);
+          }
+          setActiveStatus(value);
+        }}
+        onBlur={() => runValidationTasks("activeStatus", activeStatus)}
+        errorMessage={errors.activeStatus?.errorMessage}
+        hasError={errors.activeStatus?.hasError}
+        {...getOverrideProps(overrides, "activeStatus")}
+      >
+        <option
+          children="Unverified"
+          value="UNVERIFIED"
+          {...getOverrideProps(overrides, "activeStatusoption0")}
+        ></option>
+        <option
+          children="Activated"
+          value="ACTIVATED"
+          {...getOverrideProps(overrides, "activeStatusoption1")}
+        ></option>
+        <option
+          children="Passivated"
+          value="PASSIVATED"
+          {...getOverrideProps(overrides, "activeStatusoption2")}
+        ></option>
+        <option
+          children="Banned"
+          value="BANNED"
+          {...getOverrideProps(overrides, "activeStatusoption3")}
+        ></option>
+      </SelectField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || administratorModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -389,10 +371,7 @@ export default function AdministratorUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || administratorModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

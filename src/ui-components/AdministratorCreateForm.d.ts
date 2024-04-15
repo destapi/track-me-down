@@ -21,7 +21,7 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type AdministratorUpdateFormInputValues = {
+export declare type AdministratorCreateFormInputValues = {
     firstName?: string;
     lastName?: string;
     phoneNumber?: string;
@@ -29,7 +29,7 @@ export declare type AdministratorUpdateFormInputValues = {
     copyOfId?: string;
     dateRegistered?: string;
 };
-export declare type AdministratorUpdateFormValidationValues = {
+export declare type AdministratorCreateFormValidationValues = {
     firstName?: ValidationFunction<string>;
     lastName?: ValidationFunction<string>;
     phoneNumber?: ValidationFunction<string>;
@@ -38,8 +38,8 @@ export declare type AdministratorUpdateFormValidationValues = {
     dateRegistered?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type AdministratorUpdateFormOverridesProps = {
-    AdministratorUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+export declare type AdministratorCreateFormOverridesProps = {
+    AdministratorCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     firstName?: PrimitiveOverrideProps<TextFieldProps>;
     lastName?: PrimitiveOverrideProps<TextFieldProps>;
     phoneNumber?: PrimitiveOverrideProps<TextFieldProps>;
@@ -47,15 +47,14 @@ export declare type AdministratorUpdateFormOverridesProps = {
     copyOfId?: PrimitiveOverrideProps<TextFieldProps>;
     dateRegistered?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type AdministratorUpdateFormProps = React.PropsWithChildren<{
-    overrides?: AdministratorUpdateFormOverridesProps | undefined | null;
+export declare type AdministratorCreateFormProps = React.PropsWithChildren<{
+    overrides?: AdministratorCreateFormOverridesProps | undefined | null;
 } & {
-    id?: string;
-    administrator?: any;
-    onSubmit?: (fields: AdministratorUpdateFormInputValues) => AdministratorUpdateFormInputValues;
-    onSuccess?: (fields: AdministratorUpdateFormInputValues) => void;
-    onError?: (fields: AdministratorUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: AdministratorUpdateFormInputValues) => AdministratorUpdateFormInputValues;
-    onValidate?: AdministratorUpdateFormValidationValues;
+    clearOnSuccess?: boolean;
+    onSubmit?: (fields: AdministratorCreateFormInputValues) => AdministratorCreateFormInputValues;
+    onSuccess?: (fields: AdministratorCreateFormInputValues) => void;
+    onError?: (fields: AdministratorCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: AdministratorCreateFormInputValues) => AdministratorCreateFormInputValues;
+    onValidate?: AdministratorCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function AdministratorUpdateForm(props: AdministratorUpdateFormProps): React.ReactElement;
+export default function AdministratorCreateForm(props: AdministratorCreateFormProps): React.ReactElement;
