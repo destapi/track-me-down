@@ -9,6 +9,13 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/destapi/track-me-down.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.1.7",
     "aws-amplify": "^6.0.28",
