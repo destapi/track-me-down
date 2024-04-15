@@ -167,12 +167,7 @@ export default function AdministratorUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>First name</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="First name"
         isRequired={true}
         isReadOnly={false}
         value={firstName}
@@ -201,12 +196,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "firstName")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Last name</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Last name"
         isRequired={true}
         isReadOnly={false}
         value={lastName}
@@ -235,12 +225,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "lastName")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Phone number</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Phone number"
         isRequired={true}
         isReadOnly={false}
         type="tel"
@@ -270,12 +255,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "phoneNumber")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Email address</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Email address"
         isRequired={true}
         isReadOnly={false}
         value={emailAddress}
@@ -333,12 +313,7 @@ export default function AdministratorUpdateForm(props) {
         {...getOverrideProps(overrides, "copyOfId")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Date registered</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Date registered"
         isRequired={true}
         isReadOnly={false}
         type="date"
