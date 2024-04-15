@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-trackmedown-staging-ecd37-authRole",
+      "UnauthRoleArn": "arn:aws:iam::072180172880:role/amplify-trackmedown-staging-ecd37-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::072180172880:role/amplify-trackmedown-staging-ecd37-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-trackmedown-staging-ecd37-deployment",
+      "UnauthRoleName": "amplify-trackmedown-staging-ecd37-unauthRole",
+      "StackName": "amplify-trackmedown-staging-ecd37",
+      "StackId": "arn:aws:cloudformation:us-east-2:072180172880:stack/amplify-trackmedown-staging-ecd37/a3c40cf0-faa0-11ee-b53d-06c8997f6651",
+      "AmplifyAppId": "d1g2yvossosf8x"
+    },
+    "categories": {
+      "auth": {
+        "trackmedown": {}
+      }
+    }
+  }
+}

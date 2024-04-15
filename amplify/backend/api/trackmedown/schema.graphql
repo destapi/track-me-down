@@ -1,0 +1,198 @@
+type GeoFence @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  coordinates: AWSURL!
+  dateCreated: AWSDate!
+  validDuration: Int
+  createdBy: Administrator @hasOne
+}
+
+type DriverPool @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  poolTitle: String
+  drivers: [Driver] @hasMany(indexName: "byDriverPool", fields: ["id"])
+}
+
+type VehicleFleet @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  fleetTitle: String!
+  vehicles: [Vehicle] @hasMany(indexName: "byVehicleFleet", fields: ["id"])
+}
+
+type Notification @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  event: String!
+  message: String
+  eventTime: AWSDateTime!
+  target: String
+}
+
+type TripFeedback @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  trip: Trip @hasOne
+  passenger: Passenger @hasOne
+  comments: String!
+  satisfaction: IntRange
+}
+
+type IntRange {
+  min: Int
+  max: Int
+}
+
+type DriverRating @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  passenger: Passenger @hasOne
+  driver: Driver @hasOne
+  trip: Trip @hasOne
+  cleanliness: IntRange
+  punctuality: IntRange
+  safeDriving: IntRange
+  courtesy: IntRange
+}
+
+type Payment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  passenger: Passenger @hasOne
+  trip: Trip @hasOne
+  amountRemitted: Float!
+  tipRemitted: Float
+  dateRemitted: AWSDateTime!
+  paymentMethod: PaymentMethod @hasOne
+}
+
+enum TripStatus {
+  REQUESTED
+  STARTED
+  COMPLETED
+  CANCELLED
+}
+
+type GeoLocation {
+  latitude: Float
+  longitude: Float
+}
+
+type Trip @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  pickUp: GeoLocation!
+  dropOff: GeoLocation!
+  intervals: [GeoLocation!]!
+  distance: Float
+  tripCharge: Float
+  passengers: [Passenger] @hasMany(indexName: "byTrip", fields: ["id"])
+  cancellationCharge: Float
+  status: TripStatus!
+  driver: Driver @hasOne
+}
+
+type DirectDeposit @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  driver: Driver @hasOne
+  routingNumber: String!
+  accountNumber: String!
+  amountDesignated: Float
+  percentageDesignated: Float
+}
+
+enum DriverStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+enum EarningTier {
+  ENTRY
+  EXPERIENCED
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+type Driver @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  ssn: String!
+  dob: AWSDate!
+  dLCopy: AWSURL!
+  phoneNumber: AWSPhone
+  emailAddress: AWSEmail
+  homeAddress: PhysicalAddress @hasOne
+  earningTier: EarningTier
+  vehicle: Vehicle @hasOne
+  registrationDate: AWSDate
+  activeStatus: DriverStatus
+  driverpoolID: ID @index(name: "byDriverPool")
+}
+
+type Vehicle @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  vin: String!
+  make: String!
+  model: String!
+  year: Int!
+  registrationNum: String!
+  registrationState: String!
+  registrationCopy: AWSURL!
+  insuranceProof: String!
+  vehiclefleetID: ID @index(name: "byVehicleFleet")
+}
+
+enum PassengerStatus {
+  UNVERIFIED
+  ACTIVATED
+  PASSIVATED
+  BANNED
+}
+
+enum PaymentType {
+  CREDITCARD
+  DEBITCARD
+  PAYPAL
+  STRIPE
+}
+
+type PaymentMethod @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  paymentType: PaymentType!
+  accountNumber: String!
+  firstName: String!
+  lastName: String!
+  expiryDate: AWSDate
+  verificationCode: Int
+}
+
+type Passenger @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phoneNumber: AWSPhone!
+  emailAddress: AWSEmail!
+  paymentMethod: PaymentMethod @hasOne
+  dateRegistered: AWSDate
+  activeStatus: PassengerStatus
+  tripID: ID @index(name: "byTrip")
+}
+
+type PhysicalAddress @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  streetName: String!
+  unitNumber: String
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+type Administrator @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phoneNumber: AWSPhone!
+  emailAddress: AWSEmail!
+  copyOfId: AWSURL
+  homeAddress: PhysicalAddress @hasOne
+  dateRegistered: AWSDate!
+}
+ 
