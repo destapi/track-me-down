@@ -1,0 +1,13 @@
+#root {
+  height: 100vh;
+}
+
+[data-amplify-theme] > div {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+main.page-body {
+  flex: 1
+}

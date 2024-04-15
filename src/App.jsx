@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { withAuthenticator, } from '@aws-amplify/ui-react';
+import AppLayout from './component/AppLayout';
+import PropTypes from 'prop-types';
+import { AdministratorCreateForm } from './ui-components';
 
-function App() {
-  const [count, setCount] = useState(0)
+function App({ signOut, user }) {
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React with Amplify</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AppLayout username={user?.username} onSignOut={signOut}>
+      <AdministratorCreateForm />
+    </AppLayout>
+  );
 }
 
-export default App
+// const styles = {
+//   container: {
+//     width: 400,
+//     margin: '0 auto',
+//     display: 'flex',
+//     flexDirection: 'column',
+//     justifyContent: 'center',
+//     padding: 20
+//   },
+//   input: {
+//     border: 'none',
+//     backgroundColor: '#ddd',
+//     marginBottom: 10,
+//     padding: 8,
+//     fontSize: 18
+//   },
+// }
+
+App.propTypes = {
+  signOut: PropTypes.func.isRequired,
+  user: PropTypes.object
+}
+
+export default withAuthenticator(App);
