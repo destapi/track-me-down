@@ -21,9 +21,20 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import PropTypes from 'prop-types';
+import HomeIcon from '@mui/icons-material/Home';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import ContactlessIcon from '@mui/icons-material/Contactless';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import HailIcon from '@mui/icons-material/Hail';
+import LuggageIcon from '@mui/icons-material/Luggage';
+import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import BusinessIcon from '@mui/icons-material/Business';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import '../layout.css'
 
 const drawerWidth = 240;
@@ -109,7 +120,7 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AppLayout({ username, onSignOut, children }) {
+export default function AppLayout({ username, onSignOut, setPage, children }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -199,8 +210,8 @@ export default function AppLayout({ username, onSignOut, children }) {
                     </DrawerHeader>
                     <Divider />
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                        {[['MapBox', <HomeIcon />], ['Trip', <LuggageIcon />], ['Passenger', <HailIcon />], ['Payment Method', <AddCardIcon />], ['Payment', <ContactlessIcon />]].map(([text, icon]) => (
+                            <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,
@@ -215,7 +226,7 @@ export default function AppLayout({ username, onSignOut, children }) {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                        {icon}
                                     </ListItemIcon>
                                     <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                                 </ListItemButton>
@@ -224,8 +235,8 @@ export default function AppLayout({ username, onSignOut, children }) {
                     </List>
                     <Divider />
                     <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                        {[['Vehicle', <DirectionsCarIcon />], ['Vehicle Fleet', <EmojiTransportationIcon />], ['Driver', <PersonPinIcon />], ['Driver Pool', <PersonAddIcon />], ['Direct Deposit', <AccountBalanceIcon />]].map(([text, icon]) => (
+                            <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,
@@ -240,7 +251,32 @@ export default function AppLayout({ username, onSignOut, children }) {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                        {icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Divider />
+                    <List>
+                        {[['Administrator', <EngineeringIcon />], ['Physical Address', <BusinessIcon />], ['GeoFence', <GpsFixedIcon />]].map(([text, icon]) => (
+                            <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        {icon}
                                     </ListItemIcon>
                                     <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                                 </ListItemButton>
@@ -248,7 +284,7 @@ export default function AppLayout({ username, onSignOut, children }) {
                         ))}
                     </List>
                 </Drawer>
-                <Container component="main" className="page-body" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+                <Container component="main" className="page-body" sx={{ mt: 8, mb: 2 }} maxWidth="md">
                     <DrawerHeader />
                     {children}
                 </Container>
@@ -279,5 +315,6 @@ export default function AppLayout({ username, onSignOut, children }) {
 AppLayout.propTypes = {
     username: PropTypes.string,
     onSignOut: PropTypes.func.isRequired,
+    setPage: PropTypes.func.isRequired,
     children: PropTypes.object.isRequired,
 }
