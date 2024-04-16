@@ -28,6 +28,8 @@ export { default as PhysicalAddressCreateForm } from "./PhysicalAddressCreateFor
 export { default as PhysicalAddressUpdateForm } from "./PhysicalAddressUpdateForm";
 export { default as TripFeedbackCreateForm } from "./TripFeedbackCreateForm";
 export { default as TripFeedbackUpdateForm } from "./TripFeedbackUpdateForm";
+export { default as TripPlanCreateForm } from "./TripPlanCreateForm";
+export { default as TripPlanUpdateForm } from "./TripPlanUpdateForm";
 export { default as VehicleCreateForm } from "./VehicleCreateForm";
 export { default as VehicleFleetCreateForm } from "./VehicleFleetCreateForm";
 export { default as VehicleFleetUpdateForm } from "./VehicleFleetUpdateForm";

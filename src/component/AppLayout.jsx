@@ -210,7 +210,7 @@ export default function AppLayout({ username, onSignOut, setPage, children }) {
                     </DrawerHeader>
                     <Divider />
                     <List>
-                        {[['MapBox', <HomeIcon />], ['Trip', <LuggageIcon />], ['Passenger', <HailIcon />], ['Payment Method', <AddCardIcon />], ['Payment', <ContactlessIcon />]].map(([text, icon]) => (
+                        {[['MapBox', <HomeIcon key="home" />], ['Trip Plan', <LuggageIcon key="tripplan" />], ['Passenger', <HailIcon key="passenger" />], ['Payment Method', <AddCardIcon key="paymentmethod" />], ['Payment', <ContactlessIcon key="payment" />]].map(([text, icon]) => (
                             <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
                                 <ListItemButton
                                     sx={{
@@ -235,7 +235,7 @@ export default function AppLayout({ username, onSignOut, setPage, children }) {
                     </List>
                     <Divider />
                     <List>
-                        {[['Vehicle', <DirectionsCarIcon />], ['Vehicle Fleet', <EmojiTransportationIcon />], ['Driver', <PersonPinIcon />], ['Driver Pool', <PersonAddIcon />], ['Direct Deposit', <AccountBalanceIcon />]].map(([text, icon]) => (
+                        {[['Vehicle', <DirectionsCarIcon key="vehicle" />], ['Vehicle Fleet', <EmojiTransportationIcon key="vehiclefleet" />], ['Driver', <PersonPinIcon key="driver" />], ['Driver Pool', <PersonAddIcon key="driverpool" />], ['Direct Deposit', <AccountBalanceIcon key="directdeposit" />]].map(([text, icon]) => (
                             <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
                                 <ListItemButton
                                     sx={{
@@ -260,7 +260,7 @@ export default function AppLayout({ username, onSignOut, setPage, children }) {
                     </List>
                     <Divider />
                     <List>
-                        {[['Administrator', <EngineeringIcon />], ['Physical Address', <BusinessIcon />], ['GeoFence', <GpsFixedIcon />]].map(([text, icon]) => (
+                        {[['Administrator', <EngineeringIcon key="administrator" />], ['Physical Address', <BusinessIcon key="address" />], ['GeoFence', <GpsFixedIcon key="geofence" />]].map(([text, icon]) => (
                             <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
                                 <ListItemButton
                                     sx={{

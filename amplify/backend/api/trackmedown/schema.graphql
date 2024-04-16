@@ -1,3 +1,20 @@
+type TripPlan @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  pickUpTime: AWSDateTime
+  pickUpLocation: GeoLocation
+  dropOffLocation: GeoLocation
+  planner: Passenger @hasOne
+}
+
+type TripCharge @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  distance: Float
+  cost: Float
+  tip: Float
+  passenger: Passenger @hasOne
+  tripsummaryID: ID! @index(name: "byTripSummary")
+}
+
 type GeoFence @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String!
@@ -29,7 +46,7 @@ type Notification @model @auth(rules: [{allow: public}]) {
 
 type TripFeedback @model @auth(rules: [{allow: public}]) {
   id: ID!
-  trip: Trip @hasOne
+  trip: TripCharge @hasOne
   passenger: Passenger @hasOne
   comments: String!
   satisfaction: IntRange
@@ -44,7 +61,7 @@ type DriverRating @model @auth(rules: [{allow: public}]) {
   id: ID!
   passenger: Passenger @hasOne
   driver: Driver @hasOne
-  trip: Trip @hasOne
+  trip: TripCharge @hasOne
   cleanliness: IntRange
   punctuality: IntRange
   safeDriving: IntRange
@@ -54,7 +71,7 @@ type DriverRating @model @auth(rules: [{allow: public}]) {
 type Payment @model @auth(rules: [{allow: public}]) {
   id: ID!
   passenger: Passenger @hasOne
-  trip: Trip @hasOne
+  trip: TripCharge @hasOne
   amountRemitted: Float!
   tipRemitted: Float
   dateRemitted: AWSDateTime!
@@ -73,16 +90,14 @@ type GeoLocation {
   longitude: Float
 }
 
-type Trip @model @auth(rules: [{allow: public}]) {
+type TripSummary @model @auth(rules: [{allow: public}]) {
   id: ID!
-  pickUp: GeoLocation!
-  dropOff: GeoLocation!
-  intervals: [GeoLocation!]!
-  distance: Float
-  tripCharge: Float
-  passengers: [Passenger] @hasMany(indexName: "byTrip", fields: ["id"])
+  pathTravelled: [GeoLocation!]
   cancellationCharge: Float
-  status: TripStatus!
+  tripStatus: TripStatus!
+  tripCharge: [TripCharge] @hasMany(indexName: "byTripSummary", fields: ["id"])
+  tripPlan: TripPlan @hasOne
+  timeCompleted: AWSDateTime
   driver: Driver @hasOne
 }
 
@@ -173,7 +188,6 @@ type Passenger @model @auth(rules: [{allow: public}]) {
   paymentMethod: PaymentMethod @hasOne
   dateRegistered: AWSDate
   activeStatus: PassengerStatus
-  tripID: ID @index(name: "byTrip")
 }
 
 type PhysicalAddress @model @auth(rules: [{allow: public}]) {

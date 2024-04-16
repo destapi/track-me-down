@@ -7,7 +7,7 @@ import PassengerPanel from './component/PassengerPanel';
 import DirectDepositPanel from './component/DirectDepositPanel';
 import VehiclePanel from './component/VehiclePanel';
 import VehicleFleetPanel from './component/VehicleFleetPanel';
-import TripPanel from './component/TripPanel';
+import TripPlanPanel from './component/TripPlanPanel';
 import GeoFencePanel from './component/GeoFencePanel';
 import PaymentPanel from './component/PaymentPanel';
 import PaymentMethodPanel from './component/PaymentMethodPanel';
@@ -47,8 +47,8 @@ function resolveTabPage(page) {
       case 'Driver Pool': {
         return <DriverPoolPanel />
       }
-      case 'Trip': {
-        return <TripPanel />
+      case 'Trip Plan': {
+        return <TripPlanPanel />
       }
       case 'GeoFence': {
         return <GeoFencePanel />

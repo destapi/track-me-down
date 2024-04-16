@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { DriverCreateForm, DriverUpdateForm } from '../ui-components';
+import { TripPlanCreateForm, TripPlanUpdateForm } from '../ui-components';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -39,7 +39,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TripPanel() {
+export default function TripPlanPanel() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -56,10 +56,10 @@ export default function TripPanel() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <DriverCreateForm />
+        <TripPlanCreateForm />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <DriverUpdateForm />
+        <TripPlanUpdateForm />
       </CustomTabPanel>
     </Box>
   );
