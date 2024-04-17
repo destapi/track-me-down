@@ -6,15 +6,15 @@ import AdministratorPanel from './component/AdministratorPanel';
 import PassengerPanel from './component/PassengerPanel';
 import DirectDepositPanel from './component/DirectDepositPanel';
 // import VehiclePanel from './component/VehiclePanel';
-// import VehicleFleetPanel from './component/VehicleFleetPanel';
+import VehicleFleetPanel from './component/VehicleFleetPanel';
 // import TripPlanPanel from './component/TripPlanPanel';
-// import GeoFencePanel from './component/GeoFencePanel';
-// import PaymentPanel from './component/PaymentPanel';
-// import PaymentMethodPanel from './component/PaymentMethodPanel';
-// import PhysicalAddrPanel from './component/PhysicalAddrPanel';
+import GeoFencePanel from './component/GeoFencePanel';
+import PaymentPanel from './component/PaymentPanel';
+import PaymentMethodPanel from './component/PaymentMethodPanel';
+import PhysicalAddrPanel from './component/PhysicalAddrPanel';
 // import DriverPanel from './component/DriverPanel';
-// import DriverPoolPanel from './component/DriverPoolPanel';
-// import MapBoxPanel from './component/MapBoxPanel';
+import DriverPoolPanel from './component/DriverPoolPanel';
+import MapBoxPanel from './component/MapBoxPanel';
 
 const tabPages = ['MapBox', 'Administrator', 'Passenger', 'Direct Deposit', 'Vehicle',
   'Vehicle Fleet', 'Driver', 'Driver Pool', 'GeoFence',
@@ -23,9 +23,9 @@ const tabPages = ['MapBox', 'Administrator', 'Passenger', 'Direct Deposit', 'Veh
 function resolveTabPage(page) {
   if (tabPages.includes(page)) {
     switch (page) {
-      // case 'MapBox': {
-      //   return <MapBoxPanel />
-      // }
+      case 'MapBox': {
+        return <MapBoxPanel />
+      }
       case 'Administrator': {
         return <AdministratorPanel />
       }
@@ -38,30 +38,30 @@ function resolveTabPage(page) {
       // case 'Vehicle': {
       //   return <VehiclePanel />
       // }
-      // case 'Vehicle Fleet': {
-      //   return <VehicleFleetPanel />
-      // }
+      case 'Vehicle Fleet': {
+        return <VehicleFleetPanel />
+      }
       // case 'Driver': {
       //   return <DriverPanel />
       // }
-      // case 'Driver Pool': {
-      //   return <DriverPoolPanel />
-      // }
+      case 'Driver Pool': {
+        return <DriverPoolPanel />
+      }
       // case 'Trip Plan': {
       //   return <TripPlanPanel />
       // }
-      // case 'GeoFence': {
-      //   return <GeoFencePanel />
-      // }
-      // case 'Payment': {
-      //   return <PaymentPanel />
-      // }
-      // case 'Payment Method': {
-      //   return <PaymentMethodPanel />
-      // }
-      // case 'Physical Address': {
-      //   return <PhysicalAddrPanel />
-      // }
+      case 'GeoFence': {
+        return <GeoFencePanel />
+      }
+      case 'Payment': {
+        return <PaymentPanel />
+      }
+      case 'Payment Method': {
+        return <PaymentMethodPanel />
+      }
+      case 'Physical Address': {
+        return <PhysicalAddrPanel />
+      }
       default:
         return null
     }

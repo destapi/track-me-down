@@ -15,18 +15,6 @@ export const onCreatePayment = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -36,31 +24,6 @@ export const onCreatePayment = /* GraphQL */ `
         id
         cost
         tip
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        tripSummary {
-          id
-          totalDistance
-          cancellationCharge
-          tripStatus
-          timeCompleted
-          totalCharge
-          createdAt
-          updatedAt
-          tripSummaryTripPlanId
-          __typename
-        }
         createdAt
         updatedAt
         tripChargePassengerId
@@ -73,25 +36,8 @@ export const onCreatePayment = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -124,18 +70,6 @@ export const onUpdatePayment = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -145,31 +79,6 @@ export const onUpdatePayment = /* GraphQL */ `
         id
         cost
         tip
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        tripSummary {
-          id
-          totalDistance
-          cancellationCharge
-          tripStatus
-          timeCompleted
-          totalCharge
-          createdAt
-          updatedAt
-          tripSummaryTripPlanId
-          __typename
-        }
         createdAt
         updatedAt
         tripChargePassengerId
@@ -182,25 +91,8 @@ export const onUpdatePayment = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -233,18 +125,6 @@ export const onDeletePayment = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -254,31 +134,6 @@ export const onDeletePayment = /* GraphQL */ `
         id
         cost
         tip
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        tripSummary {
-          id
-          totalDistance
-          cancellationCharge
-          tripStatus
-          timeCompleted
-          totalCharge
-          createdAt
-          updatedAt
-          tripSummaryTripPlanId
-          __typename
-        }
         createdAt
         updatedAt
         tripChargePassengerId
@@ -291,25 +146,8 @@ export const onDeletePayment = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -344,25 +182,8 @@ export const onCreateDirectDeposit = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -395,25 +216,8 @@ export const onUpdateDirectDeposit = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -446,25 +250,8 @@ export const onDeleteDirectDeposit = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -489,19 +276,6 @@ export const onCreateVehicleFleet = /* GraphQL */ `
       id
       fleetTitle
       vehicles {
-        items {
-          id
-          vin
-          make
-          model
-          registrationNum
-          registrationState
-          vehiclefleetID
-          createdAt
-          updatedAt
-          vehicleDriverId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -519,19 +293,6 @@ export const onUpdateVehicleFleet = /* GraphQL */ `
       id
       fleetTitle
       vehicles {
-        items {
-          id
-          vin
-          make
-          model
-          registrationNum
-          registrationState
-          vehiclefleetID
-          createdAt
-          updatedAt
-          vehicleDriverId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -549,19 +310,6 @@ export const onDeleteVehicleFleet = /* GraphQL */ `
       id
       fleetTitle
       vehicles {
-        items {
-          id
-          vin
-          make
-          model
-          registrationNum
-          registrationState
-          vehiclefleetID
-          createdAt
-          updatedAt
-          vehicleDriverId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -579,23 +327,6 @@ export const onCreateDriverPool = /* GraphQL */ `
       id
       poolName
       drivers {
-        items {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -613,23 +344,6 @@ export const onUpdateDriverPool = /* GraphQL */ `
       id
       poolName
       drivers {
-        items {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -647,23 +361,6 @@ export const onDeleteDriverPool = /* GraphQL */ `
       id
       poolName
       drivers {
-        items {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -755,25 +452,8 @@ export const onCreateDriverRating = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -791,18 +471,6 @@ export const onCreateDriverRating = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -810,24 +478,10 @@ export const onCreateDriverRating = /* GraphQL */ `
       }
       tripSummary {
         id
-        pathTravelled {
-          longitude
-          latitude
-          __typename
-        }
         totalDistance
         cancellationCharge
         tripStatus
         timeCompleted
-        tripPlan {
-          id
-          pickUpTime
-          urgency
-          createdAt
-          updatedAt
-          tripPlanPassengerId
-          __typename
-        }
         totalCharge
         createdAt
         updatedAt
@@ -877,25 +531,8 @@ export const onUpdateDriverRating = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -913,18 +550,6 @@ export const onUpdateDriverRating = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -932,24 +557,10 @@ export const onUpdateDriverRating = /* GraphQL */ `
       }
       tripSummary {
         id
-        pathTravelled {
-          longitude
-          latitude
-          __typename
-        }
         totalDistance
         cancellationCharge
         tripStatus
         timeCompleted
-        tripPlan {
-          id
-          pickUpTime
-          urgency
-          createdAt
-          updatedAt
-          tripPlanPassengerId
-          __typename
-        }
         totalCharge
         createdAt
         updatedAt
@@ -999,25 +610,8 @@ export const onDeleteDriverRating = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -1035,18 +629,6 @@ export const onDeleteDriverRating = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -1054,24 +636,10 @@ export const onDeleteDriverRating = /* GraphQL */ `
       }
       tripSummary {
         id
-        pathTravelled {
-          longitude
-          latitude
-          __typename
-        }
         totalDistance
         cancellationCharge
         tripStatus
         timeCompleted
-        tripPlan {
-          id
-          pickUpTime
-          urgency
-          createdAt
-          updatedAt
-          tripPlanPassengerId
-          __typename
-        }
         totalCharge
         createdAt
         updatedAt
@@ -1393,25 +961,8 @@ export const onCreateVehicle = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -1461,25 +1012,8 @@ export const onUpdateVehicle = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -1529,25 +1063,8 @@ export const onDeleteVehicle = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy {
-          name
-          path
-          type
-          __typename
-        }
         phoneNumber
         emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
         earningTier
         registrationDate
         activeStatus
@@ -1633,30 +1150,7 @@ export const onCreateTripSummary = /* GraphQL */ `
       tripPlan {
         id
         pickUpTime
-        pickUpLocation {
-          longitude
-          latitude
-          __typename
-        }
-        dropOffLocation {
-          longitude
-          latitude
-          __typename
-        }
         urgency
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
         createdAt
         updatedAt
         tripPlanPassengerId
@@ -1688,30 +1182,7 @@ export const onUpdateTripSummary = /* GraphQL */ `
       tripPlan {
         id
         pickUpTime
-        pickUpLocation {
-          longitude
-          latitude
-          __typename
-        }
-        dropOffLocation {
-          longitude
-          latitude
-          __typename
-        }
         urgency
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
         createdAt
         updatedAt
         tripPlanPassengerId
@@ -1743,30 +1214,7 @@ export const onDeleteTripSummary = /* GraphQL */ `
       tripPlan {
         id
         pickUpTime
-        pickUpLocation {
-          longitude
-          latitude
-          __typename
-        }
-        dropOffLocation {
-          longitude
-          latitude
-          __typename
-        }
         urgency
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
         createdAt
         updatedAt
         tripPlanPassengerId
@@ -1796,18 +1244,6 @@ export const onCreateTripCharge = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -1815,24 +1251,10 @@ export const onCreateTripCharge = /* GraphQL */ `
       }
       tripSummary {
         id
-        pathTravelled {
-          longitude
-          latitude
-          __typename
-        }
         totalDistance
         cancellationCharge
         tripStatus
         timeCompleted
-        tripPlan {
-          id
-          pickUpTime
-          urgency
-          createdAt
-          updatedAt
-          tripPlanPassengerId
-          __typename
-        }
         totalCharge
         createdAt
         updatedAt
@@ -1863,18 +1285,6 @@ export const onUpdateTripCharge = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -1882,24 +1292,10 @@ export const onUpdateTripCharge = /* GraphQL */ `
       }
       tripSummary {
         id
-        pathTravelled {
-          longitude
-          latitude
-          __typename
-        }
         totalDistance
         cancellationCharge
         tripStatus
         timeCompleted
-        tripPlan {
-          id
-          pickUpTime
-          urgency
-          createdAt
-          updatedAt
-          tripPlanPassengerId
-          __typename
-        }
         totalCharge
         createdAt
         updatedAt
@@ -1930,18 +1326,6 @@ export const onDeleteTripCharge = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -1949,24 +1333,10 @@ export const onDeleteTripCharge = /* GraphQL */ `
       }
       tripSummary {
         id
-        pathTravelled {
-          longitude
-          latitude
-          __typename
-        }
         totalDistance
         cancellationCharge
         tripStatus
         timeCompleted
-        tripPlan {
-          id
-          pickUpTime
-          urgency
-          createdAt
-          updatedAt
-          tripPlanPassengerId
-          __typename
-        }
         totalCharge
         createdAt
         updatedAt
@@ -2005,18 +1375,6 @@ export const onCreateTripPlan = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -2053,18 +1411,6 @@ export const onUpdateTripPlan = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
@@ -2101,18 +1447,6 @@ export const onDeleteTripPlan = /* GraphQL */ `
         emailAddress
         dateRegistered
         activeStatus
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
         createdAt
         updatedAt
         passengerPaymentMethodId
