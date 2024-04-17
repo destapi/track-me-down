@@ -26,7 +26,6 @@ export default function GeoFenceCreateForm(props) {
     title: "",
     coordinates: "",
     dateCreated: "",
-    validDuration: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [coordinates, setCoordinates] = React.useState(
@@ -35,22 +34,17 @@ export default function GeoFenceCreateForm(props) {
   const [dateCreated, setDateCreated] = React.useState(
     initialValues.dateCreated
   );
-  const [validDuration, setValidDuration] = React.useState(
-    initialValues.validDuration
-  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.title);
     setCoordinates(initialValues.coordinates);
     setDateCreated(initialValues.dateCreated);
-    setValidDuration(initialValues.validDuration);
     setErrors({});
   };
   const validations = {
-    title: [{ type: "Required" }],
-    coordinates: [{ type: "Required" }, { type: "URL" }],
-    dateCreated: [{ type: "Required" }],
-    validDuration: [],
+    title: [],
+    coordinates: [{ type: "Required" }],
+    dateCreated: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -81,7 +75,6 @@ export default function GeoFenceCreateForm(props) {
           title,
           coordinates,
           dateCreated,
-          validDuration,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -137,7 +130,7 @@ export default function GeoFenceCreateForm(props) {
     >
       <TextField
         label="Title"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={title}
         onChange={(e) => {
@@ -147,7 +140,6 @@ export default function GeoFenceCreateForm(props) {
               title: value,
               coordinates,
               dateCreated,
-              validDuration,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -174,7 +166,6 @@ export default function GeoFenceCreateForm(props) {
               title,
               coordinates: value,
               dateCreated,
-              validDuration,
             };
             const result = onChange(modelFields);
             value = result?.coordinates ?? value;
@@ -191,7 +182,7 @@ export default function GeoFenceCreateForm(props) {
       ></TextField>
       <TextField
         label="Date created"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         type="date"
         value={dateCreated}
@@ -202,7 +193,6 @@ export default function GeoFenceCreateForm(props) {
               title,
               coordinates,
               dateCreated: value,
-              validDuration,
             };
             const result = onChange(modelFields);
             value = result?.dateCreated ?? value;
@@ -216,37 +206,6 @@ export default function GeoFenceCreateForm(props) {
         errorMessage={errors.dateCreated?.errorMessage}
         hasError={errors.dateCreated?.hasError}
         {...getOverrideProps(overrides, "dateCreated")}
-      ></TextField>
-      <TextField
-        label="Valid duration"
-        isRequired={false}
-        isReadOnly={false}
-        type="number"
-        step="any"
-        value={validDuration}
-        onChange={(e) => {
-          let value = isNaN(parseInt(e.target.value))
-            ? e.target.value
-            : parseInt(e.target.value);
-          if (onChange) {
-            const modelFields = {
-              title,
-              coordinates,
-              dateCreated,
-              validDuration: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.validDuration ?? value;
-          }
-          if (errors.validDuration?.hasError) {
-            runValidationTasks("validDuration", value);
-          }
-          setValidDuration(value);
-        }}
-        onBlur={() => runValidationTasks("validDuration", validDuration)}
-        errorMessage={errors.validDuration?.errorMessage}
-        hasError={errors.validDuration?.hasError}
-        {...getOverrideProps(overrides, "validDuration")}
       ></TextField>
       <Flex
         justifyContent="space-between"

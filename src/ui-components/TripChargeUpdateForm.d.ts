@@ -21,26 +21,29 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type TripPlanUpdateFormInputValues = {
-    pickUpTime?: string;
+export declare type TripChargeUpdateFormInputValues = {
+    cost?: number;
+    tip?: number;
 };
-export declare type TripPlanUpdateFormValidationValues = {
-    pickUpTime?: ValidationFunction<string>;
+export declare type TripChargeUpdateFormValidationValues = {
+    cost?: ValidationFunction<number>;
+    tip?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type TripPlanUpdateFormOverridesProps = {
-    TripPlanUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    pickUpTime?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type TripChargeUpdateFormOverridesProps = {
+    TripChargeUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    cost?: PrimitiveOverrideProps<TextFieldProps>;
+    tip?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type TripPlanUpdateFormProps = React.PropsWithChildren<{
-    overrides?: TripPlanUpdateFormOverridesProps | undefined | null;
+export declare type TripChargeUpdateFormProps = React.PropsWithChildren<{
+    overrides?: TripChargeUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    tripPlan?: any;
-    onSubmit?: (fields: TripPlanUpdateFormInputValues) => TripPlanUpdateFormInputValues;
-    onSuccess?: (fields: TripPlanUpdateFormInputValues) => void;
-    onError?: (fields: TripPlanUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: TripPlanUpdateFormInputValues) => TripPlanUpdateFormInputValues;
-    onValidate?: TripPlanUpdateFormValidationValues;
+    tripCharge?: any;
+    onSubmit?: (fields: TripChargeUpdateFormInputValues) => TripChargeUpdateFormInputValues;
+    onSuccess?: (fields: TripChargeUpdateFormInputValues) => void;
+    onError?: (fields: TripChargeUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: TripChargeUpdateFormInputValues) => TripChargeUpdateFormInputValues;
+    onValidate?: TripChargeUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function TripPlanUpdateForm(props: TripPlanUpdateFormProps): React.ReactElement;
+export default function TripChargeUpdateForm(props: TripChargeUpdateFormProps): React.ReactElement;

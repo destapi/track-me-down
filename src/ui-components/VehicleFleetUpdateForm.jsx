@@ -55,7 +55,7 @@ export default function VehicleFleetUpdateForm(props) {
   }, [idProp, vehicleFleetModelProp]);
   React.useEffect(resetStateValues, [vehicleFleetRecord]);
   const validations = {
-    fleetTitle: [{ type: "Required" }],
+    fleetTitle: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,7 +83,7 @@ export default function VehicleFleetUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          fleetTitle,
+          fleetTitle: fleetTitle ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -137,7 +137,7 @@ export default function VehicleFleetUpdateForm(props) {
     >
       <TextField
         label="Fleet title"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={fleetTitle}
         onChange={(e) => {

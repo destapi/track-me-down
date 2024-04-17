@@ -1,21 +1,86 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getGeoFence = /* GraphQL */ `
-  query GetGeoFence($id: ID!) {
-    getGeoFence(id: $id) {
+export const getPayment = /* GraphQL */ `
+  query GetPayment($id: ID!) {
+    getPayment(id: $id) {
       id
-      title
-      coordinates
-      dateCreated
-      validDuration
-      createdBy {
+      totalAmount
+      datePaid
+      passenger {
         id
         firstName
         lastName
         phoneNumber
         emailAddress
-        copyOfId
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripCharge {
+        id
+        cost
+        tip
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        tripSummary {
+          id
+          totalDistance
+          cancellationCharge
+          tripStatus
+          timeCompleted
+          totalCharge
+          createdAt
+          updatedAt
+          tripSummaryTripPlanId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripChargePassengerId
+        tripChargeTripSummaryId
+        __typename
+      }
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
         homeAddress {
           id
           streetName
@@ -27,68 +92,64 @@ export const getGeoFence = /* GraphQL */ `
           updatedAt
           __typename
         }
-        dateRegistered
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
         createdAt
         updatedAt
-        administratorHomeAddressId
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
-      geoFenceCreatedById
+      paymentPassengerId
+      paymentTripChargeId
+      paymentDriverId
       __typename
     }
   }
 `;
-export const listGeoFences = /* GraphQL */ `
-  query ListGeoFences(
-    $filter: ModelGeoFenceFilterInput
+export const listPayments = /* GraphQL */ `
+  query ListPayments(
+    $filter: ModelPaymentFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listGeoFences(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        coordinates
-        dateCreated
-        validDuration
-        createdBy {
+        totalAmount
+        datePaid
+        passenger {
           id
           firstName
           lastName
           phoneNumber
           emailAddress
-          copyOfId
           dateRegistered
+          activeStatus
           createdAt
           updatedAt
-          administratorHomeAddressId
+          passengerPaymentMethodId
           __typename
         }
-        createdAt
-        updatedAt
-        geoFenceCreatedById
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getDriverPool = /* GraphQL */ `
-  query GetDriverPool($id: ID!) {
-    getDriverPool(id: $id) {
-      id
-      poolTitle
-      drivers {
-        items {
+        tripCharge {
+          id
+          cost
+          tip
+          createdAt
+          updatedAt
+          tripChargePassengerId
+          tripChargeTripSummaryId
+          __typename
+        }
+        driver {
           id
           firstName
           lastName
           ssn
           dob
-          dLCopy
           phoneNumber
           emailAddress
           earningTier
@@ -98,34 +159,102 @@ export const getDriverPool = /* GraphQL */ `
           createdAt
           updatedAt
           driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listDriverPools = /* GraphQL */ `
-  query ListDriverPools(
-    $filter: ModelDriverPoolFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDriverPools(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        poolTitle
-        drivers {
-          nextToken
           __typename
         }
         createdAt
         updatedAt
+        paymentPassengerId
+        paymentTripChargeId
+        paymentDriverId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getDirectDeposit = /* GraphQL */ `
+  query GetDirectDeposit($id: ID!) {
+    getDirectDeposit(id: $id) {
+      id
+      routingNumber
+      accountNumber
+      amountDesignated
+      percentageDesignated
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
+        __typename
+      }
+      createdAt
+      updatedAt
+      directDepositDriverId
+      __typename
+    }
+  }
+`;
+export const listDirectDeposits = /* GraphQL */ `
+  query ListDirectDeposits(
+    $filter: ModelDirectDepositFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDirectDeposits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        routingNumber
+        accountNumber
+        amountDesignated
+        percentageDesignated
+        driver {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
+          __typename
+        }
+        createdAt
+        updatedAt
+        directDepositDriverId
         __typename
       }
       nextToken
@@ -144,14 +273,12 @@ export const getVehicleFleet = /* GraphQL */ `
           vin
           make
           model
-          year
           registrationNum
           registrationState
-          registrationCopy
-          insuranceProof
           vehiclefleetID
           createdAt
           updatedAt
+          vehicleDriverId
           __typename
         }
         nextToken
@@ -186,13 +313,68 @@ export const listVehicleFleets = /* GraphQL */ `
     }
   }
 `;
+export const getDriverPool = /* GraphQL */ `
+  query GetDriverPool($id: ID!) {
+    getDriverPool(id: $id) {
+      id
+      poolName
+      drivers {
+        items {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listDriverPools = /* GraphQL */ `
+  query ListDriverPools(
+    $filter: ModelDriverPoolFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDriverPools(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        poolName
+        drivers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getNotification = /* GraphQL */ `
   query GetNotification($id: ID!) {
     getNotification(id: $id) {
       id
       event
       message
-      eventTime
+      time
       target
       createdAt
       updatedAt
@@ -211,154 +393,10 @@ export const listNotifications = /* GraphQL */ `
         id
         event
         message
-        eventTime
+        time
         target
         createdAt
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getTripFeedback = /* GraphQL */ `
-  query GetTripFeedback($id: ID!) {
-    getTripFeedback(id: $id) {
-      id
-      trip {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      comments
-      satisfaction {
-        min
-        max
-        __typename
-      }
-      createdAt
-      updatedAt
-      tripFeedbackTripId
-      tripFeedbackPassengerId
-      __typename
-    }
-  }
-`;
-export const listTripFeedbacks = /* GraphQL */ `
-  query ListTripFeedbacks(
-    $filter: ModelTripFeedbackFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTripFeedbacks(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        trip {
-          id
-          distance
-          tripCharge
-          cancellationCharge
-          status
-          createdAt
-          updatedAt
-          tripDriverId
-          __typename
-        }
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          tripID
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        comments
-        satisfaction {
-          min
-          max
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripFeedbackTripId
-        tripFeedbackPassengerId
         __typename
       }
       nextToken
@@ -370,39 +408,40 @@ export const getDriverRating = /* GraphQL */ `
   query GetDriverRating($id: ID!) {
     getDriverRating(id: $id) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
+      cleanliness {
+        min
+        max
         __typename
       }
+      punctuality {
+        min
+        max
+        __typename
+      }
+      safety {
+        min
+        max
+        __typename
+      }
+      courtesy {
+        min
+        max
+        __typename
+      }
+      satisfaction
+      comments
       driver {
         id
         firstName
         lastName
         ssn
         dob
-        dLCopy
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
         phoneNumber
         emailAddress
         homeAddress {
@@ -417,104 +456,70 @@ export const getDriverRating = /* GraphQL */ `
           __typename
         }
         earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
         registrationDate
         activeStatus
         driverpoolID
         createdAt
         updatedAt
         driverHomeAddressId
-        driverVehicleId
         __typename
       }
-      trip {
+      passenger {
         id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
           id
+          paymentType
+          accountNumber
           firstName
           lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
+          expiryDate
+          verificationCode
           createdAt
           updatedAt
-          driverHomeAddressId
-          driverVehicleId
           __typename
         }
         createdAt
         updatedAt
-        tripDriverId
+        passengerPaymentMethodId
         __typename
       }
-      cleanliness {
-        min
-        max
-        __typename
-      }
-      punctuality {
-        min
-        max
-        __typename
-      }
-      safeDriving {
-        min
-        max
-        __typename
-      }
-      courtesy {
-        min
-        max
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
         __typename
       }
       createdAt
       updatedAt
-      driverRatingPassengerId
       driverRatingDriverId
-      driverRatingTripId
+      driverRatingPassengerId
+      driverRatingTripSummaryId
       __typename
     }
   }
@@ -528,50 +533,6 @@ export const listDriverRatings = /* GraphQL */ `
     listDriverRatings(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        passenger {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          tripID
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        trip {
-          id
-          distance
-          tripCharge
-          cancellationCharge
-          status
-          createdAt
-          updatedAt
-          tripDriverId
-          __typename
-        }
         cleanliness {
           min
           max
@@ -582,7 +543,7 @@ export const listDriverRatings = /* GraphQL */ `
           max
           __typename
         }
-        safeDriving {
+        safety {
           min
           max
           __typename
@@ -592,80 +553,14 @@ export const listDriverRatings = /* GraphQL */ `
           max
           __typename
         }
-        createdAt
-        updatedAt
-        driverRatingPassengerId
-        driverRatingDriverId
-        driverRatingTripId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getPayment = /* GraphQL */ `
-  query GetPayment($id: ID!) {
-    getPayment(id: $id) {
-      id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      trip {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
+        satisfaction
+        comments
         driver {
           id
           firstName
           lastName
           ssn
           dob
-          dLCopy
           phoneNumber
           emailAddress
           earningTier
@@ -675,47 +570,8 @@ export const getPayment = /* GraphQL */ `
           createdAt
           updatedAt
           driverHomeAddressId
-          driverVehicleId
           __typename
         }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      amountRemitted
-      tipRemitted
-      dateRemitted
-      paymentMethod {
-        id
-        paymentType
-        accountNumber
-        firstName
-        lastName
-        expiryDate
-        verificationCode
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      paymentPassengerId
-      paymentTripId
-      paymentPaymentMethodId
-      __typename
-    }
-  }
-`;
-export const listPayments = /* GraphQL */ `
-  query ListPayments(
-    $filter: ModelPaymentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
         passenger {
           id
           firstName
@@ -724,43 +580,28 @@ export const listPayments = /* GraphQL */ `
           emailAddress
           dateRegistered
           activeStatus
-          tripID
           createdAt
           updatedAt
           passengerPaymentMethodId
           __typename
         }
-        trip {
+        tripSummary {
           id
-          distance
-          tripCharge
+          totalDistance
           cancellationCharge
-          status
+          tripStatus
+          timeCompleted
+          totalCharge
           createdAt
           updatedAt
-          tripDriverId
-          __typename
-        }
-        amountRemitted
-        tipRemitted
-        dateRemitted
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
+          tripSummaryTripPlanId
           __typename
         }
         createdAt
         updatedAt
-        paymentPassengerId
-        paymentTripId
-        paymentPaymentMethodId
+        driverRatingDriverId
+        driverRatingPassengerId
+        driverRatingTripSummaryId
         __typename
       }
       nextToken
@@ -768,56 +609,58 @@ export const listPayments = /* GraphQL */ `
     }
   }
 `;
-export const getTrip = /* GraphQL */ `
-  query GetTrip($id: ID!) {
-    getTrip(id: $id) {
+export const getAdministrator = /* GraphQL */ `
+  query GetAdministrator($id: ID!) {
+    getAdministrator(id: $id) {
       id
-      pickUp {
-        latitude
-        longitude
+      firstName
+      lastName
+      phoneNumber
+      emailAddress
+      copyOfId {
+        name
+        path
+        type
         __typename
       }
-      dropOff {
-        latitude
-        longitude
+      homeAddress {
+        id
+        streetName
+        unitNumber
+        city
+        state
+        zipCode
+        createdAt
+        updatedAt
         __typename
       }
-      intervals {
-        latitude
-        longitude
-        __typename
-      }
-      distance
-      tripCharge
-      passengers {
-        items {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          tripID
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      cancellationCharge
-      status
-      driver {
+      dateRegistered
+      createdAt
+      updatedAt
+      administratorHomeAddressId
+      __typename
+    }
+  }
+`;
+export const listAdministrators = /* GraphQL */ `
+  query ListAdministrators(
+    $filter: ModelAdministratorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAdministrators(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
         id
         firstName
         lastName
-        ssn
-        dob
-        dLCopy
         phoneNumber
         emailAddress
+        copyOfId {
+          name
+          path
+          type
+          __typename
+        }
         homeAddress {
           id
           streetName
@@ -829,92 +672,10 @@ export const getTrip = /* GraphQL */ `
           updatedAt
           __typename
         }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
+        dateRegistered
         createdAt
         updatedAt
-        driverHomeAddressId
-        driverVehicleId
-        __typename
-      }
-      createdAt
-      updatedAt
-      tripDriverId
-      __typename
-    }
-  }
-`;
-export const listTrips = /* GraphQL */ `
-  query ListTrips(
-    $filter: ModelTripFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTrips(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
+        administratorHomeAddressId
         __typename
       }
       nextToken
@@ -922,101 +683,43 @@ export const listTrips = /* GraphQL */ `
     }
   }
 `;
-export const getDirectDeposit = /* GraphQL */ `
-  query GetDirectDeposit($id: ID!) {
-    getDirectDeposit(id: $id) {
+export const getGeoFence = /* GraphQL */ `
+  query GetGeoFence($id: ID!) {
+    getGeoFence(id: $id) {
       id
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
+      title
+      coordinates
+      dateCreated
+      validDuration {
+        min
+        max
         __typename
       }
-      routingNumber
-      accountNumber
-      amountDesignated
-      percentageDesignated
       createdAt
       updatedAt
-      directDepositDriverId
       __typename
     }
   }
 `;
-export const listDirectDeposits = /* GraphQL */ `
-  query ListDirectDeposits(
-    $filter: ModelDirectDepositFilterInput
+export const listGeoFences = /* GraphQL */ `
+  query ListGeoFences(
+    $filter: ModelGeoFenceFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listDirectDeposits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGeoFences(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
+        title
+        coordinates
+        dateCreated
+        validDuration {
+          min
+          max
           __typename
         }
-        routingNumber
-        accountNumber
-        amountDesignated
-        percentageDesignated
         createdAt
         updatedAt
-        directDepositDriverId
         __typename
       }
       nextToken
@@ -1032,7 +735,12 @@ export const getDriver = /* GraphQL */ `
       lastName
       ssn
       dob
-      dLCopy
+      dLCopy {
+        name
+        path
+        type
+        __typename
+      }
       phoneNumber
       emailAddress
       homeAddress {
@@ -1047,28 +755,12 @@ export const getDriver = /* GraphQL */ `
         __typename
       }
       earningTier
-      vehicle {
-        id
-        vin
-        make
-        model
-        year
-        registrationNum
-        registrationState
-        registrationCopy
-        insuranceProof
-        vehiclefleetID
-        createdAt
-        updatedAt
-        __typename
-      }
       registrationDate
       activeStatus
       driverpoolID
       createdAt
       updatedAt
       driverHomeAddressId
-      driverVehicleId
       __typename
     }
   }
@@ -1086,7 +778,12 @@ export const listDrivers = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
         phoneNumber
         emailAddress
         homeAddress {
@@ -1101,28 +798,12 @@ export const listDrivers = /* GraphQL */ `
           __typename
         }
         earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
         registrationDate
         activeStatus
         driverpoolID
         createdAt
         updatedAt
         driverHomeAddressId
-        driverVehicleId
         __typename
       }
       nextToken
@@ -1151,7 +832,12 @@ export const driversByDriverpoolID = /* GraphQL */ `
         lastName
         ssn
         dob
-        dLCopy
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
         phoneNumber
         emailAddress
         homeAddress {
@@ -1166,28 +852,12 @@ export const driversByDriverpoolID = /* GraphQL */ `
           __typename
         }
         earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
         registrationDate
         activeStatus
         driverpoolID
         createdAt
         updatedAt
         driverHomeAddressId
-        driverVehicleId
         __typename
       }
       nextToken
@@ -1202,14 +872,63 @@ export const getVehicle = /* GraphQL */ `
       vin
       make
       model
-      year
+      year {
+        min
+        max
+        __typename
+      }
       registrationNum
       registrationState
-      registrationCopy
-      insuranceProof
+      registrationDocs {
+        name
+        path
+        type
+        __typename
+      }
+      insuranceProof {
+        name
+        path
+        type
+        __typename
+      }
       vehiclefleetID
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
+        __typename
+      }
       createdAt
       updatedAt
+      vehicleDriverId
       __typename
     }
   }
@@ -1226,14 +945,46 @@ export const listVehicles = /* GraphQL */ `
         vin
         make
         model
-        year
+        year {
+          min
+          max
+          __typename
+        }
         registrationNum
         registrationState
-        registrationCopy
-        insuranceProof
+        registrationDocs {
+          name
+          path
+          type
+          __typename
+        }
+        insuranceProof {
+          name
+          path
+          type
+          __typename
+        }
         vehiclefleetID
+        driver {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
+          __typename
+        }
         createdAt
         updatedAt
+        vehicleDriverId
         __typename
       }
       nextToken
@@ -1261,14 +1012,383 @@ export const vehiclesByVehiclefleetID = /* GraphQL */ `
         vin
         make
         model
-        year
+        year {
+          min
+          max
+          __typename
+        }
         registrationNum
         registrationState
-        registrationCopy
-        insuranceProof
+        registrationDocs {
+          name
+          path
+          type
+          __typename
+        }
+        insuranceProof {
+          name
+          path
+          type
+          __typename
+        }
         vehiclefleetID
+        driver {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
+          __typename
+        }
         createdAt
         updatedAt
+        vehicleDriverId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getPhysicalAddress = /* GraphQL */ `
+  query GetPhysicalAddress($id: ID!) {
+    getPhysicalAddress(id: $id) {
+      id
+      streetName
+      unitNumber
+      city
+      state
+      zipCode
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listPhysicalAddresses = /* GraphQL */ `
+  query ListPhysicalAddresses(
+    $filter: ModelPhysicalAddressFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPhysicalAddresses(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        streetName
+        unitNumber
+        city
+        state
+        zipCode
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getTripSummary = /* GraphQL */ `
+  query GetTripSummary($id: ID!) {
+    getTripSummary(id: $id) {
+      id
+      pathTravelled {
+        longitude
+        latitude
+        __typename
+      }
+      totalDistance
+      cancellationCharge
+      tripStatus
+      timeCompleted
+      tripPlan {
+        id
+        pickUpTime
+        pickUpLocation {
+          longitude
+          latitude
+          __typename
+        }
+        dropOffLocation {
+          longitude
+          latitude
+          __typename
+        }
+        urgency
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripPlanPassengerId
+        __typename
+      }
+      totalCharge
+      createdAt
+      updatedAt
+      tripSummaryTripPlanId
+      __typename
+    }
+  }
+`;
+export const listTripSummaries = /* GraphQL */ `
+  query ListTripSummaries(
+    $filter: ModelTripSummaryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTripSummaries(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getTripCharge = /* GraphQL */ `
+  query GetTripCharge($id: ID!) {
+    getTripCharge(id: $id) {
+      id
+      cost
+      tip
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripChargePassengerId
+      tripChargeTripSummaryId
+      __typename
+    }
+  }
+`;
+export const listTripCharges = /* GraphQL */ `
+  query ListTripCharges(
+    $filter: ModelTripChargeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTripCharges(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        cost
+        tip
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        tripSummary {
+          id
+          totalDistance
+          cancellationCharge
+          tripStatus
+          timeCompleted
+          totalCharge
+          createdAt
+          updatedAt
+          tripSummaryTripPlanId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripChargePassengerId
+        tripChargeTripSummaryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getTripPlan = /* GraphQL */ `
+  query GetTripPlan($id: ID!) {
+    getTripPlan(id: $id) {
+      id
+      pickUpTime
+      pickUpLocation {
+        longitude
+        latitude
+        __typename
+      }
+      dropOffLocation {
+        longitude
+        latitude
+        __typename
+      }
+      urgency
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripPlanPassengerId
+      __typename
+    }
+  }
+`;
+export const listTripPlans = /* GraphQL */ `
+  query ListTripPlans(
+    $filter: ModelTripPlanFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTripPlans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        pickUpTime
+        pickUpLocation {
+          longitude
+          latitude
+          __typename
+        }
+        dropOffLocation {
+          longitude
+          latitude
+          __typename
+        }
+        urgency
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripPlanPassengerId
         __typename
       }
       nextToken
@@ -1324,6 +1444,8 @@ export const getPassenger = /* GraphQL */ `
       lastName
       phoneNumber
       emailAddress
+      dateRegistered
+      activeStatus
       paymentMethod {
         id
         paymentType
@@ -1336,9 +1458,6 @@ export const getPassenger = /* GraphQL */ `
         updatedAt
         __typename
       }
-      dateRegistered
-      activeStatus
-      tripID
       createdAt
       updatedAt
       passengerPaymentMethodId
@@ -1359,6 +1478,8 @@ export const listPassengers = /* GraphQL */ `
         lastName
         phoneNumber
         emailAddress
+        dateRegistered
+        activeStatus
         paymentMethod {
           id
           paymentType
@@ -1371,164 +1492,9 @@ export const listPassengers = /* GraphQL */ `
           updatedAt
           __typename
         }
-        dateRegistered
-        activeStatus
-        tripID
         createdAt
         updatedAt
         passengerPaymentMethodId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const passengersByTripID = /* GraphQL */ `
-  query PassengersByTripID(
-    $tripID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelPassengerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    passengersByTripID(
-      tripID: $tripID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getPhysicalAddress = /* GraphQL */ `
-  query GetPhysicalAddress($id: ID!) {
-    getPhysicalAddress(id: $id) {
-      id
-      streetName
-      unitNumber
-      city
-      state
-      zipCode
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listPhysicalAddresses = /* GraphQL */ `
-  query ListPhysicalAddresses(
-    $filter: ModelPhysicalAddressFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPhysicalAddresses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        streetName
-        unitNumber
-        city
-        state
-        zipCode
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getAdministrator = /* GraphQL */ `
-  query GetAdministrator($id: ID!) {
-    getAdministrator(id: $id) {
-      id
-      firstName
-      lastName
-      phoneNumber
-      emailAddress
-      copyOfId
-      homeAddress {
-        id
-        streetName
-        unitNumber
-        city
-        state
-        zipCode
-        createdAt
-        updatedAt
-        __typename
-      }
-      dateRegistered
-      createdAt
-      updatedAt
-      administratorHomeAddressId
-      __typename
-    }
-  }
-`;
-export const listAdministrators = /* GraphQL */ `
-  query ListAdministrators(
-    $filter: ModelAdministratorFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAdministrators(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        copyOfId
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        createdAt
-        updatedAt
-        administratorHomeAddressId
         __typename
       }
       nextToken

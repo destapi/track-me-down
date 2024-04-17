@@ -26,7 +26,6 @@ export declare type AdministratorUpdateFormInputValues = {
     lastName?: string;
     phoneNumber?: string;
     emailAddress?: string;
-    copyOfId?: string;
     dateRegistered?: string;
 };
 export declare type AdministratorUpdateFormValidationValues = {
@@ -34,7 +33,6 @@ export declare type AdministratorUpdateFormValidationValues = {
     lastName?: ValidationFunction<string>;
     phoneNumber?: ValidationFunction<string>;
     emailAddress?: ValidationFunction<string>;
-    copyOfId?: ValidationFunction<string>;
     dateRegistered?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -44,7 +42,6 @@ export declare type AdministratorUpdateFormOverridesProps = {
     lastName?: PrimitiveOverrideProps<TextFieldProps>;
     phoneNumber?: PrimitiveOverrideProps<TextFieldProps>;
     emailAddress?: PrimitiveOverrideProps<TextFieldProps>;
-    copyOfId?: PrimitiveOverrideProps<TextFieldProps>;
     dateRegistered?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type AdministratorUpdateFormProps = React.PropsWithChildren<{

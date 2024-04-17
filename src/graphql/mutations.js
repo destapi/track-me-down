@@ -1,24 +1,89 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createGeoFence = /* GraphQL */ `
-  mutation CreateGeoFence(
-    $input: CreateGeoFenceInput!
-    $condition: ModelGeoFenceConditionInput
+export const createPayment = /* GraphQL */ `
+  mutation CreatePayment(
+    $input: CreatePaymentInput!
+    $condition: ModelPaymentConditionInput
   ) {
-    createGeoFence(input: $input, condition: $condition) {
+    createPayment(input: $input, condition: $condition) {
       id
-      title
-      coordinates
-      dateCreated
-      validDuration
-      createdBy {
+      totalAmount
+      datePaid
+      passenger {
         id
         firstName
         lastName
         phoneNumber
         emailAddress
-        copyOfId
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripCharge {
+        id
+        cost
+        tip
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        tripSummary {
+          id
+          totalDistance
+          cancellationCharge
+          tripStatus
+          timeCompleted
+          totalCharge
+          createdAt
+          updatedAt
+          tripSummaryTripPlanId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripChargePassengerId
+        tripChargeTripSummaryId
+        __typename
+      }
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
         homeAddress {
           id
           streetName
@@ -30,37 +95,107 @@ export const createGeoFence = /* GraphQL */ `
           updatedAt
           __typename
         }
-        dateRegistered
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
         createdAt
         updatedAt
-        administratorHomeAddressId
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
-      geoFenceCreatedById
+      paymentPassengerId
+      paymentTripChargeId
+      paymentDriverId
       __typename
     }
   }
 `;
-export const updateGeoFence = /* GraphQL */ `
-  mutation UpdateGeoFence(
-    $input: UpdateGeoFenceInput!
-    $condition: ModelGeoFenceConditionInput
+export const updatePayment = /* GraphQL */ `
+  mutation UpdatePayment(
+    $input: UpdatePaymentInput!
+    $condition: ModelPaymentConditionInput
   ) {
-    updateGeoFence(input: $input, condition: $condition) {
+    updatePayment(input: $input, condition: $condition) {
       id
-      title
-      coordinates
-      dateCreated
-      validDuration
-      createdBy {
+      totalAmount
+      datePaid
+      passenger {
         id
         firstName
         lastName
         phoneNumber
         emailAddress
-        copyOfId
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripCharge {
+        id
+        cost
+        tip
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        tripSummary {
+          id
+          totalDistance
+          cancellationCharge
+          tripStatus
+          timeCompleted
+          totalCharge
+          createdAt
+          updatedAt
+          tripSummaryTripPlanId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripChargePassengerId
+        tripChargeTripSummaryId
+        __typename
+      }
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
         homeAddress {
           id
           streetName
@@ -72,37 +207,107 @@ export const updateGeoFence = /* GraphQL */ `
           updatedAt
           __typename
         }
-        dateRegistered
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
         createdAt
         updatedAt
-        administratorHomeAddressId
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
-      geoFenceCreatedById
+      paymentPassengerId
+      paymentTripChargeId
+      paymentDriverId
       __typename
     }
   }
 `;
-export const deleteGeoFence = /* GraphQL */ `
-  mutation DeleteGeoFence(
-    $input: DeleteGeoFenceInput!
-    $condition: ModelGeoFenceConditionInput
+export const deletePayment = /* GraphQL */ `
+  mutation DeletePayment(
+    $input: DeletePaymentInput!
+    $condition: ModelPaymentConditionInput
   ) {
-    deleteGeoFence(input: $input, condition: $condition) {
+    deletePayment(input: $input, condition: $condition) {
       id
-      title
-      coordinates
-      dateCreated
-      validDuration
-      createdBy {
+      totalAmount
+      datePaid
+      passenger {
         id
         firstName
         lastName
         phoneNumber
         emailAddress
-        copyOfId
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripCharge {
+        id
+        cost
+        tip
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        tripSummary {
+          id
+          totalDistance
+          cancellationCharge
+          tripStatus
+          timeCompleted
+          totalCharge
+          createdAt
+          updatedAt
+          tripSummaryTripPlanId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripChargePassengerId
+        tripChargeTripSummaryId
+        __typename
+      }
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
         homeAddress {
           id
           streetName
@@ -114,126 +319,176 @@ export const deleteGeoFence = /* GraphQL */ `
           updatedAt
           __typename
         }
-        dateRegistered
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
         createdAt
         updatedAt
-        administratorHomeAddressId
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
-      geoFenceCreatedById
+      paymentPassengerId
+      paymentTripChargeId
+      paymentDriverId
       __typename
     }
   }
 `;
-export const createDriverPool = /* GraphQL */ `
-  mutation CreateDriverPool(
-    $input: CreateDriverPoolInput!
-    $condition: ModelDriverPoolConditionInput
+export const createDirectDeposit = /* GraphQL */ `
+  mutation CreateDirectDeposit(
+    $input: CreateDirectDepositInput!
+    $condition: ModelDirectDepositConditionInput
   ) {
-    createDriverPool(input: $input, condition: $condition) {
+    createDirectDeposit(input: $input, condition: $condition) {
       id
-      poolTitle
-      drivers {
-        items {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
+      routingNumber
+      accountNumber
+      amountDesignated
+      percentageDesignated
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
           __typename
         }
-        nextToken
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
+      directDepositDriverId
       __typename
     }
   }
 `;
-export const updateDriverPool = /* GraphQL */ `
-  mutation UpdateDriverPool(
-    $input: UpdateDriverPoolInput!
-    $condition: ModelDriverPoolConditionInput
+export const updateDirectDeposit = /* GraphQL */ `
+  mutation UpdateDirectDeposit(
+    $input: UpdateDirectDepositInput!
+    $condition: ModelDirectDepositConditionInput
   ) {
-    updateDriverPool(input: $input, condition: $condition) {
+    updateDirectDeposit(input: $input, condition: $condition) {
       id
-      poolTitle
-      drivers {
-        items {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
+      routingNumber
+      accountNumber
+      amountDesignated
+      percentageDesignated
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
           __typename
         }
-        nextToken
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
+      directDepositDriverId
       __typename
     }
   }
 `;
-export const deleteDriverPool = /* GraphQL */ `
-  mutation DeleteDriverPool(
-    $input: DeleteDriverPoolInput!
-    $condition: ModelDriverPoolConditionInput
+export const deleteDirectDeposit = /* GraphQL */ `
+  mutation DeleteDirectDeposit(
+    $input: DeleteDirectDepositInput!
+    $condition: ModelDirectDepositConditionInput
   ) {
-    deleteDriverPool(input: $input, condition: $condition) {
+    deleteDirectDeposit(input: $input, condition: $condition) {
       id
-      poolTitle
-      drivers {
-        items {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
+      routingNumber
+      accountNumber
+      amountDesignated
+      percentageDesignated
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
           __typename
         }
-        nextToken
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
         __typename
       }
       createdAt
       updatedAt
+      directDepositDriverId
       __typename
     }
   }
@@ -252,14 +507,12 @@ export const createVehicleFleet = /* GraphQL */ `
           vin
           make
           model
-          year
           registrationNum
           registrationState
-          registrationCopy
-          insuranceProof
           vehiclefleetID
           createdAt
           updatedAt
+          vehicleDriverId
           __typename
         }
         nextToken
@@ -285,14 +538,12 @@ export const updateVehicleFleet = /* GraphQL */ `
           vin
           make
           model
-          year
           registrationNum
           registrationState
-          registrationCopy
-          insuranceProof
           vehiclefleetID
           createdAt
           updatedAt
+          vehicleDriverId
           __typename
         }
         nextToken
@@ -318,14 +569,117 @@ export const deleteVehicleFleet = /* GraphQL */ `
           vin
           make
           model
-          year
           registrationNum
           registrationState
-          registrationCopy
-          insuranceProof
           vehiclefleetID
           createdAt
           updatedAt
+          vehicleDriverId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createDriverPool = /* GraphQL */ `
+  mutation CreateDriverPool(
+    $input: CreateDriverPoolInput!
+    $condition: ModelDriverPoolConditionInput
+  ) {
+    createDriverPool(input: $input, condition: $condition) {
+      id
+      poolName
+      drivers {
+        items {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateDriverPool = /* GraphQL */ `
+  mutation UpdateDriverPool(
+    $input: UpdateDriverPoolInput!
+    $condition: ModelDriverPoolConditionInput
+  ) {
+    updateDriverPool(input: $input, condition: $condition) {
+      id
+      poolName
+      drivers {
+        items {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteDriverPool = /* GraphQL */ `
+  mutation DeleteDriverPool(
+    $input: DeleteDriverPoolInput!
+    $condition: ModelDriverPoolConditionInput
+  ) {
+    deleteDriverPool(input: $input, condition: $condition) {
+      id
+      poolName
+      drivers {
+        items {
+          id
+          firstName
+          lastName
+          ssn
+          dob
+          phoneNumber
+          emailAddress
+          earningTier
+          registrationDate
+          activeStatus
+          driverpoolID
+          createdAt
+          updatedAt
+          driverHomeAddressId
           __typename
         }
         nextToken
@@ -346,7 +700,7 @@ export const createNotification = /* GraphQL */ `
       id
       event
       message
-      eventTime
+      time
       target
       createdAt
       updatedAt
@@ -363,7 +717,7 @@ export const updateNotification = /* GraphQL */ `
       id
       event
       message
-      eventTime
+      time
       target
       createdAt
       updatedAt
@@ -380,298 +734,10 @@ export const deleteNotification = /* GraphQL */ `
       id
       event
       message
-      eventTime
+      time
       target
       createdAt
       updatedAt
-      __typename
-    }
-  }
-`;
-export const createTripFeedback = /* GraphQL */ `
-  mutation CreateTripFeedback(
-    $input: CreateTripFeedbackInput!
-    $condition: ModelTripFeedbackConditionInput
-  ) {
-    createTripFeedback(input: $input, condition: $condition) {
-      id
-      trip {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      comments
-      satisfaction {
-        min
-        max
-        __typename
-      }
-      createdAt
-      updatedAt
-      tripFeedbackTripId
-      tripFeedbackPassengerId
-      __typename
-    }
-  }
-`;
-export const updateTripFeedback = /* GraphQL */ `
-  mutation UpdateTripFeedback(
-    $input: UpdateTripFeedbackInput!
-    $condition: ModelTripFeedbackConditionInput
-  ) {
-    updateTripFeedback(input: $input, condition: $condition) {
-      id
-      trip {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      comments
-      satisfaction {
-        min
-        max
-        __typename
-      }
-      createdAt
-      updatedAt
-      tripFeedbackTripId
-      tripFeedbackPassengerId
-      __typename
-    }
-  }
-`;
-export const deleteTripFeedback = /* GraphQL */ `
-  mutation DeleteTripFeedback(
-    $input: DeleteTripFeedbackInput!
-    $condition: ModelTripFeedbackConditionInput
-  ) {
-    deleteTripFeedback(input: $input, condition: $condition) {
-      id
-      trip {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      comments
-      satisfaction {
-        min
-        max
-        __typename
-      }
-      createdAt
-      updatedAt
-      tripFeedbackTripId
-      tripFeedbackPassengerId
       __typename
     }
   }
@@ -683,39 +749,40 @@ export const createDriverRating = /* GraphQL */ `
   ) {
     createDriverRating(input: $input, condition: $condition) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
+      cleanliness {
+        min
+        max
         __typename
       }
+      punctuality {
+        min
+        max
+        __typename
+      }
+      safety {
+        min
+        max
+        __typename
+      }
+      courtesy {
+        min
+        max
+        __typename
+      }
+      satisfaction
+      comments
       driver {
         id
         firstName
         lastName
         ssn
         dob
-        dLCopy
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
         phoneNumber
         emailAddress
         homeAddress {
@@ -730,104 +797,70 @@ export const createDriverRating = /* GraphQL */ `
           __typename
         }
         earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
         registrationDate
         activeStatus
         driverpoolID
         createdAt
         updatedAt
         driverHomeAddressId
-        driverVehicleId
         __typename
       }
-      trip {
+      passenger {
         id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
           id
+          paymentType
+          accountNumber
           firstName
           lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
+          expiryDate
+          verificationCode
           createdAt
           updatedAt
-          driverHomeAddressId
-          driverVehicleId
           __typename
         }
         createdAt
         updatedAt
-        tripDriverId
+        passengerPaymentMethodId
         __typename
       }
-      cleanliness {
-        min
-        max
-        __typename
-      }
-      punctuality {
-        min
-        max
-        __typename
-      }
-      safeDriving {
-        min
-        max
-        __typename
-      }
-      courtesy {
-        min
-        max
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
         __typename
       }
       createdAt
       updatedAt
-      driverRatingPassengerId
       driverRatingDriverId
-      driverRatingTripId
+      driverRatingPassengerId
+      driverRatingTripSummaryId
       __typename
     }
   }
@@ -839,39 +872,40 @@ export const updateDriverRating = /* GraphQL */ `
   ) {
     updateDriverRating(input: $input, condition: $condition) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
+      cleanliness {
+        min
+        max
         __typename
       }
+      punctuality {
+        min
+        max
+        __typename
+      }
+      safety {
+        min
+        max
+        __typename
+      }
+      courtesy {
+        min
+        max
+        __typename
+      }
+      satisfaction
+      comments
       driver {
         id
         firstName
         lastName
         ssn
         dob
-        dLCopy
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
         phoneNumber
         emailAddress
         homeAddress {
@@ -886,104 +920,70 @@ export const updateDriverRating = /* GraphQL */ `
           __typename
         }
         earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
         registrationDate
         activeStatus
         driverpoolID
         createdAt
         updatedAt
         driverHomeAddressId
-        driverVehicleId
         __typename
       }
-      trip {
+      passenger {
         id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
           id
+          paymentType
+          accountNumber
           firstName
           lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
+          expiryDate
+          verificationCode
           createdAt
           updatedAt
-          driverHomeAddressId
-          driverVehicleId
           __typename
         }
         createdAt
         updatedAt
-        tripDriverId
+        passengerPaymentMethodId
         __typename
       }
-      cleanliness {
-        min
-        max
-        __typename
-      }
-      punctuality {
-        min
-        max
-        __typename
-      }
-      safeDriving {
-        min
-        max
-        __typename
-      }
-      courtesy {
-        min
-        max
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
         __typename
       }
       createdAt
       updatedAt
-      driverRatingPassengerId
       driverRatingDriverId
-      driverRatingTripId
+      driverRatingPassengerId
+      driverRatingTripSummaryId
       __typename
     }
   }
@@ -995,126 +995,6 @@ export const deleteDriverRating = /* GraphQL */ `
   ) {
     deleteDriverRating(input: $input, condition: $condition) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
-        __typename
-      }
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
-        __typename
-      }
-      trip {
-        id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
       cleanliness {
         min
         max
@@ -1125,7 +1005,7 @@ export const deleteDriverRating = /* GraphQL */ `
         max
         __typename
       }
-      safeDriving {
+      safety {
         min
         max
         __typename
@@ -1135,806 +1015,269 @@ export const deleteDriverRating = /* GraphQL */ `
         max
         __typename
       }
+      satisfaction
+      comments
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
+        __typename
+      }
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
+        __typename
+      }
       createdAt
       updatedAt
-      driverRatingPassengerId
       driverRatingDriverId
-      driverRatingTripId
+      driverRatingPassengerId
+      driverRatingTripSummaryId
       __typename
     }
   }
 `;
-export const createPayment = /* GraphQL */ `
-  mutation CreatePayment(
-    $input: CreatePaymentInput!
-    $condition: ModelPaymentConditionInput
+export const createAdministrator = /* GraphQL */ `
+  mutation CreateAdministrator(
+    $input: CreateAdministratorInput!
+    $condition: ModelAdministratorConditionInput
   ) {
-    createPayment(input: $input, condition: $condition) {
+    createAdministrator(input: $input, condition: $condition) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
+      firstName
+      lastName
+      phoneNumber
+      emailAddress
+      copyOfId {
+        name
+        path
+        type
         __typename
       }
-      trip {
+      homeAddress {
         id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      amountRemitted
-      tipRemitted
-      dateRemitted
-      paymentMethod {
-        id
-        paymentType
-        accountNumber
-        firstName
-        lastName
-        expiryDate
-        verificationCode
+        streetName
+        unitNumber
+        city
+        state
+        zipCode
         createdAt
         updatedAt
         __typename
       }
+      dateRegistered
       createdAt
       updatedAt
-      paymentPassengerId
-      paymentTripId
-      paymentPaymentMethodId
+      administratorHomeAddressId
       __typename
     }
   }
 `;
-export const updatePayment = /* GraphQL */ `
-  mutation UpdatePayment(
-    $input: UpdatePaymentInput!
-    $condition: ModelPaymentConditionInput
+export const updateAdministrator = /* GraphQL */ `
+  mutation UpdateAdministrator(
+    $input: UpdateAdministratorInput!
+    $condition: ModelAdministratorConditionInput
   ) {
-    updatePayment(input: $input, condition: $condition) {
+    updateAdministrator(input: $input, condition: $condition) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
+      firstName
+      lastName
+      phoneNumber
+      emailAddress
+      copyOfId {
+        name
+        path
+        type
         __typename
       }
-      trip {
+      homeAddress {
         id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      amountRemitted
-      tipRemitted
-      dateRemitted
-      paymentMethod {
-        id
-        paymentType
-        accountNumber
-        firstName
-        lastName
-        expiryDate
-        verificationCode
+        streetName
+        unitNumber
+        city
+        state
+        zipCode
         createdAt
         updatedAt
         __typename
       }
+      dateRegistered
       createdAt
       updatedAt
-      paymentPassengerId
-      paymentTripId
-      paymentPaymentMethodId
+      administratorHomeAddressId
       __typename
     }
   }
 `;
-export const deletePayment = /* GraphQL */ `
-  mutation DeletePayment(
-    $input: DeletePaymentInput!
-    $condition: ModelPaymentConditionInput
+export const deleteAdministrator = /* GraphQL */ `
+  mutation DeleteAdministrator(
+    $input: DeleteAdministratorInput!
+    $condition: ModelAdministratorConditionInput
   ) {
-    deletePayment(input: $input, condition: $condition) {
+    deleteAdministrator(input: $input, condition: $condition) {
       id
-      passenger {
-        id
-        firstName
-        lastName
-        phoneNumber
-        emailAddress
-        paymentMethod {
-          id
-          paymentType
-          accountNumber
-          firstName
-          lastName
-          expiryDate
-          verificationCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        dateRegistered
-        activeStatus
-        tripID
-        createdAt
-        updatedAt
-        passengerPaymentMethodId
+      firstName
+      lastName
+      phoneNumber
+      emailAddress
+      copyOfId {
+        name
+        path
+        type
         __typename
       }
-      trip {
+      homeAddress {
         id
-        pickUp {
-          latitude
-          longitude
-          __typename
-        }
-        dropOff {
-          latitude
-          longitude
-          __typename
-        }
-        intervals {
-          latitude
-          longitude
-          __typename
-        }
-        distance
-        tripCharge
-        passengers {
-          nextToken
-          __typename
-        }
-        cancellationCharge
-        status
-        driver {
-          id
-          firstName
-          lastName
-          ssn
-          dob
-          dLCopy
-          phoneNumber
-          emailAddress
-          earningTier
-          registrationDate
-          activeStatus
-          driverpoolID
-          createdAt
-          updatedAt
-          driverHomeAddressId
-          driverVehicleId
-          __typename
-        }
-        createdAt
-        updatedAt
-        tripDriverId
-        __typename
-      }
-      amountRemitted
-      tipRemitted
-      dateRemitted
-      paymentMethod {
-        id
-        paymentType
-        accountNumber
-        firstName
-        lastName
-        expiryDate
-        verificationCode
+        streetName
+        unitNumber
+        city
+        state
+        zipCode
         createdAt
         updatedAt
         __typename
       }
+      dateRegistered
       createdAt
       updatedAt
-      paymentPassengerId
-      paymentTripId
-      paymentPaymentMethodId
+      administratorHomeAddressId
       __typename
     }
   }
 `;
-export const createTrip = /* GraphQL */ `
-  mutation CreateTrip(
-    $input: CreateTripInput!
-    $condition: ModelTripConditionInput
+export const createGeoFence = /* GraphQL */ `
+  mutation CreateGeoFence(
+    $input: CreateGeoFenceInput!
+    $condition: ModelGeoFenceConditionInput
   ) {
-    createTrip(input: $input, condition: $condition) {
+    createGeoFence(input: $input, condition: $condition) {
       id
-      pickUp {
-        latitude
-        longitude
-        __typename
-      }
-      dropOff {
-        latitude
-        longitude
-        __typename
-      }
-      intervals {
-        latitude
-        longitude
-        __typename
-      }
-      distance
-      tripCharge
-      passengers {
-        items {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          tripID
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      cancellationCharge
-      status
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
+      title
+      coordinates
+      dateCreated
+      validDuration {
+        min
+        max
         __typename
       }
       createdAt
       updatedAt
-      tripDriverId
       __typename
     }
   }
 `;
-export const updateTrip = /* GraphQL */ `
-  mutation UpdateTrip(
-    $input: UpdateTripInput!
-    $condition: ModelTripConditionInput
+export const updateGeoFence = /* GraphQL */ `
+  mutation UpdateGeoFence(
+    $input: UpdateGeoFenceInput!
+    $condition: ModelGeoFenceConditionInput
   ) {
-    updateTrip(input: $input, condition: $condition) {
+    updateGeoFence(input: $input, condition: $condition) {
       id
-      pickUp {
-        latitude
-        longitude
-        __typename
-      }
-      dropOff {
-        latitude
-        longitude
-        __typename
-      }
-      intervals {
-        latitude
-        longitude
-        __typename
-      }
-      distance
-      tripCharge
-      passengers {
-        items {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          tripID
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      cancellationCharge
-      status
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
+      title
+      coordinates
+      dateCreated
+      validDuration {
+        min
+        max
         __typename
       }
       createdAt
       updatedAt
-      tripDriverId
       __typename
     }
   }
 `;
-export const deleteTrip = /* GraphQL */ `
-  mutation DeleteTrip(
-    $input: DeleteTripInput!
-    $condition: ModelTripConditionInput
+export const deleteGeoFence = /* GraphQL */ `
+  mutation DeleteGeoFence(
+    $input: DeleteGeoFenceInput!
+    $condition: ModelGeoFenceConditionInput
   ) {
-    deleteTrip(input: $input, condition: $condition) {
+    deleteGeoFence(input: $input, condition: $condition) {
       id
-      pickUp {
-        latitude
-        longitude
-        __typename
-      }
-      dropOff {
-        latitude
-        longitude
-        __typename
-      }
-      intervals {
-        latitude
-        longitude
-        __typename
-      }
-      distance
-      tripCharge
-      passengers {
-        items {
-          id
-          firstName
-          lastName
-          phoneNumber
-          emailAddress
-          dateRegistered
-          activeStatus
-          tripID
-          createdAt
-          updatedAt
-          passengerPaymentMethodId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      cancellationCharge
-      status
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
+      title
+      coordinates
+      dateCreated
+      validDuration {
+        min
+        max
         __typename
       }
       createdAt
       updatedAt
-      tripDriverId
-      __typename
-    }
-  }
-`;
-export const createDirectDeposit = /* GraphQL */ `
-  mutation CreateDirectDeposit(
-    $input: CreateDirectDepositInput!
-    $condition: ModelDirectDepositConditionInput
-  ) {
-    createDirectDeposit(input: $input, condition: $condition) {
-      id
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
-        __typename
-      }
-      routingNumber
-      accountNumber
-      amountDesignated
-      percentageDesignated
-      createdAt
-      updatedAt
-      directDepositDriverId
-      __typename
-    }
-  }
-`;
-export const updateDirectDeposit = /* GraphQL */ `
-  mutation UpdateDirectDeposit(
-    $input: UpdateDirectDepositInput!
-    $condition: ModelDirectDepositConditionInput
-  ) {
-    updateDirectDeposit(input: $input, condition: $condition) {
-      id
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
-        __typename
-      }
-      routingNumber
-      accountNumber
-      amountDesignated
-      percentageDesignated
-      createdAt
-      updatedAt
-      directDepositDriverId
-      __typename
-    }
-  }
-`;
-export const deleteDirectDeposit = /* GraphQL */ `
-  mutation DeleteDirectDeposit(
-    $input: DeleteDirectDepositInput!
-    $condition: ModelDirectDepositConditionInput
-  ) {
-    deleteDirectDeposit(input: $input, condition: $condition) {
-      id
-      driver {
-        id
-        firstName
-        lastName
-        ssn
-        dob
-        dLCopy
-        phoneNumber
-        emailAddress
-        homeAddress {
-          id
-          streetName
-          unitNumber
-          city
-          state
-          zipCode
-          createdAt
-          updatedAt
-          __typename
-        }
-        earningTier
-        vehicle {
-          id
-          vin
-          make
-          model
-          year
-          registrationNum
-          registrationState
-          registrationCopy
-          insuranceProof
-          vehiclefleetID
-          createdAt
-          updatedAt
-          __typename
-        }
-        registrationDate
-        activeStatus
-        driverpoolID
-        createdAt
-        updatedAt
-        driverHomeAddressId
-        driverVehicleId
-        __typename
-      }
-      routingNumber
-      accountNumber
-      amountDesignated
-      percentageDesignated
-      createdAt
-      updatedAt
-      directDepositDriverId
       __typename
     }
   }
@@ -1950,7 +1293,12 @@ export const createDriver = /* GraphQL */ `
       lastName
       ssn
       dob
-      dLCopy
+      dLCopy {
+        name
+        path
+        type
+        __typename
+      }
       phoneNumber
       emailAddress
       homeAddress {
@@ -1965,28 +1313,12 @@ export const createDriver = /* GraphQL */ `
         __typename
       }
       earningTier
-      vehicle {
-        id
-        vin
-        make
-        model
-        year
-        registrationNum
-        registrationState
-        registrationCopy
-        insuranceProof
-        vehiclefleetID
-        createdAt
-        updatedAt
-        __typename
-      }
       registrationDate
       activeStatus
       driverpoolID
       createdAt
       updatedAt
       driverHomeAddressId
-      driverVehicleId
       __typename
     }
   }
@@ -2002,7 +1334,12 @@ export const updateDriver = /* GraphQL */ `
       lastName
       ssn
       dob
-      dLCopy
+      dLCopy {
+        name
+        path
+        type
+        __typename
+      }
       phoneNumber
       emailAddress
       homeAddress {
@@ -2017,28 +1354,12 @@ export const updateDriver = /* GraphQL */ `
         __typename
       }
       earningTier
-      vehicle {
-        id
-        vin
-        make
-        model
-        year
-        registrationNum
-        registrationState
-        registrationCopy
-        insuranceProof
-        vehiclefleetID
-        createdAt
-        updatedAt
-        __typename
-      }
       registrationDate
       activeStatus
       driverpoolID
       createdAt
       updatedAt
       driverHomeAddressId
-      driverVehicleId
       __typename
     }
   }
@@ -2054,7 +1375,12 @@ export const deleteDriver = /* GraphQL */ `
       lastName
       ssn
       dob
-      dLCopy
+      dLCopy {
+        name
+        path
+        type
+        __typename
+      }
       phoneNumber
       emailAddress
       homeAddress {
@@ -2069,28 +1395,12 @@ export const deleteDriver = /* GraphQL */ `
         __typename
       }
       earningTier
-      vehicle {
-        id
-        vin
-        make
-        model
-        year
-        registrationNum
-        registrationState
-        registrationCopy
-        insuranceProof
-        vehiclefleetID
-        createdAt
-        updatedAt
-        __typename
-      }
       registrationDate
       activeStatus
       driverpoolID
       createdAt
       updatedAt
       driverHomeAddressId
-      driverVehicleId
       __typename
     }
   }
@@ -2105,14 +1415,63 @@ export const createVehicle = /* GraphQL */ `
       vin
       make
       model
-      year
+      year {
+        min
+        max
+        __typename
+      }
       registrationNum
       registrationState
-      registrationCopy
-      insuranceProof
+      registrationDocs {
+        name
+        path
+        type
+        __typename
+      }
+      insuranceProof {
+        name
+        path
+        type
+        __typename
+      }
       vehiclefleetID
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
+        __typename
+      }
       createdAt
       updatedAt
+      vehicleDriverId
       __typename
     }
   }
@@ -2127,14 +1486,63 @@ export const updateVehicle = /* GraphQL */ `
       vin
       make
       model
-      year
+      year {
+        min
+        max
+        __typename
+      }
       registrationNum
       registrationState
-      registrationCopy
-      insuranceProof
+      registrationDocs {
+        name
+        path
+        type
+        __typename
+      }
+      insuranceProof {
+        name
+        path
+        type
+        __typename
+      }
       vehiclefleetID
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
+        __typename
+      }
       createdAt
       updatedAt
+      vehicleDriverId
       __typename
     }
   }
@@ -2149,14 +1557,642 @@ export const deleteVehicle = /* GraphQL */ `
       vin
       make
       model
-      year
+      year {
+        min
+        max
+        __typename
+      }
       registrationNum
       registrationState
-      registrationCopy
-      insuranceProof
+      registrationDocs {
+        name
+        path
+        type
+        __typename
+      }
+      insuranceProof {
+        name
+        path
+        type
+        __typename
+      }
       vehiclefleetID
+      driver {
+        id
+        firstName
+        lastName
+        ssn
+        dob
+        dLCopy {
+          name
+          path
+          type
+          __typename
+        }
+        phoneNumber
+        emailAddress
+        homeAddress {
+          id
+          streetName
+          unitNumber
+          city
+          state
+          zipCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        earningTier
+        registrationDate
+        activeStatus
+        driverpoolID
+        createdAt
+        updatedAt
+        driverHomeAddressId
+        __typename
+      }
       createdAt
       updatedAt
+      vehicleDriverId
+      __typename
+    }
+  }
+`;
+export const createPhysicalAddress = /* GraphQL */ `
+  mutation CreatePhysicalAddress(
+    $input: CreatePhysicalAddressInput!
+    $condition: ModelPhysicalAddressConditionInput
+  ) {
+    createPhysicalAddress(input: $input, condition: $condition) {
+      id
+      streetName
+      unitNumber
+      city
+      state
+      zipCode
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updatePhysicalAddress = /* GraphQL */ `
+  mutation UpdatePhysicalAddress(
+    $input: UpdatePhysicalAddressInput!
+    $condition: ModelPhysicalAddressConditionInput
+  ) {
+    updatePhysicalAddress(input: $input, condition: $condition) {
+      id
+      streetName
+      unitNumber
+      city
+      state
+      zipCode
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deletePhysicalAddress = /* GraphQL */ `
+  mutation DeletePhysicalAddress(
+    $input: DeletePhysicalAddressInput!
+    $condition: ModelPhysicalAddressConditionInput
+  ) {
+    deletePhysicalAddress(input: $input, condition: $condition) {
+      id
+      streetName
+      unitNumber
+      city
+      state
+      zipCode
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createTripSummary = /* GraphQL */ `
+  mutation CreateTripSummary(
+    $input: CreateTripSummaryInput!
+    $condition: ModelTripSummaryConditionInput
+  ) {
+    createTripSummary(input: $input, condition: $condition) {
+      id
+      pathTravelled {
+        longitude
+        latitude
+        __typename
+      }
+      totalDistance
+      cancellationCharge
+      tripStatus
+      timeCompleted
+      tripPlan {
+        id
+        pickUpTime
+        pickUpLocation {
+          longitude
+          latitude
+          __typename
+        }
+        dropOffLocation {
+          longitude
+          latitude
+          __typename
+        }
+        urgency
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripPlanPassengerId
+        __typename
+      }
+      totalCharge
+      createdAt
+      updatedAt
+      tripSummaryTripPlanId
+      __typename
+    }
+  }
+`;
+export const updateTripSummary = /* GraphQL */ `
+  mutation UpdateTripSummary(
+    $input: UpdateTripSummaryInput!
+    $condition: ModelTripSummaryConditionInput
+  ) {
+    updateTripSummary(input: $input, condition: $condition) {
+      id
+      pathTravelled {
+        longitude
+        latitude
+        __typename
+      }
+      totalDistance
+      cancellationCharge
+      tripStatus
+      timeCompleted
+      tripPlan {
+        id
+        pickUpTime
+        pickUpLocation {
+          longitude
+          latitude
+          __typename
+        }
+        dropOffLocation {
+          longitude
+          latitude
+          __typename
+        }
+        urgency
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripPlanPassengerId
+        __typename
+      }
+      totalCharge
+      createdAt
+      updatedAt
+      tripSummaryTripPlanId
+      __typename
+    }
+  }
+`;
+export const deleteTripSummary = /* GraphQL */ `
+  mutation DeleteTripSummary(
+    $input: DeleteTripSummaryInput!
+    $condition: ModelTripSummaryConditionInput
+  ) {
+    deleteTripSummary(input: $input, condition: $condition) {
+      id
+      pathTravelled {
+        longitude
+        latitude
+        __typename
+      }
+      totalDistance
+      cancellationCharge
+      tripStatus
+      timeCompleted
+      tripPlan {
+        id
+        pickUpTime
+        pickUpLocation {
+          longitude
+          latitude
+          __typename
+        }
+        dropOffLocation {
+          longitude
+          latitude
+          __typename
+        }
+        urgency
+        passenger {
+          id
+          firstName
+          lastName
+          phoneNumber
+          emailAddress
+          dateRegistered
+          activeStatus
+          createdAt
+          updatedAt
+          passengerPaymentMethodId
+          __typename
+        }
+        createdAt
+        updatedAt
+        tripPlanPassengerId
+        __typename
+      }
+      totalCharge
+      createdAt
+      updatedAt
+      tripSummaryTripPlanId
+      __typename
+    }
+  }
+`;
+export const createTripCharge = /* GraphQL */ `
+  mutation CreateTripCharge(
+    $input: CreateTripChargeInput!
+    $condition: ModelTripChargeConditionInput
+  ) {
+    createTripCharge(input: $input, condition: $condition) {
+      id
+      cost
+      tip
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripChargePassengerId
+      tripChargeTripSummaryId
+      __typename
+    }
+  }
+`;
+export const updateTripCharge = /* GraphQL */ `
+  mutation UpdateTripCharge(
+    $input: UpdateTripChargeInput!
+    $condition: ModelTripChargeConditionInput
+  ) {
+    updateTripCharge(input: $input, condition: $condition) {
+      id
+      cost
+      tip
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripChargePassengerId
+      tripChargeTripSummaryId
+      __typename
+    }
+  }
+`;
+export const deleteTripCharge = /* GraphQL */ `
+  mutation DeleteTripCharge(
+    $input: DeleteTripChargeInput!
+    $condition: ModelTripChargeConditionInput
+  ) {
+    deleteTripCharge(input: $input, condition: $condition) {
+      id
+      cost
+      tip
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      tripSummary {
+        id
+        pathTravelled {
+          longitude
+          latitude
+          __typename
+        }
+        totalDistance
+        cancellationCharge
+        tripStatus
+        timeCompleted
+        tripPlan {
+          id
+          pickUpTime
+          urgency
+          createdAt
+          updatedAt
+          tripPlanPassengerId
+          __typename
+        }
+        totalCharge
+        createdAt
+        updatedAt
+        tripSummaryTripPlanId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripChargePassengerId
+      tripChargeTripSummaryId
+      __typename
+    }
+  }
+`;
+export const createTripPlan = /* GraphQL */ `
+  mutation CreateTripPlan(
+    $input: CreateTripPlanInput!
+    $condition: ModelTripPlanConditionInput
+  ) {
+    createTripPlan(input: $input, condition: $condition) {
+      id
+      pickUpTime
+      pickUpLocation {
+        longitude
+        latitude
+        __typename
+      }
+      dropOffLocation {
+        longitude
+        latitude
+        __typename
+      }
+      urgency
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripPlanPassengerId
+      __typename
+    }
+  }
+`;
+export const updateTripPlan = /* GraphQL */ `
+  mutation UpdateTripPlan(
+    $input: UpdateTripPlanInput!
+    $condition: ModelTripPlanConditionInput
+  ) {
+    updateTripPlan(input: $input, condition: $condition) {
+      id
+      pickUpTime
+      pickUpLocation {
+        longitude
+        latitude
+        __typename
+      }
+      dropOffLocation {
+        longitude
+        latitude
+        __typename
+      }
+      urgency
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripPlanPassengerId
+      __typename
+    }
+  }
+`;
+export const deleteTripPlan = /* GraphQL */ `
+  mutation DeleteTripPlan(
+    $input: DeleteTripPlanInput!
+    $condition: ModelTripPlanConditionInput
+  ) {
+    deleteTripPlan(input: $input, condition: $condition) {
+      id
+      pickUpTime
+      pickUpLocation {
+        longitude
+        latitude
+        __typename
+      }
+      dropOffLocation {
+        longitude
+        latitude
+        __typename
+      }
+      urgency
+      passenger {
+        id
+        firstName
+        lastName
+        phoneNumber
+        emailAddress
+        dateRegistered
+        activeStatus
+        paymentMethod {
+          id
+          paymentType
+          accountNumber
+          firstName
+          lastName
+          expiryDate
+          verificationCode
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        passengerPaymentMethodId
+        __typename
+      }
+      createdAt
+      updatedAt
+      tripPlanPassengerId
       __typename
     }
   }
@@ -2229,6 +2265,8 @@ export const createPassenger = /* GraphQL */ `
       lastName
       phoneNumber
       emailAddress
+      dateRegistered
+      activeStatus
       paymentMethod {
         id
         paymentType
@@ -2241,9 +2279,6 @@ export const createPassenger = /* GraphQL */ `
         updatedAt
         __typename
       }
-      dateRegistered
-      activeStatus
-      tripID
       createdAt
       updatedAt
       passengerPaymentMethodId
@@ -2262,6 +2297,8 @@ export const updatePassenger = /* GraphQL */ `
       lastName
       phoneNumber
       emailAddress
+      dateRegistered
+      activeStatus
       paymentMethod {
         id
         paymentType
@@ -2274,9 +2311,6 @@ export const updatePassenger = /* GraphQL */ `
         updatedAt
         __typename
       }
-      dateRegistered
-      activeStatus
-      tripID
       createdAt
       updatedAt
       passengerPaymentMethodId
@@ -2295,6 +2329,8 @@ export const deletePassenger = /* GraphQL */ `
       lastName
       phoneNumber
       emailAddress
+      dateRegistered
+      activeStatus
       paymentMethod {
         id
         paymentType
@@ -2307,159 +2343,9 @@ export const deletePassenger = /* GraphQL */ `
         updatedAt
         __typename
       }
-      dateRegistered
-      activeStatus
-      tripID
       createdAt
       updatedAt
       passengerPaymentMethodId
-      __typename
-    }
-  }
-`;
-export const createPhysicalAddress = /* GraphQL */ `
-  mutation CreatePhysicalAddress(
-    $input: CreatePhysicalAddressInput!
-    $condition: ModelPhysicalAddressConditionInput
-  ) {
-    createPhysicalAddress(input: $input, condition: $condition) {
-      id
-      streetName
-      unitNumber
-      city
-      state
-      zipCode
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updatePhysicalAddress = /* GraphQL */ `
-  mutation UpdatePhysicalAddress(
-    $input: UpdatePhysicalAddressInput!
-    $condition: ModelPhysicalAddressConditionInput
-  ) {
-    updatePhysicalAddress(input: $input, condition: $condition) {
-      id
-      streetName
-      unitNumber
-      city
-      state
-      zipCode
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deletePhysicalAddress = /* GraphQL */ `
-  mutation DeletePhysicalAddress(
-    $input: DeletePhysicalAddressInput!
-    $condition: ModelPhysicalAddressConditionInput
-  ) {
-    deletePhysicalAddress(input: $input, condition: $condition) {
-      id
-      streetName
-      unitNumber
-      city
-      state
-      zipCode
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createAdministrator = /* GraphQL */ `
-  mutation CreateAdministrator(
-    $input: CreateAdministratorInput!
-    $condition: ModelAdministratorConditionInput
-  ) {
-    createAdministrator(input: $input, condition: $condition) {
-      id
-      firstName
-      lastName
-      phoneNumber
-      emailAddress
-      copyOfId
-      homeAddress {
-        id
-        streetName
-        unitNumber
-        city
-        state
-        zipCode
-        createdAt
-        updatedAt
-        __typename
-      }
-      dateRegistered
-      createdAt
-      updatedAt
-      administratorHomeAddressId
-      __typename
-    }
-  }
-`;
-export const updateAdministrator = /* GraphQL */ `
-  mutation UpdateAdministrator(
-    $input: UpdateAdministratorInput!
-    $condition: ModelAdministratorConditionInput
-  ) {
-    updateAdministrator(input: $input, condition: $condition) {
-      id
-      firstName
-      lastName
-      phoneNumber
-      emailAddress
-      copyOfId
-      homeAddress {
-        id
-        streetName
-        unitNumber
-        city
-        state
-        zipCode
-        createdAt
-        updatedAt
-        __typename
-      }
-      dateRegistered
-      createdAt
-      updatedAt
-      administratorHomeAddressId
-      __typename
-    }
-  }
-`;
-export const deleteAdministrator = /* GraphQL */ `
-  mutation DeleteAdministrator(
-    $input: DeleteAdministratorInput!
-    $condition: ModelAdministratorConditionInput
-  ) {
-    deleteAdministrator(input: $input, condition: $condition) {
-      id
-      firstName
-      lastName
-      phoneNumber
-      emailAddress
-      copyOfId
-      homeAddress {
-        id
-        streetName
-        unitNumber
-        city
-        state
-        zipCode
-        createdAt
-        updatedAt
-        __typename
-      }
-      dateRegistered
-      createdAt
-      updatedAt
-      administratorHomeAddressId
       __typename
     }
   }

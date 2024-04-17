@@ -32,7 +32,7 @@ export default function VehicleFleetCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    fleetTitle: [{ type: "Required" }],
+    fleetTitle: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -116,7 +116,7 @@ export default function VehicleFleetCreateForm(props) {
     >
       <TextField
         label="Fleet title"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={fleetTitle}
         onChange={(e) => {

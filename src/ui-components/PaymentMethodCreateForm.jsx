@@ -63,8 +63,8 @@ export default function PaymentMethodCreateForm(props) {
     accountNumber: [{ type: "Required" }],
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
-    expiryDate: [],
-    verificationCode: [],
+    expiryDate: [{ type: "Required" }],
+    verificationCode: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -290,7 +290,7 @@ export default function PaymentMethodCreateForm(props) {
       ></TextField>
       <TextField
         label="Expiry date"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="date"
         value={expiryDate}
@@ -320,7 +320,7 @@ export default function PaymentMethodCreateForm(props) {
       ></TextField>
       <TextField
         label="Verification code"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"

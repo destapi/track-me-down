@@ -25,15 +25,15 @@ export default function DriverPoolUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    poolTitle: "",
+    poolName: "",
   };
-  const [poolTitle, setPoolTitle] = React.useState(initialValues.poolTitle);
+  const [poolName, setPoolName] = React.useState(initialValues.poolName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = driverPoolRecord
       ? { ...initialValues, ...driverPoolRecord }
       : initialValues;
-    setPoolTitle(cleanValues.poolTitle);
+    setPoolName(cleanValues.poolName);
     setErrors({});
   };
   const [driverPoolRecord, setDriverPoolRecord] =
@@ -54,7 +54,7 @@ export default function DriverPoolUpdateForm(props) {
   }, [idProp, driverPoolModelProp]);
   React.useEffect(resetStateValues, [driverPoolRecord]);
   const validations = {
-    poolTitle: [],
+    poolName: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -82,7 +82,7 @@ export default function DriverPoolUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          poolTitle: poolTitle ?? null,
+          poolName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -135,28 +135,28 @@ export default function DriverPoolUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Pool title"
-        isRequired={false}
+        label="Pool name"
+        isRequired={true}
         isReadOnly={false}
-        value={poolTitle}
+        value={poolName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              poolTitle: value,
+              poolName: value,
             };
             const result = onChange(modelFields);
-            value = result?.poolTitle ?? value;
+            value = result?.poolName ?? value;
           }
-          if (errors.poolTitle?.hasError) {
-            runValidationTasks("poolTitle", value);
+          if (errors.poolName?.hasError) {
+            runValidationTasks("poolName", value);
           }
-          setPoolTitle(value);
+          setPoolName(value);
         }}
-        onBlur={() => runValidationTasks("poolTitle", poolTitle)}
-        errorMessage={errors.poolTitle?.errorMessage}
-        hasError={errors.poolTitle?.hasError}
-        {...getOverrideProps(overrides, "poolTitle")}
+        onBlur={() => runValidationTasks("poolName", poolName)}
+        errorMessage={errors.poolName?.errorMessage}
+        hasError={errors.poolName?.hasError}
+        {...getOverrideProps(overrides, "poolName")}
       ></TextField>
       <Flex
         justifyContent="space-between"

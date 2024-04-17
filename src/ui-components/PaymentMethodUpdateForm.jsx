@@ -86,8 +86,8 @@ export default function PaymentMethodUpdateForm(props) {
     accountNumber: [{ type: "Required" }],
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
-    expiryDate: [],
-    verificationCode: [],
+    expiryDate: [{ type: "Required" }],
+    verificationCode: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -119,8 +119,8 @@ export default function PaymentMethodUpdateForm(props) {
           accountNumber,
           firstName,
           lastName,
-          expiryDate: expiryDate ?? null,
-          verificationCode: verificationCode ?? null,
+          expiryDate,
+          verificationCode,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -311,7 +311,7 @@ export default function PaymentMethodUpdateForm(props) {
       ></TextField>
       <TextField
         label="Expiry date"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="date"
         value={expiryDate}
@@ -341,7 +341,7 @@ export default function PaymentMethodUpdateForm(props) {
       ></TextField>
       <TextField
         label="Verification code"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"

@@ -24,13 +24,13 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type NotificationCreateFormInputValues = {
     event?: string;
     message?: string;
-    eventTime?: string;
+    time?: string;
     target?: string;
 };
 export declare type NotificationCreateFormValidationValues = {
     event?: ValidationFunction<string>;
     message?: ValidationFunction<string>;
-    eventTime?: ValidationFunction<string>;
+    time?: ValidationFunction<string>;
     target?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -38,7 +38,7 @@ export declare type NotificationCreateFormOverridesProps = {
     NotificationCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     event?: PrimitiveOverrideProps<TextFieldProps>;
     message?: PrimitiveOverrideProps<TextFieldProps>;
-    eventTime?: PrimitiveOverrideProps<TextFieldProps>;
+    time?: PrimitiveOverrideProps<TextFieldProps>;
     target?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NotificationCreateFormProps = React.PropsWithChildren<{

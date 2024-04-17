@@ -21,25 +21,28 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type TripFeedbackCreateFormInputValues = {
-    comments?: string;
+export declare type TripChargeCreateFormInputValues = {
+    cost?: number;
+    tip?: number;
 };
-export declare type TripFeedbackCreateFormValidationValues = {
-    comments?: ValidationFunction<string>;
+export declare type TripChargeCreateFormValidationValues = {
+    cost?: ValidationFunction<number>;
+    tip?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type TripFeedbackCreateFormOverridesProps = {
-    TripFeedbackCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    comments?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type TripChargeCreateFormOverridesProps = {
+    TripChargeCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    cost?: PrimitiveOverrideProps<TextFieldProps>;
+    tip?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type TripFeedbackCreateFormProps = React.PropsWithChildren<{
-    overrides?: TripFeedbackCreateFormOverridesProps | undefined | null;
+export declare type TripChargeCreateFormProps = React.PropsWithChildren<{
+    overrides?: TripChargeCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: TripFeedbackCreateFormInputValues) => TripFeedbackCreateFormInputValues;
-    onSuccess?: (fields: TripFeedbackCreateFormInputValues) => void;
-    onError?: (fields: TripFeedbackCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: TripFeedbackCreateFormInputValues) => TripFeedbackCreateFormInputValues;
-    onValidate?: TripFeedbackCreateFormValidationValues;
+    onSubmit?: (fields: TripChargeCreateFormInputValues) => TripChargeCreateFormInputValues;
+    onSuccess?: (fields: TripChargeCreateFormInputValues) => void;
+    onError?: (fields: TripChargeCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: TripChargeCreateFormInputValues) => TripChargeCreateFormInputValues;
+    onValidate?: TripChargeCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function TripFeedbackCreateForm(props: TripFeedbackCreateFormProps): React.ReactElement;
+export default function TripChargeCreateForm(props: TripChargeCreateFormProps): React.ReactElement;

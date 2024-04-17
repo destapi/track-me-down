@@ -27,7 +27,6 @@ export default function AdministratorCreateForm(props) {
     lastName: "",
     phoneNumber: "",
     emailAddress: "",
-    copyOfId: "",
     dateRegistered: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
@@ -38,7 +37,6 @@ export default function AdministratorCreateForm(props) {
   const [emailAddress, setEmailAddress] = React.useState(
     initialValues.emailAddress
   );
-  const [copyOfId, setCopyOfId] = React.useState(initialValues.copyOfId);
   const [dateRegistered, setDateRegistered] = React.useState(
     initialValues.dateRegistered
   );
@@ -48,7 +46,6 @@ export default function AdministratorCreateForm(props) {
     setLastName(initialValues.lastName);
     setPhoneNumber(initialValues.phoneNumber);
     setEmailAddress(initialValues.emailAddress);
-    setCopyOfId(initialValues.copyOfId);
     setDateRegistered(initialValues.dateRegistered);
     setErrors({});
   };
@@ -56,9 +53,8 @@ export default function AdministratorCreateForm(props) {
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
     phoneNumber: [{ type: "Required" }, { type: "Phone" }],
-    emailAddress: [{ type: "Required" }, { type: "Email" }],
-    copyOfId: [{ type: "URL" }],
-    dateRegistered: [{ type: "Required" }],
+    emailAddress: [{ type: "Required" }],
+    dateRegistered: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -90,7 +86,6 @@ export default function AdministratorCreateForm(props) {
           lastName,
           phoneNumber,
           emailAddress,
-          copyOfId,
           dateRegistered,
         };
         const validationResponses = await Promise.all(
@@ -158,7 +153,6 @@ export default function AdministratorCreateForm(props) {
               lastName,
               phoneNumber,
               emailAddress,
-              copyOfId,
               dateRegistered,
             };
             const result = onChange(modelFields);
@@ -187,7 +181,6 @@ export default function AdministratorCreateForm(props) {
               lastName: value,
               phoneNumber,
               emailAddress,
-              copyOfId,
               dateRegistered,
             };
             const result = onChange(modelFields);
@@ -217,7 +210,6 @@ export default function AdministratorCreateForm(props) {
               lastName,
               phoneNumber: value,
               emailAddress,
-              copyOfId,
               dateRegistered,
             };
             const result = onChange(modelFields);
@@ -246,7 +238,6 @@ export default function AdministratorCreateForm(props) {
               lastName,
               phoneNumber,
               emailAddress: value,
-              copyOfId,
               dateRegistered,
             };
             const result = onChange(modelFields);
@@ -263,37 +254,8 @@ export default function AdministratorCreateForm(props) {
         {...getOverrideProps(overrides, "emailAddress")}
       ></TextField>
       <TextField
-        label="Copy of id"
-        isRequired={false}
-        isReadOnly={false}
-        value={copyOfId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              phoneNumber,
-              emailAddress,
-              copyOfId: value,
-              dateRegistered,
-            };
-            const result = onChange(modelFields);
-            value = result?.copyOfId ?? value;
-          }
-          if (errors.copyOfId?.hasError) {
-            runValidationTasks("copyOfId", value);
-          }
-          setCopyOfId(value);
-        }}
-        onBlur={() => runValidationTasks("copyOfId", copyOfId)}
-        errorMessage={errors.copyOfId?.errorMessage}
-        hasError={errors.copyOfId?.hasError}
-        {...getOverrideProps(overrides, "copyOfId")}
-      ></TextField>
-      <TextField
         label="Date registered"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         type="date"
         value={dateRegistered}
@@ -305,7 +267,6 @@ export default function AdministratorCreateForm(props) {
               lastName,
               phoneNumber,
               emailAddress,
-              copyOfId,
               dateRegistered: value,
             };
             const result = onChange(modelFields);

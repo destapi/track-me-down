@@ -49,8 +49,8 @@ export default function DirectDepositCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    routingNumber: [{ type: "Required" }],
-    accountNumber: [{ type: "Required" }],
+    routingNumber: [],
+    accountNumber: [],
     amountDesignated: [],
     percentageDesignated: [],
   };
@@ -139,7 +139,7 @@ export default function DirectDepositCreateForm(props) {
     >
       <TextField
         label="Routing number"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={routingNumber}
         onChange={(e) => {
@@ -166,7 +166,7 @@ export default function DirectDepositCreateForm(props) {
       ></TextField>
       <TextField
         label="Account number"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={accountNumber}
         onChange={(e) => {
@@ -195,13 +195,9 @@ export default function DirectDepositCreateForm(props) {
         label="Amount designated"
         isRequired={false}
         isReadOnly={false}
-        type="number"
-        step="any"
         value={amountDesignated}
         onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               routingNumber,
@@ -226,13 +222,9 @@ export default function DirectDepositCreateForm(props) {
         label="Percentage designated"
         isRequired={false}
         isReadOnly={false}
-        type="number"
-        step="any"
         value={percentageDesignated}
         onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               routingNumber,

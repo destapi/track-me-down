@@ -72,8 +72,8 @@ export default function DirectDepositUpdateForm(props) {
   }, [idProp, directDepositModelProp]);
   React.useEffect(resetStateValues, [directDepositRecord]);
   const validations = {
-    routingNumber: [{ type: "Required" }],
-    accountNumber: [{ type: "Required" }],
+    routingNumber: [],
+    accountNumber: [],
     amountDesignated: [],
     percentageDesignated: [],
   };
@@ -103,8 +103,8 @@ export default function DirectDepositUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          routingNumber,
-          accountNumber,
+          routingNumber: routingNumber ?? null,
+          accountNumber: accountNumber ?? null,
           amountDesignated: amountDesignated ?? null,
           percentageDesignated: percentageDesignated ?? null,
         };
@@ -160,7 +160,7 @@ export default function DirectDepositUpdateForm(props) {
     >
       <TextField
         label="Routing number"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={routingNumber}
         onChange={(e) => {
@@ -187,7 +187,7 @@ export default function DirectDepositUpdateForm(props) {
       ></TextField>
       <TextField
         label="Account number"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={accountNumber}
         onChange={(e) => {
@@ -216,13 +216,9 @@ export default function DirectDepositUpdateForm(props) {
         label="Amount designated"
         isRequired={false}
         isReadOnly={false}
-        type="number"
-        step="any"
         value={amountDesignated}
         onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               routingNumber,
@@ -247,13 +243,9 @@ export default function DirectDepositUpdateForm(props) {
         label="Percentage designated"
         isRequired={false}
         isReadOnly={false}
-        type="number"
-        step="any"
         value={percentageDesignated}
         onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               routingNumber,

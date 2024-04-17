@@ -6,16 +6,14 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getDriverRating } from "../graphql/queries";
-import { updateDriverRating } from "../graphql/mutations";
+import { createTripCharge } from "../graphql/mutations";
 const client = generateClient();
-export default function DriverRatingUpdateForm(props) {
+export default function TripChargeCreateForm(props) {
   const {
-    id: idProp,
-    driverRating: driverRatingModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -24,33 +22,22 @@ export default function DriverRatingUpdateForm(props) {
     overrides,
     ...rest
   } = props;
-  const initialValues = {};
+  const initialValues = {
+    cost: "",
+    tip: "",
+  };
+  const [cost, setCost] = React.useState(initialValues.cost);
+  const [tip, setTip] = React.useState(initialValues.tip);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = driverRatingRecord
-      ? { ...initialValues, ...driverRatingRecord }
-      : initialValues;
+    setCost(initialValues.cost);
+    setTip(initialValues.tip);
     setErrors({});
   };
-  const [driverRatingRecord, setDriverRatingRecord] = React.useState(
-    driverRatingModelProp
-  );
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getDriverRating.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getDriverRating
-        : driverRatingModelProp;
-      setDriverRatingRecord(record);
-    };
-    queryData();
-  }, [idProp, driverRatingModelProp]);
-  React.useEffect(resetStateValues, [driverRatingRecord]);
-  const validations = {};
+  const validations = {
+    cost: [{ type: "Required" }],
+    tip: [],
+  };
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -76,7 +63,10 @@ export default function DriverRatingUpdateForm(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {};
+        let modelFields = {
+          cost,
+          tip,
+        };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -106,16 +96,18 @@ export default function DriverRatingUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateDriverRating.replaceAll("__typename", ""),
+            query: createTripCharge.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: driverRatingRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -124,22 +116,79 @@ export default function DriverRatingUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "DriverRatingUpdateForm")}
+      {...getOverrideProps(overrides, "TripChargeCreateForm")}
       {...rest}
     >
+      <TextField
+        label="Cost"
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={cost}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              cost: value,
+              tip,
+            };
+            const result = onChange(modelFields);
+            value = result?.cost ?? value;
+          }
+          if (errors.cost?.hasError) {
+            runValidationTasks("cost", value);
+          }
+          setCost(value);
+        }}
+        onBlur={() => runValidationTasks("cost", cost)}
+        errorMessage={errors.cost?.errorMessage}
+        hasError={errors.cost?.hasError}
+        {...getOverrideProps(overrides, "cost")}
+      ></TextField>
+      <TextField
+        label="Tip"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={tip}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              cost,
+              tip: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.tip ?? value;
+          }
+          if (errors.tip?.hasError) {
+            runValidationTasks("tip", value);
+          }
+          setTip(value);
+        }}
+        onBlur={() => runValidationTasks("tip", tip)}
+        errorMessage={errors.tip?.errorMessage}
+        hasError={errors.tip?.hasError}
+        {...getOverrideProps(overrides, "tip")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || driverRatingModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -149,10 +198,7 @@ export default function DriverRatingUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || driverRatingModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

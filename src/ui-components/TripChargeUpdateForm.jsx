@@ -9,11 +9,13 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createTripFeedback } from "../graphql/mutations";
+import { getTripCharge } from "../graphql/queries";
+import { updateTripCharge } from "../graphql/mutations";
 const client = generateClient();
-export default function TripFeedbackCreateForm(props) {
+export default function TripChargeUpdateForm(props) {
   const {
-    clearOnSuccess = true,
+    id: idProp,
+    tripCharge: tripChargeModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -23,16 +25,40 @@ export default function TripFeedbackCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    comments: "",
+    cost: "",
+    tip: "",
   };
-  const [comments, setComments] = React.useState(initialValues.comments);
+  const [cost, setCost] = React.useState(initialValues.cost);
+  const [tip, setTip] = React.useState(initialValues.tip);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setComments(initialValues.comments);
+    const cleanValues = tripChargeRecord
+      ? { ...initialValues, ...tripChargeRecord }
+      : initialValues;
+    setCost(cleanValues.cost);
+    setTip(cleanValues.tip);
     setErrors({});
   };
+  const [tripChargeRecord, setTripChargeRecord] =
+    React.useState(tripChargeModelProp);
+  React.useEffect(() => {
+    const queryData = async () => {
+      const record = idProp
+        ? (
+            await client.graphql({
+              query: getTripCharge.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getTripCharge
+        : tripChargeModelProp;
+      setTripChargeRecord(record);
+    };
+    queryData();
+  }, [idProp, tripChargeModelProp]);
+  React.useEffect(resetStateValues, [tripChargeRecord]);
   const validations = {
-    comments: [{ type: "Required" }],
+    cost: [{ type: "Required" }],
+    tip: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -60,7 +86,8 @@ export default function TripFeedbackCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          comments,
+          cost,
+          tip: tip ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -91,18 +118,16 @@ export default function TripFeedbackCreateForm(props) {
             }
           });
           await client.graphql({
-            query: createTripFeedback.replaceAll("__typename", ""),
+            query: updateTripCharge.replaceAll("__typename", ""),
             variables: {
               input: {
+                id: tripChargeRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
-          }
-          if (clearOnSuccess) {
-            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -111,45 +136,80 @@ export default function TripFeedbackCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "TripFeedbackCreateForm")}
+      {...getOverrideProps(overrides, "TripChargeUpdateForm")}
       {...rest}
     >
       <TextField
-        label="Comments"
+        label="Cost"
         isRequired={true}
         isReadOnly={false}
-        value={comments}
+        type="number"
+        step="any"
+        value={cost}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              comments: value,
+              cost: value,
+              tip,
             };
             const result = onChange(modelFields);
-            value = result?.comments ?? value;
+            value = result?.cost ?? value;
           }
-          if (errors.comments?.hasError) {
-            runValidationTasks("comments", value);
+          if (errors.cost?.hasError) {
+            runValidationTasks("cost", value);
           }
-          setComments(value);
+          setCost(value);
         }}
-        onBlur={() => runValidationTasks("comments", comments)}
-        errorMessage={errors.comments?.errorMessage}
-        hasError={errors.comments?.hasError}
-        {...getOverrideProps(overrides, "comments")}
+        onBlur={() => runValidationTasks("cost", cost)}
+        errorMessage={errors.cost?.errorMessage}
+        hasError={errors.cost?.hasError}
+        {...getOverrideProps(overrides, "cost")}
+      ></TextField>
+      <TextField
+        label="Tip"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={tip}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              cost,
+              tip: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.tip ?? value;
+          }
+          if (errors.tip?.hasError) {
+            runValidationTasks("tip", value);
+          }
+          setTip(value);
+        }}
+        onBlur={() => runValidationTasks("tip", tip)}
+        errorMessage={errors.tip?.errorMessage}
+        hasError={errors.tip?.hasError}
+        {...getOverrideProps(overrides, "tip")}
       ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Clear"
+          children="Reset"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          isDisabled={!(idProp || tripChargeModelProp)}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -159,7 +219,10 @@ export default function TripFeedbackCreateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || tripChargeModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

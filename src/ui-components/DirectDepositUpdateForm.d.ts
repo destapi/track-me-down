@@ -24,14 +24,14 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type DirectDepositUpdateFormInputValues = {
     routingNumber?: string;
     accountNumber?: string;
-    amountDesignated?: number;
-    percentageDesignated?: number;
+    amountDesignated?: string;
+    percentageDesignated?: string;
 };
 export declare type DirectDepositUpdateFormValidationValues = {
     routingNumber?: ValidationFunction<string>;
     accountNumber?: ValidationFunction<string>;
-    amountDesignated?: ValidationFunction<number>;
-    percentageDesignated?: ValidationFunction<number>;
+    amountDesignated?: ValidationFunction<string>;
+    percentageDesignated?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DirectDepositUpdateFormOverridesProps = {

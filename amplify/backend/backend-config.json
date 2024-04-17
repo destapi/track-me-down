@@ -42,7 +42,7 @@
         },
         "signupAttributes": [
           "EMAIL",
-          "PHONE_NUMBER"
+          "PREFERRED_USERNAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [

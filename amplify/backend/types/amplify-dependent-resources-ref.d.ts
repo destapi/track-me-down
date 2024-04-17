@@ -10,7 +10,6 @@ export type AmplifyDependentResourcesAttributes = {
     "trackmedown": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
-      "CreatedSNSRole": "string",
       "IdentityPoolId": "string",
       "IdentityPoolName": "string",
       "UserPoolArn": "string",

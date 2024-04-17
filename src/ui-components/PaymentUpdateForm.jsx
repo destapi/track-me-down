@@ -25,27 +25,20 @@ export default function PaymentUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    amountRemitted: "",
-    tipRemitted: "",
-    dateRemitted: "",
+    totalAmount: "",
+    datePaid: "",
   };
-  const [amountRemitted, setAmountRemitted] = React.useState(
-    initialValues.amountRemitted
+  const [totalAmount, setTotalAmount] = React.useState(
+    initialValues.totalAmount
   );
-  const [tipRemitted, setTipRemitted] = React.useState(
-    initialValues.tipRemitted
-  );
-  const [dateRemitted, setDateRemitted] = React.useState(
-    initialValues.dateRemitted
-  );
+  const [datePaid, setDatePaid] = React.useState(initialValues.datePaid);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = paymentRecord
       ? { ...initialValues, ...paymentRecord }
       : initialValues;
-    setAmountRemitted(cleanValues.amountRemitted);
-    setTipRemitted(cleanValues.tipRemitted);
-    setDateRemitted(cleanValues.dateRemitted);
+    setTotalAmount(cleanValues.totalAmount);
+    setDatePaid(cleanValues.datePaid);
     setErrors({});
   };
   const [paymentRecord, setPaymentRecord] = React.useState(paymentModelProp);
@@ -65,9 +58,8 @@ export default function PaymentUpdateForm(props) {
   }, [idProp, paymentModelProp]);
   React.useEffect(resetStateValues, [paymentRecord]);
   const validations = {
-    amountRemitted: [{ type: "Required" }],
-    tipRemitted: [],
-    dateRemitted: [{ type: "Required" }],
+    totalAmount: [],
+    datePaid: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -112,9 +104,8 @@ export default function PaymentUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          amountRemitted,
-          tipRemitted: tipRemitted ?? null,
-          dateRemitted,
+          totalAmount: totalAmount ?? null,
+          datePaid: datePaid ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -167,92 +158,60 @@ export default function PaymentUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Amount remitted"
-        isRequired={true}
-        isReadOnly={false}
-        type="number"
-        step="any"
-        value={amountRemitted}
-        onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
-          if (onChange) {
-            const modelFields = {
-              amountRemitted: value,
-              tipRemitted,
-              dateRemitted,
-            };
-            const result = onChange(modelFields);
-            value = result?.amountRemitted ?? value;
-          }
-          if (errors.amountRemitted?.hasError) {
-            runValidationTasks("amountRemitted", value);
-          }
-          setAmountRemitted(value);
-        }}
-        onBlur={() => runValidationTasks("amountRemitted", amountRemitted)}
-        errorMessage={errors.amountRemitted?.errorMessage}
-        hasError={errors.amountRemitted?.hasError}
-        {...getOverrideProps(overrides, "amountRemitted")}
-      ></TextField>
-      <TextField
-        label="Tip remitted"
+        label="Total amount"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={tipRemitted}
+        value={totalAmount}
         onChange={(e) => {
           let value = isNaN(parseFloat(e.target.value))
             ? e.target.value
             : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              amountRemitted,
-              tipRemitted: value,
-              dateRemitted,
+              totalAmount: value,
+              datePaid,
             };
             const result = onChange(modelFields);
-            value = result?.tipRemitted ?? value;
+            value = result?.totalAmount ?? value;
           }
-          if (errors.tipRemitted?.hasError) {
-            runValidationTasks("tipRemitted", value);
+          if (errors.totalAmount?.hasError) {
+            runValidationTasks("totalAmount", value);
           }
-          setTipRemitted(value);
+          setTotalAmount(value);
         }}
-        onBlur={() => runValidationTasks("tipRemitted", tipRemitted)}
-        errorMessage={errors.tipRemitted?.errorMessage}
-        hasError={errors.tipRemitted?.hasError}
-        {...getOverrideProps(overrides, "tipRemitted")}
+        onBlur={() => runValidationTasks("totalAmount", totalAmount)}
+        errorMessage={errors.totalAmount?.errorMessage}
+        hasError={errors.totalAmount?.hasError}
+        {...getOverrideProps(overrides, "totalAmount")}
       ></TextField>
       <TextField
-        label="Date remitted"
-        isRequired={true}
+        label="Date paid"
+        isRequired={false}
         isReadOnly={false}
         type="datetime-local"
-        value={dateRemitted && convertToLocal(new Date(dateRemitted))}
+        value={datePaid && convertToLocal(new Date(datePaid))}
         onChange={(e) => {
           let value =
             e.target.value === "" ? "" : new Date(e.target.value).toISOString();
           if (onChange) {
             const modelFields = {
-              amountRemitted,
-              tipRemitted,
-              dateRemitted: value,
+              totalAmount,
+              datePaid: value,
             };
             const result = onChange(modelFields);
-            value = result?.dateRemitted ?? value;
+            value = result?.datePaid ?? value;
           }
-          if (errors.dateRemitted?.hasError) {
-            runValidationTasks("dateRemitted", value);
+          if (errors.datePaid?.hasError) {
+            runValidationTasks("datePaid", value);
           }
-          setDateRemitted(value);
+          setDatePaid(value);
         }}
-        onBlur={() => runValidationTasks("dateRemitted", dateRemitted)}
-        errorMessage={errors.dateRemitted?.errorMessage}
-        hasError={errors.dateRemitted?.hasError}
-        {...getOverrideProps(overrides, "dateRemitted")}
+        onBlur={() => runValidationTasks("datePaid", datePaid)}
+        errorMessage={errors.datePaid?.errorMessage}
+        hasError={errors.datePaid?.hasError}
+        {...getOverrideProps(overrides, "datePaid")}
       ></TextField>
       <Flex
         justifyContent="space-between"

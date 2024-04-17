@@ -25,13 +25,11 @@ export declare type GeoFenceUpdateFormInputValues = {
     title?: string;
     coordinates?: string;
     dateCreated?: string;
-    validDuration?: number;
 };
 export declare type GeoFenceUpdateFormValidationValues = {
     title?: ValidationFunction<string>;
     coordinates?: ValidationFunction<string>;
     dateCreated?: ValidationFunction<string>;
-    validDuration?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type GeoFenceUpdateFormOverridesProps = {
@@ -39,7 +37,6 @@ export declare type GeoFenceUpdateFormOverridesProps = {
     title?: PrimitiveOverrideProps<TextFieldProps>;
     coordinates?: PrimitiveOverrideProps<TextFieldProps>;
     dateCreated?: PrimitiveOverrideProps<TextFieldProps>;
-    validDuration?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type GeoFenceUpdateFormProps = React.PropsWithChildren<{
     overrides?: GeoFenceUpdateFormOverridesProps | undefined | null;

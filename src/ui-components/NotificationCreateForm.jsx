@@ -25,25 +25,25 @@ export default function NotificationCreateForm(props) {
   const initialValues = {
     event: "",
     message: "",
-    eventTime: "",
+    time: "",
     target: "",
   };
   const [event, setEvent] = React.useState(initialValues.event);
   const [message, setMessage] = React.useState(initialValues.message);
-  const [eventTime, setEventTime] = React.useState(initialValues.eventTime);
+  const [time, setTime] = React.useState(initialValues.time);
   const [target, setTarget] = React.useState(initialValues.target);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setEvent(initialValues.event);
     setMessage(initialValues.message);
-    setEventTime(initialValues.eventTime);
+    setTime(initialValues.time);
     setTarget(initialValues.target);
     setErrors({});
   };
   const validations = {
-    event: [{ type: "Required" }],
+    event: [],
     message: [],
-    eventTime: [{ type: "Required" }],
+    time: [],
     target: [],
   };
   const runValidationTasks = async (
@@ -91,7 +91,7 @@ export default function NotificationCreateForm(props) {
         let modelFields = {
           event,
           message,
-          eventTime,
+          time,
           target,
         };
         const validationResponses = await Promise.all(
@@ -148,7 +148,7 @@ export default function NotificationCreateForm(props) {
     >
       <TextField
         label="Event"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={event}
         onChange={(e) => {
@@ -157,7 +157,7 @@ export default function NotificationCreateForm(props) {
             const modelFields = {
               event: value,
               message,
-              eventTime,
+              time,
               target,
             };
             const result = onChange(modelFields);
@@ -184,7 +184,7 @@ export default function NotificationCreateForm(props) {
             const modelFields = {
               event,
               message: value,
-              eventTime,
+              time,
               target,
             };
             const result = onChange(modelFields);
@@ -201,11 +201,11 @@ export default function NotificationCreateForm(props) {
         {...getOverrideProps(overrides, "message")}
       ></TextField>
       <TextField
-        label="Event time"
-        isRequired={true}
+        label="Time"
+        isRequired={false}
         isReadOnly={false}
         type="datetime-local"
-        value={eventTime && convertToLocal(new Date(eventTime))}
+        value={time && convertToLocal(new Date(time))}
         onChange={(e) => {
           let value =
             e.target.value === "" ? "" : new Date(e.target.value).toISOString();
@@ -213,21 +213,21 @@ export default function NotificationCreateForm(props) {
             const modelFields = {
               event,
               message,
-              eventTime: value,
+              time: value,
               target,
             };
             const result = onChange(modelFields);
-            value = result?.eventTime ?? value;
+            value = result?.time ?? value;
           }
-          if (errors.eventTime?.hasError) {
-            runValidationTasks("eventTime", value);
+          if (errors.time?.hasError) {
+            runValidationTasks("time", value);
           }
-          setEventTime(value);
+          setTime(value);
         }}
-        onBlur={() => runValidationTasks("eventTime", eventTime)}
-        errorMessage={errors.eventTime?.errorMessage}
-        hasError={errors.eventTime?.hasError}
-        {...getOverrideProps(overrides, "eventTime")}
+        onBlur={() => runValidationTasks("time", time)}
+        errorMessage={errors.time?.errorMessage}
+        hasError={errors.time?.hasError}
+        {...getOverrideProps(overrides, "time")}
       ></TextField>
       <TextField
         label="Target"
@@ -240,7 +240,7 @@ export default function NotificationCreateForm(props) {
             const modelFields = {
               event,
               message,
-              eventTime,
+              time,
               target: value,
             };
             const result = onChange(modelFields);
