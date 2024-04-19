@@ -1,0 +1,45 @@
+export default [
+    { field: 'id', headerName: 'ID', type: 'string', width: 90 },
+    {
+      field: 'first_name',
+      headerName: 'First name',
+      type: 'string',
+      width: 100,
+      editable: true,
+    },
+    {
+      field: 'last_name',
+      headerName: 'Last name',
+      type: 'string',
+      width: 100,
+      editable: true,
+    },
+    {
+      field: 'email_address',
+      headerName: 'Email',
+      type: 'string',
+      width: 100,
+      editable: true,
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone',
+      type: 'string',
+      width: 100,
+      editable: true,
+    },
+    {
+      field: 'copy_of_license',
+      headerName: 'DL Copy',
+      type: 'file',
+      width: 100,
+      editable: true,
+    },
+    {
+      field: 'home_address',
+      headerName: 'Address',
+      description: 'relational',
+      sortable: false,
+      width: 100,
+    },
+  ];
