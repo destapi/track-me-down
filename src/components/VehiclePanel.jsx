@@ -48,7 +48,7 @@ export default function VehiclePanel() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography component="h3" variant='h3'>Driver</Typography>
+      <Typography component="h3" variant='h3'>Vehicle</Typography>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Create" {...a11yProps(0)} />

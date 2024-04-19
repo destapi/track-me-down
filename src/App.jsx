@@ -1,67 +1,69 @@
 import { withAuthenticator, } from '@aws-amplify/ui-react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import AppLayout from './component/AppLayout';
-import AdministratorPanel from './component/AdministratorPanel';
-import PassengerPanel from './component/PassengerPanel';
-import DirectDepositPanel from './component/DirectDepositPanel';
-// import VehiclePanel from './component/VehiclePanel';
-import VehicleFleetPanel from './component/VehicleFleetPanel';
-// import TripPlanPanel from './component/TripPlanPanel';
-import GeoFencePanel from './component/GeoFencePanel';
-import PaymentPanel from './component/PaymentPanel';
-import PaymentMethodPanel from './component/PaymentMethodPanel';
-import PhysicalAddrPanel from './component/PhysicalAddrPanel';
-// import DriverPanel from './component/DriverPanel';
-import DriverPoolPanel from './component/DriverPoolPanel';
-import MapBoxPanel from './component/MapBoxPanel';
+import AppLayout from './components/AppLayout';
+import { PaymentMethodService } from './tryout/PaymentMethod';
+// import AdministratorPanel from './components/AdministratorPanel';
+// import PassengerPanel from './components/PassengerPanel';
+// import DirectDepositPanel from './components/DirectDepositPanel';
+// import VehiclePanel from './components/VehiclePanel';
+// import VehicleFleetPanel from './components/VehicleFleetPanel';
+// import TripPlanPanel from './components/TripPlanPanel';
+// import GeoFencePanel from './components/GeoFencePanel';
+// import PaymentPanel from './components/PaymentPanel';
+// import PaymentMethodPanel from './components/PaymentMethodPanel';
+// import PhysicalAddrPanel from './components/PhysicalAddrPanel';
+// import DriverPanel from './components/DriverPanel';
+// import DriverPoolPanel from './components/DriverPoolPanel';
+// import MapBoxPanel from './components/MapBoxPanel';
 
 const tabPages = ['MapBox', 'Administrator', 'Passenger', 'Direct Deposit', 'Vehicle',
   'Vehicle Fleet', 'Driver', 'Driver Pool', 'GeoFence',
-  'Payment', 'Payment Method', 'Physical Address', 'Trip']
+  'Payment', 'Payment Method', 'Physical Address', 'Trip Plan']
 
 function resolveTabPage(page) {
   if (tabPages.includes(page)) {
     switch (page) {
       case 'MapBox': {
-        return <MapBoxPanel />
+        // return <MapBoxPanel />
+        return <PaymentMethodService></PaymentMethodService>
       }
-      case 'Administrator': {
-        return <AdministratorPanel />
-      }
-      case 'Passenger': {
-        return <PassengerPanel />
-      }
-      case 'Direct Deposit': {
-        return <DirectDepositPanel />
-      }
+      // case 'Administrator': {
+      //   return <AdministratorPanel />
+      // }
+      // case 'Passenger': {
+      //   return <PassengerPanel />
+      // }
+      // case 'Direct Deposit': {
+      //   return <DirectDepositPanel />
+      // }
       // case 'Vehicle': {
       //   return <VehiclePanel />
       // }
-      case 'Vehicle Fleet': {
-        return <VehicleFleetPanel />
-      }
+      // case 'Vehicle Fleet': {
+      //   return <VehicleFleetPanel />
+      // }
       // case 'Driver': {
       //   return <DriverPanel />
       // }
-      case 'Driver Pool': {
-        return <DriverPoolPanel />
-      }
+      // case 'Driver Pool': {
+      //   return <DriverPoolPanel />
+      // }
       // case 'Trip Plan': {
       //   return <TripPlanPanel />
       // }
-      case 'GeoFence': {
-        return <GeoFencePanel />
-      }
-      case 'Payment': {
-        return <PaymentPanel />
-      }
-      case 'Payment Method': {
-        return <PaymentMethodPanel />
-      }
-      case 'Physical Address': {
-        return <PhysicalAddrPanel />
-      }
+      // case 'GeoFence': {
+      //   return <GeoFencePanel />
+      // }
+      // case 'Payment': {
+      //   return <PaymentPanel />
+      // }
+      // case 'Payment Method': {
+      //   return <PaymentMethodPanel />
+      // }
+      // case 'Physical Address': {
+      //   return <PhysicalAddrPanel />
+      // }
       default:
         return null
     }
