@@ -25,15 +25,23 @@ export default function DriverPoolUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    poolName: "",
+    created_at: "",
+    title: "",
+    description: "",
   };
-  const [poolName, setPoolName] = React.useState(initialValues.poolName);
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
+  const [title, setTitle] = React.useState(initialValues.title);
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = driverPoolRecord
       ? { ...initialValues, ...driverPoolRecord }
       : initialValues;
-    setPoolName(cleanValues.poolName);
+    setCreated_at(cleanValues.created_at);
+    setTitle(cleanValues.title);
+    setDescription(cleanValues.description);
     setErrors({});
   };
   const [driverPoolRecord, setDriverPoolRecord] =
@@ -54,7 +62,9 @@ export default function DriverPoolUpdateForm(props) {
   }, [idProp, driverPoolModelProp]);
   React.useEffect(resetStateValues, [driverPoolRecord]);
   const validations = {
-    poolName: [{ type: "Required" }],
+    created_at: [{ type: "Required" }],
+    title: [{ type: "Required" }],
+    description: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -73,6 +83,23 @@ export default function DriverPoolUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  };
   return (
     <Grid
       as="form"
@@ -82,7 +109,9 @@ export default function DriverPoolUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          poolName,
+          created_at,
+          title,
+          description: description ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -135,28 +164,84 @@ export default function DriverPoolUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Pool name"
+        label="Created at"
         isRequired={true}
         isReadOnly={false}
-        value={poolName}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              title,
+              description,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
+        label="Title"
+        isRequired={true}
+        isReadOnly={false}
+        value={title}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              poolName: value,
+              created_at,
+              title: value,
+              description,
             };
             const result = onChange(modelFields);
-            value = result?.poolName ?? value;
+            value = result?.title ?? value;
           }
-          if (errors.poolName?.hasError) {
-            runValidationTasks("poolName", value);
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
           }
-          setPoolName(value);
+          setTitle(value);
         }}
-        onBlur={() => runValidationTasks("poolName", poolName)}
-        errorMessage={errors.poolName?.errorMessage}
-        hasError={errors.poolName?.hasError}
-        {...getOverrideProps(overrides, "poolName")}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
+      ></TextField>
+      <TextField
+        label="Description"
+        isRequired={false}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              created_at,
+              title,
+              description: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
       ></TextField>
       <Flex
         justifyContent="space-between"

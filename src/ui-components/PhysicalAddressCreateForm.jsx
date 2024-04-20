@@ -23,32 +23,38 @@ export default function PhysicalAddressCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    streetName: "",
-    unitNumber: "",
+    created_at: "",
+    street_name: "",
+    unit_num: "",
     city: "",
     state: "",
-    zipCode: "",
+    zip_code: "",
   };
-  const [streetName, setStreetName] = React.useState(initialValues.streetName);
-  const [unitNumber, setUnitNumber] = React.useState(initialValues.unitNumber);
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
+  const [street_name, setStreet_name] = React.useState(
+    initialValues.street_name
+  );
+  const [unit_num, setUnit_num] = React.useState(initialValues.unit_num);
   const [city, setCity] = React.useState(initialValues.city);
   const [state, setState] = React.useState(initialValues.state);
-  const [zipCode, setZipCode] = React.useState(initialValues.zipCode);
+  const [zip_code, setZip_code] = React.useState(initialValues.zip_code);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setStreetName(initialValues.streetName);
-    setUnitNumber(initialValues.unitNumber);
+    setCreated_at(initialValues.created_at);
+    setStreet_name(initialValues.street_name);
+    setUnit_num(initialValues.unit_num);
     setCity(initialValues.city);
     setState(initialValues.state);
-    setZipCode(initialValues.zipCode);
+    setZip_code(initialValues.zip_code);
     setErrors({});
   };
   const validations = {
-    streetName: [{ type: "Required" }],
-    unitNumber: [],
+    created_at: [{ type: "Required" }],
+    street_name: [{ type: "Required" }],
+    unit_num: [],
     city: [{ type: "Required" }],
     state: [{ type: "Required" }],
-    zipCode: [{ type: "Required" }],
+    zip_code: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -67,6 +73,23 @@ export default function PhysicalAddressCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  };
   return (
     <Grid
       as="form"
@@ -76,11 +99,12 @@ export default function PhysicalAddressCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          streetName,
-          unitNumber,
+          created_at,
+          street_name,
+          unit_num,
           city,
           state,
-          zipCode,
+          zip_code,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -135,60 +159,93 @@ export default function PhysicalAddressCreateForm(props) {
       {...rest}
     >
       <TextField
+        label="Created at"
+        isRequired={true}
+        isReadOnly={false}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              street_name,
+              unit_num,
+              city,
+              state,
+              zip_code,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
         label="Street name"
         isRequired={true}
         isReadOnly={false}
-        value={streetName}
+        value={street_name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              streetName: value,
-              unitNumber,
+              created_at,
+              street_name: value,
+              unit_num,
               city,
               state,
-              zipCode,
+              zip_code,
             };
             const result = onChange(modelFields);
-            value = result?.streetName ?? value;
+            value = result?.street_name ?? value;
           }
-          if (errors.streetName?.hasError) {
-            runValidationTasks("streetName", value);
+          if (errors.street_name?.hasError) {
+            runValidationTasks("street_name", value);
           }
-          setStreetName(value);
+          setStreet_name(value);
         }}
-        onBlur={() => runValidationTasks("streetName", streetName)}
-        errorMessage={errors.streetName?.errorMessage}
-        hasError={errors.streetName?.hasError}
-        {...getOverrideProps(overrides, "streetName")}
+        onBlur={() => runValidationTasks("street_name", street_name)}
+        errorMessage={errors.street_name?.errorMessage}
+        hasError={errors.street_name?.hasError}
+        {...getOverrideProps(overrides, "street_name")}
       ></TextField>
       <TextField
-        label="Unit number"
+        label="Unit num"
         isRequired={false}
         isReadOnly={false}
-        value={unitNumber}
+        value={unit_num}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              streetName,
-              unitNumber: value,
+              created_at,
+              street_name,
+              unit_num: value,
               city,
               state,
-              zipCode,
+              zip_code,
             };
             const result = onChange(modelFields);
-            value = result?.unitNumber ?? value;
+            value = result?.unit_num ?? value;
           }
-          if (errors.unitNumber?.hasError) {
-            runValidationTasks("unitNumber", value);
+          if (errors.unit_num?.hasError) {
+            runValidationTasks("unit_num", value);
           }
-          setUnitNumber(value);
+          setUnit_num(value);
         }}
-        onBlur={() => runValidationTasks("unitNumber", unitNumber)}
-        errorMessage={errors.unitNumber?.errorMessage}
-        hasError={errors.unitNumber?.hasError}
-        {...getOverrideProps(overrides, "unitNumber")}
+        onBlur={() => runValidationTasks("unit_num", unit_num)}
+        errorMessage={errors.unit_num?.errorMessage}
+        hasError={errors.unit_num?.hasError}
+        {...getOverrideProps(overrides, "unit_num")}
       ></TextField>
       <TextField
         label="City"
@@ -199,11 +256,12 @@ export default function PhysicalAddressCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              streetName,
-              unitNumber,
+              created_at,
+              street_name,
+              unit_num,
               city: value,
               state,
-              zipCode,
+              zip_code,
             };
             const result = onChange(modelFields);
             value = result?.city ?? value;
@@ -227,11 +285,12 @@ export default function PhysicalAddressCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              streetName,
-              unitNumber,
+              created_at,
+              street_name,
+              unit_num,
               city,
               state: value,
-              zipCode,
+              zip_code,
             };
             const result = onChange(modelFields);
             value = result?.state ?? value;
@@ -250,29 +309,30 @@ export default function PhysicalAddressCreateForm(props) {
         label="Zip code"
         isRequired={true}
         isReadOnly={false}
-        value={zipCode}
+        value={zip_code}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              streetName,
-              unitNumber,
+              created_at,
+              street_name,
+              unit_num,
               city,
               state,
-              zipCode: value,
+              zip_code: value,
             };
             const result = onChange(modelFields);
-            value = result?.zipCode ?? value;
+            value = result?.zip_code ?? value;
           }
-          if (errors.zipCode?.hasError) {
-            runValidationTasks("zipCode", value);
+          if (errors.zip_code?.hasError) {
+            runValidationTasks("zip_code", value);
           }
-          setZipCode(value);
+          setZip_code(value);
         }}
-        onBlur={() => runValidationTasks("zipCode", zipCode)}
-        errorMessage={errors.zipCode?.errorMessage}
-        hasError={errors.zipCode?.hasError}
-        {...getOverrideProps(overrides, "zipCode")}
+        onBlur={() => runValidationTasks("zip_code", zip_code)}
+        errorMessage={errors.zip_code?.errorMessage}
+        hasError={errors.zip_code?.hasError}
+        {...getOverrideProps(overrides, "zip_code")}
       ></TextField>
       <Flex
         justifyContent="space-between"

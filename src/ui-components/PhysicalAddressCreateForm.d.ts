@@ -22,27 +22,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type PhysicalAddressCreateFormInputValues = {
-    streetName?: string;
-    unitNumber?: string;
+    created_at?: string;
+    street_name?: string;
+    unit_num?: string;
     city?: string;
     state?: string;
-    zipCode?: string;
+    zip_code?: string;
 };
 export declare type PhysicalAddressCreateFormValidationValues = {
-    streetName?: ValidationFunction<string>;
-    unitNumber?: ValidationFunction<string>;
+    created_at?: ValidationFunction<string>;
+    street_name?: ValidationFunction<string>;
+    unit_num?: ValidationFunction<string>;
     city?: ValidationFunction<string>;
     state?: ValidationFunction<string>;
-    zipCode?: ValidationFunction<string>;
+    zip_code?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PhysicalAddressCreateFormOverridesProps = {
     PhysicalAddressCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    streetName?: PrimitiveOverrideProps<TextFieldProps>;
-    unitNumber?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    street_name?: PrimitiveOverrideProps<TextFieldProps>;
+    unit_num?: PrimitiveOverrideProps<TextFieldProps>;
     city?: PrimitiveOverrideProps<TextFieldProps>;
     state?: PrimitiveOverrideProps<TextFieldProps>;
-    zipCode?: PrimitiveOverrideProps<TextFieldProps>;
+    zip_code?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PhysicalAddressCreateFormProps = React.PropsWithChildren<{
     overrides?: PhysicalAddressCreateFormOverridesProps | undefined | null;

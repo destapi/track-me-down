@@ -1,0 +1,232 @@
+enum PaymentType {
+  CREDITCARD
+  DEBITCARD
+  PAYPAL
+  STRIPE
+}
+
+enum FormOfID {
+  DRIVERS_LICENSE
+  STATE_ID
+  PASSPORT
+}
+
+type Payment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  trip_charge: Float!
+  total_amount: Float!
+  time_of_payment: AWSDateTime!
+  passenger: Passenger @hasOne
+}
+
+type IntRange {
+  min: Int!
+  max: Int!
+}
+
+type TripRating @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  comments: [String]!
+  cleanliness: IntRange!
+  punctuality: IntRange!
+  safe_driving: IntRange!
+  courtesy: IntRange!
+  overall_service: IntRange!
+  trip_charge: TripCharge! @hasOne
+}
+
+type TripCharge @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  amount_charged: Float!
+  tip_applied: Float!
+  trip_summary: TripSummary! @hasOne
+  passenger: Passenger @hasOne
+}
+
+type DirectDeposit @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime
+  routing_number: String!
+  account_number: String!
+  amount_designated: Float
+  percent_designated: Float
+  driver: Driver @hasOne
+}
+
+enum TripStatus {
+  REQUESTED
+  STARTED
+  COMPLETED
+  CANCELLED
+}
+
+type TripSummary @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  path_travelled: [GeoLocation!]!
+  cancellation_charge: Float
+  trip_status: TripStatus!
+  trip_cost: Float!
+  pickup_time: AWSTimestamp!
+  dropoff_time: AWSTimestamp!
+  total_distance: Float!
+  driver: Driver @hasOne
+  trip_plan: TripPlan @hasOne
+}
+
+enum DriverStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+enum EarningTier {
+  ENTRY
+  EXPERIENCED
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+type Driver @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  first_name: String!
+  last_name: String!
+  email_address: AWSEmail!
+  phone_number: AWSPhone!
+  earning_tier: EarningTier
+  license_copy: FileUpload
+  active_status: DriverStatus
+  home_address: PhysicalAddress @hasOne
+  vehicle: Vehicle @hasOne
+  pool_id: DriverPool @hasOne
+}
+
+type FileUpload {
+  name: String
+  url: String!
+  baseDir: String!
+}
+
+type Vehicle @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  vin: String!
+  make: String!
+  year: String!
+  registration_plate: String!
+  registration_proof: FileUpload
+  insurance_proof: FileUpload
+  fleet_id: VehicleFleet @hasOne
+}
+
+enum PickupUrgency {
+  NOW
+  ASAP
+  REGULAR
+  SCHEDULED
+}
+
+type TripPlan @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  pickup_time: AWSDateTime!
+  pickup_urgency: PickupUrgency!
+  pickup_location: GeoLocation!
+  dropoff_location: GeoLocation!
+  num_of_riders: Int!
+  passenger: Passenger @hasOne
+}
+
+enum PassengerStatus {
+  UNVERIFIED
+  ACTIVATED
+  PASSIVATED
+  BANNED
+}
+
+type Passenger @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  first_name: String!
+  last_name: String!
+  email_address: AWSEmail!
+  phone_number: AWSPhone!
+  active_status: PassengerStatus!
+  payment_method: PaymentMethod @hasOne
+}
+
+type VehicleFleet @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  title: String!
+  description: String
+}
+
+type PaymentMethod @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  payment_type: PaymentType!
+  first_name: String!
+  last_name: String!
+  account_number: String!
+  verification_pin: Int!
+}
+
+type Notification @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  event: String!
+  message: String!
+  event_time: AWSTimestamp!
+  event_target: String
+}
+
+type GeoLocation {
+  longitude: Int!
+  latitude: Int!
+}
+
+type GeoFence @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  title: String!
+  coordinates: [GeoLocation!]!
+  valid_from: AWSDate!
+  valid_duration: Int!
+}
+
+type DriverPool @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  title: String!
+  description: String
+}
+
+type PhysicalAddress @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  street_name: String!
+  unit_num: String
+  city: String!
+  state: String!
+  zip_code: String!
+}
+
+type Administrator @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  created_at: AWSDateTime!
+  first_name: String!
+  last_name: String!
+  email_address: AWSEmail!
+  phone_number: AWSPhone!
+  form_of_id: FormOfID
+  home_address: PhysicalAddress @hasOne
+  id_document: FileUpload
+}
+ 

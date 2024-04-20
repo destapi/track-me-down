@@ -22,30 +22,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type PaymentMethodUpdateFormInputValues = {
-    paymentType?: string;
-    accountNumber?: string;
-    firstName?: string;
-    lastName?: string;
-    expiryDate?: string;
-    verificationCode?: number;
+    created_at?: string;
+    payment_type?: string;
+    first_name?: string;
+    last_name?: string;
+    account_number?: string;
+    verification_pin?: number;
 };
 export declare type PaymentMethodUpdateFormValidationValues = {
-    paymentType?: ValidationFunction<string>;
-    accountNumber?: ValidationFunction<string>;
-    firstName?: ValidationFunction<string>;
-    lastName?: ValidationFunction<string>;
-    expiryDate?: ValidationFunction<string>;
-    verificationCode?: ValidationFunction<number>;
+    created_at?: ValidationFunction<string>;
+    payment_type?: ValidationFunction<string>;
+    first_name?: ValidationFunction<string>;
+    last_name?: ValidationFunction<string>;
+    account_number?: ValidationFunction<string>;
+    verification_pin?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PaymentMethodUpdateFormOverridesProps = {
     PaymentMethodUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    paymentType?: PrimitiveOverrideProps<SelectFieldProps>;
-    accountNumber?: PrimitiveOverrideProps<TextFieldProps>;
-    firstName?: PrimitiveOverrideProps<TextFieldProps>;
-    lastName?: PrimitiveOverrideProps<TextFieldProps>;
-    expiryDate?: PrimitiveOverrideProps<TextFieldProps>;
-    verificationCode?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    payment_type?: PrimitiveOverrideProps<SelectFieldProps>;
+    first_name?: PrimitiveOverrideProps<TextFieldProps>;
+    last_name?: PrimitiveOverrideProps<TextFieldProps>;
+    account_number?: PrimitiveOverrideProps<TextFieldProps>;
+    verification_pin?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PaymentMethodUpdateFormProps = React.PropsWithChildren<{
     overrides?: PaymentMethodUpdateFormOverridesProps | undefined | null;

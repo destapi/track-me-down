@@ -22,15 +22,21 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type VehicleFleetUpdateFormInputValues = {
-    fleetTitle?: string;
+    created_at?: string;
+    title?: string;
+    description?: string;
 };
 export declare type VehicleFleetUpdateFormValidationValues = {
-    fleetTitle?: ValidationFunction<string>;
+    created_at?: ValidationFunction<string>;
+    title?: ValidationFunction<string>;
+    description?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type VehicleFleetUpdateFormOverridesProps = {
     VehicleFleetUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    fleetTitle?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
+    description?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type VehicleFleetUpdateFormProps = React.PropsWithChildren<{
     overrides?: VehicleFleetUpdateFormOverridesProps | undefined | null;

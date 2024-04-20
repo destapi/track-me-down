@@ -29,44 +29,42 @@ export default function PassengerCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    emailAddress: "",
-    dateRegistered: "",
-    activeStatus: "",
+    created_at: "",
+    first_name: "",
+    last_name: "",
+    email_address: "",
+    phone_number: "",
+    active_status: "",
   };
-  const [firstName, setFirstName] = React.useState(initialValues.firstName);
-  const [lastName, setLastName] = React.useState(initialValues.lastName);
-  const [phoneNumber, setPhoneNumber] = React.useState(
-    initialValues.phoneNumber
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
+  const [first_name, setFirst_name] = React.useState(initialValues.first_name);
+  const [last_name, setLast_name] = React.useState(initialValues.last_name);
+  const [email_address, setEmail_address] = React.useState(
+    initialValues.email_address
   );
-  const [emailAddress, setEmailAddress] = React.useState(
-    initialValues.emailAddress
+  const [phone_number, setPhone_number] = React.useState(
+    initialValues.phone_number
   );
-  const [dateRegistered, setDateRegistered] = React.useState(
-    initialValues.dateRegistered
-  );
-  const [activeStatus, setActiveStatus] = React.useState(
-    initialValues.activeStatus
+  const [active_status, setActive_status] = React.useState(
+    initialValues.active_status
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setFirstName(initialValues.firstName);
-    setLastName(initialValues.lastName);
-    setPhoneNumber(initialValues.phoneNumber);
-    setEmailAddress(initialValues.emailAddress);
-    setDateRegistered(initialValues.dateRegistered);
-    setActiveStatus(initialValues.activeStatus);
+    setCreated_at(initialValues.created_at);
+    setFirst_name(initialValues.first_name);
+    setLast_name(initialValues.last_name);
+    setEmail_address(initialValues.email_address);
+    setPhone_number(initialValues.phone_number);
+    setActive_status(initialValues.active_status);
     setErrors({});
   };
   const validations = {
-    firstName: [{ type: "Required" }],
-    lastName: [{ type: "Required" }],
-    phoneNumber: [{ type: "Required" }, { type: "Phone" }],
-    emailAddress: [{ type: "Required" }, { type: "Email" }],
-    dateRegistered: [],
-    activeStatus: [],
+    created_at: [{ type: "Required" }],
+    first_name: [{ type: "Required" }],
+    last_name: [{ type: "Required" }],
+    email_address: [{ type: "Required" }, { type: "Email" }],
+    phone_number: [{ type: "Required" }, { type: "Phone" }],
+    active_status: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -85,6 +83,23 @@ export default function PassengerCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  };
   return (
     <Grid
       as="form"
@@ -94,12 +109,12 @@ export default function PassengerCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          firstName,
-          lastName,
-          phoneNumber,
-          emailAddress,
-          dateRegistered,
-          activeStatus,
+          created_at,
+          first_name,
+          last_name,
+          email_address,
+          phone_number,
+          active_status,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -154,200 +169,201 @@ export default function PassengerCreateForm(props) {
       {...rest}
     >
       <TextField
+        label="Created at"
+        isRequired={true}
+        isReadOnly={false}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              first_name,
+              last_name,
+              email_address,
+              phone_number,
+              active_status,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
         label="First name"
         isRequired={true}
         isReadOnly={false}
-        value={firstName}
+        value={first_name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName: value,
-              lastName,
-              phoneNumber,
-              emailAddress,
-              dateRegistered,
-              activeStatus,
+              created_at,
+              first_name: value,
+              last_name,
+              email_address,
+              phone_number,
+              active_status,
             };
             const result = onChange(modelFields);
-            value = result?.firstName ?? value;
+            value = result?.first_name ?? value;
           }
-          if (errors.firstName?.hasError) {
-            runValidationTasks("firstName", value);
+          if (errors.first_name?.hasError) {
+            runValidationTasks("first_name", value);
           }
-          setFirstName(value);
+          setFirst_name(value);
         }}
-        onBlur={() => runValidationTasks("firstName", firstName)}
-        errorMessage={errors.firstName?.errorMessage}
-        hasError={errors.firstName?.hasError}
-        {...getOverrideProps(overrides, "firstName")}
+        onBlur={() => runValidationTasks("first_name", first_name)}
+        errorMessage={errors.first_name?.errorMessage}
+        hasError={errors.first_name?.hasError}
+        {...getOverrideProps(overrides, "first_name")}
       ></TextField>
       <TextField
         label="Last name"
         isRequired={true}
         isReadOnly={false}
-        value={lastName}
+        value={last_name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName,
-              lastName: value,
-              phoneNumber,
-              emailAddress,
-              dateRegistered,
-              activeStatus,
+              created_at,
+              first_name,
+              last_name: value,
+              email_address,
+              phone_number,
+              active_status,
             };
             const result = onChange(modelFields);
-            value = result?.lastName ?? value;
+            value = result?.last_name ?? value;
           }
-          if (errors.lastName?.hasError) {
-            runValidationTasks("lastName", value);
+          if (errors.last_name?.hasError) {
+            runValidationTasks("last_name", value);
           }
-          setLastName(value);
+          setLast_name(value);
         }}
-        onBlur={() => runValidationTasks("lastName", lastName)}
-        errorMessage={errors.lastName?.errorMessage}
-        hasError={errors.lastName?.hasError}
-        {...getOverrideProps(overrides, "lastName")}
+        onBlur={() => runValidationTasks("last_name", last_name)}
+        errorMessage={errors.last_name?.errorMessage}
+        hasError={errors.last_name?.hasError}
+        {...getOverrideProps(overrides, "last_name")}
+      ></TextField>
+      <TextField
+        label="Email address"
+        isRequired={true}
+        isReadOnly={false}
+        value={email_address}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              created_at,
+              first_name,
+              last_name,
+              email_address: value,
+              phone_number,
+              active_status,
+            };
+            const result = onChange(modelFields);
+            value = result?.email_address ?? value;
+          }
+          if (errors.email_address?.hasError) {
+            runValidationTasks("email_address", value);
+          }
+          setEmail_address(value);
+        }}
+        onBlur={() => runValidationTasks("email_address", email_address)}
+        errorMessage={errors.email_address?.errorMessage}
+        hasError={errors.email_address?.hasError}
+        {...getOverrideProps(overrides, "email_address")}
       ></TextField>
       <TextField
         label="Phone number"
         isRequired={true}
         isReadOnly={false}
         type="tel"
-        value={phoneNumber}
+        value={phone_number}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName,
-              lastName,
-              phoneNumber: value,
-              emailAddress,
-              dateRegistered,
-              activeStatus,
+              created_at,
+              first_name,
+              last_name,
+              email_address,
+              phone_number: value,
+              active_status,
             };
             const result = onChange(modelFields);
-            value = result?.phoneNumber ?? value;
+            value = result?.phone_number ?? value;
           }
-          if (errors.phoneNumber?.hasError) {
-            runValidationTasks("phoneNumber", value);
+          if (errors.phone_number?.hasError) {
+            runValidationTasks("phone_number", value);
           }
-          setPhoneNumber(value);
+          setPhone_number(value);
         }}
-        onBlur={() => runValidationTasks("phoneNumber", phoneNumber)}
-        errorMessage={errors.phoneNumber?.errorMessage}
-        hasError={errors.phoneNumber?.hasError}
-        {...getOverrideProps(overrides, "phoneNumber")}
-      ></TextField>
-      <TextField
-        label="Email address"
-        isRequired={true}
-        isReadOnly={false}
-        value={emailAddress}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              phoneNumber,
-              emailAddress: value,
-              dateRegistered,
-              activeStatus,
-            };
-            const result = onChange(modelFields);
-            value = result?.emailAddress ?? value;
-          }
-          if (errors.emailAddress?.hasError) {
-            runValidationTasks("emailAddress", value);
-          }
-          setEmailAddress(value);
-        }}
-        onBlur={() => runValidationTasks("emailAddress", emailAddress)}
-        errorMessage={errors.emailAddress?.errorMessage}
-        hasError={errors.emailAddress?.hasError}
-        {...getOverrideProps(overrides, "emailAddress")}
-      ></TextField>
-      <TextField
-        label="Date registered"
-        isRequired={false}
-        isReadOnly={false}
-        type="date"
-        value={dateRegistered}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              phoneNumber,
-              emailAddress,
-              dateRegistered: value,
-              activeStatus,
-            };
-            const result = onChange(modelFields);
-            value = result?.dateRegistered ?? value;
-          }
-          if (errors.dateRegistered?.hasError) {
-            runValidationTasks("dateRegistered", value);
-          }
-          setDateRegistered(value);
-        }}
-        onBlur={() => runValidationTasks("dateRegistered", dateRegistered)}
-        errorMessage={errors.dateRegistered?.errorMessage}
-        hasError={errors.dateRegistered?.hasError}
-        {...getOverrideProps(overrides, "dateRegistered")}
+        onBlur={() => runValidationTasks("phone_number", phone_number)}
+        errorMessage={errors.phone_number?.errorMessage}
+        hasError={errors.phone_number?.hasError}
+        {...getOverrideProps(overrides, "phone_number")}
       ></TextField>
       <SelectField
         label="Active status"
         placeholder="Please select an option"
         isDisabled={false}
-        value={activeStatus}
+        value={active_status}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName,
-              lastName,
-              phoneNumber,
-              emailAddress,
-              dateRegistered,
-              activeStatus: value,
+              created_at,
+              first_name,
+              last_name,
+              email_address,
+              phone_number,
+              active_status: value,
             };
             const result = onChange(modelFields);
-            value = result?.activeStatus ?? value;
+            value = result?.active_status ?? value;
           }
-          if (errors.activeStatus?.hasError) {
-            runValidationTasks("activeStatus", value);
+          if (errors.active_status?.hasError) {
+            runValidationTasks("active_status", value);
           }
-          setActiveStatus(value);
+          setActive_status(value);
         }}
-        onBlur={() => runValidationTasks("activeStatus", activeStatus)}
-        errorMessage={errors.activeStatus?.errorMessage}
-        hasError={errors.activeStatus?.hasError}
-        {...getOverrideProps(overrides, "activeStatus")}
+        onBlur={() => runValidationTasks("active_status", active_status)}
+        errorMessage={errors.active_status?.errorMessage}
+        hasError={errors.active_status?.hasError}
+        {...getOverrideProps(overrides, "active_status")}
       >
         <option
           children="Unverified"
           value="UNVERIFIED"
-          {...getOverrideProps(overrides, "activeStatusoption0")}
+          {...getOverrideProps(overrides, "active_statusoption0")}
         ></option>
         <option
           children="Activated"
           value="ACTIVATED"
-          {...getOverrideProps(overrides, "activeStatusoption1")}
+          {...getOverrideProps(overrides, "active_statusoption1")}
         ></option>
         <option
           children="Passivated"
           value="PASSIVATED"
-          {...getOverrideProps(overrides, "activeStatusoption2")}
+          {...getOverrideProps(overrides, "active_statusoption2")}
         ></option>
         <option
           children="Banned"
           value="BANNED"
-          {...getOverrideProps(overrides, "activeStatusoption3")}
+          {...getOverrideProps(overrides, "active_statusoption3")}
         ></option>
       </SelectField>
       <Flex

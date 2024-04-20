@@ -22,18 +22,24 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type PaymentUpdateFormInputValues = {
-    totalAmount?: number;
-    datePaid?: string;
+    created_at?: string;
+    trip_charge?: number;
+    total_amount?: number;
+    time_of_payment?: string;
 };
 export declare type PaymentUpdateFormValidationValues = {
-    totalAmount?: ValidationFunction<number>;
-    datePaid?: ValidationFunction<string>;
+    created_at?: ValidationFunction<string>;
+    trip_charge?: ValidationFunction<number>;
+    total_amount?: ValidationFunction<number>;
+    time_of_payment?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PaymentUpdateFormOverridesProps = {
     PaymentUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    totalAmount?: PrimitiveOverrideProps<TextFieldProps>;
-    datePaid?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    trip_charge?: PrimitiveOverrideProps<TextFieldProps>;
+    total_amount?: PrimitiveOverrideProps<TextFieldProps>;
+    time_of_payment?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PaymentUpdateFormProps = React.PropsWithChildren<{
     overrides?: PaymentUpdateFormOverridesProps | undefined | null;

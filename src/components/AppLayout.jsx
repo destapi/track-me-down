@@ -35,6 +35,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import BusinessIcon from '@mui/icons-material/Business';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import PaidIcon from '@mui/icons-material/Paid';
 import '../layout.css'
 
 const drawerWidth = 240;
@@ -210,7 +211,7 @@ export default function AppLayout({ username, onSignOut, setPage, children }) {
                     </DrawerHeader>
                     <Divider />
                     <List>
-                        {[['MapBox', <HomeIcon key="home" />], ['Trip Plan', <LuggageIcon key="tripplan" />], ['Passenger', <HailIcon key="passenger" />], ['Payment Method', <AddCardIcon key="paymentmethod" />], ['Payment', <ContactlessIcon key="payment" />]].map(([text, icon]) => (
+                        {[['MapBox', <HomeIcon key="home" />], ['Trip Plan', <LuggageIcon key="tripplan" />], ['Trip Charge', <PaidIcon key="tripcharge" />], ['Passenger', <HailIcon key="passenger" />], ['Payment Method', <AddCardIcon key="paymentmethod" />], ['Payment', <ContactlessIcon key="payment" />]].map(([text, icon]) => (
                             <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => setPage(text)}>
                                 <ListItemButton
                                     sx={{

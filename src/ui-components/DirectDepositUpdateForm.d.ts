@@ -22,24 +22,27 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type DirectDepositUpdateFormInputValues = {
-    routingNumber?: string;
-    accountNumber?: string;
-    amountDesignated?: string;
-    percentageDesignated?: string;
+    created_at?: string;
+    routing_number?: string;
+    account_number?: string;
+    amount_designated?: number;
+    percent_designated?: number;
 };
 export declare type DirectDepositUpdateFormValidationValues = {
-    routingNumber?: ValidationFunction<string>;
-    accountNumber?: ValidationFunction<string>;
-    amountDesignated?: ValidationFunction<string>;
-    percentageDesignated?: ValidationFunction<string>;
+    created_at?: ValidationFunction<string>;
+    routing_number?: ValidationFunction<string>;
+    account_number?: ValidationFunction<string>;
+    amount_designated?: ValidationFunction<number>;
+    percent_designated?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DirectDepositUpdateFormOverridesProps = {
     DirectDepositUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    routingNumber?: PrimitiveOverrideProps<TextFieldProps>;
-    accountNumber?: PrimitiveOverrideProps<TextFieldProps>;
-    amountDesignated?: PrimitiveOverrideProps<TextFieldProps>;
-    percentageDesignated?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    routing_number?: PrimitiveOverrideProps<TextFieldProps>;
+    account_number?: PrimitiveOverrideProps<TextFieldProps>;
+    amount_designated?: PrimitiveOverrideProps<TextFieldProps>;
+    percent_designated?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type DirectDepositUpdateFormProps = React.PropsWithChildren<{
     overrides?: DirectDepositUpdateFormOverridesProps | undefined | null;

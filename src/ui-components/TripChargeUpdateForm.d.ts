@@ -22,18 +22,27 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type TripChargeUpdateFormInputValues = {
-    cost?: number;
-    tip?: number;
+    created_at?: string;
+    amount_charged?: number;
+    tip_applied?: number;
+    passenger?: string;
+    trip_summary?: string;
 };
 export declare type TripChargeUpdateFormValidationValues = {
-    cost?: ValidationFunction<number>;
-    tip?: ValidationFunction<number>;
+    created_at?: ValidationFunction<string>;
+    amount_charged?: ValidationFunction<number>;
+    tip_applied?: ValidationFunction<number>;
+    passenger?: ValidationFunction<string>;
+    trip_summary?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type TripChargeUpdateFormOverridesProps = {
     TripChargeUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    cost?: PrimitiveOverrideProps<TextFieldProps>;
-    tip?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    amount_charged?: PrimitiveOverrideProps<TextFieldProps>;
+    tip_applied?: PrimitiveOverrideProps<TextFieldProps>;
+    passenger?: PrimitiveOverrideProps<TextFieldProps>;
+    trip_summary?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type TripChargeUpdateFormProps = React.PropsWithChildren<{
     overrides?: TripChargeUpdateFormOverridesProps | undefined | null;

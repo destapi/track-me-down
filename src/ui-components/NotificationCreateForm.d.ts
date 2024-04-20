@@ -22,24 +22,27 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type NotificationCreateFormInputValues = {
+    created_at?: string;
     event?: string;
     message?: string;
-    time?: string;
-    target?: string;
+    event_time?: number;
+    event_target?: string;
 };
 export declare type NotificationCreateFormValidationValues = {
+    created_at?: ValidationFunction<string>;
     event?: ValidationFunction<string>;
     message?: ValidationFunction<string>;
-    time?: ValidationFunction<string>;
-    target?: ValidationFunction<string>;
+    event_time?: ValidationFunction<number>;
+    event_target?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NotificationCreateFormOverridesProps = {
     NotificationCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
     event?: PrimitiveOverrideProps<TextFieldProps>;
     message?: PrimitiveOverrideProps<TextFieldProps>;
-    time?: PrimitiveOverrideProps<TextFieldProps>;
-    target?: PrimitiveOverrideProps<TextFieldProps>;
+    event_time?: PrimitiveOverrideProps<TextFieldProps>;
+    event_target?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NotificationCreateFormProps = React.PropsWithChildren<{
     overrides?: NotificationCreateFormOverridesProps | undefined | null;

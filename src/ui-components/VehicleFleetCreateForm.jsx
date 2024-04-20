@@ -23,16 +23,26 @@ export default function VehicleFleetCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    fleetTitle: "",
+    created_at: "",
+    title: "",
+    description: "",
   };
-  const [fleetTitle, setFleetTitle] = React.useState(initialValues.fleetTitle);
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
+  const [title, setTitle] = React.useState(initialValues.title);
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setFleetTitle(initialValues.fleetTitle);
+    setCreated_at(initialValues.created_at);
+    setTitle(initialValues.title);
+    setDescription(initialValues.description);
     setErrors({});
   };
   const validations = {
-    fleetTitle: [],
+    created_at: [{ type: "Required" }],
+    title: [{ type: "Required" }],
+    description: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -51,6 +61,23 @@ export default function VehicleFleetCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  };
   return (
     <Grid
       as="form"
@@ -60,7 +87,9 @@ export default function VehicleFleetCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          fleetTitle,
+          created_at,
+          title,
+          description,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -115,28 +144,84 @@ export default function VehicleFleetCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Fleet title"
-        isRequired={false}
+        label="Created at"
+        isRequired={true}
         isReadOnly={false}
-        value={fleetTitle}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              title,
+              description,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
+        label="Title"
+        isRequired={true}
+        isReadOnly={false}
+        value={title}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              fleetTitle: value,
+              created_at,
+              title: value,
+              description,
             };
             const result = onChange(modelFields);
-            value = result?.fleetTitle ?? value;
+            value = result?.title ?? value;
           }
-          if (errors.fleetTitle?.hasError) {
-            runValidationTasks("fleetTitle", value);
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
           }
-          setFleetTitle(value);
+          setTitle(value);
         }}
-        onBlur={() => runValidationTasks("fleetTitle", fleetTitle)}
-        errorMessage={errors.fleetTitle?.errorMessage}
-        hasError={errors.fleetTitle?.hasError}
-        {...getOverrideProps(overrides, "fleetTitle")}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
+      ></TextField>
+      <TextField
+        label="Description"
+        isRequired={false}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              created_at,
+              title,
+              description: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
       ></TextField>
       <Flex
         justifyContent="space-between"

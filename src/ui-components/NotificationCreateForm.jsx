@@ -23,28 +23,34 @@ export default function NotificationCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    created_at: "",
     event: "",
     message: "",
-    time: "",
-    target: "",
+    event_time: "",
+    event_target: "",
   };
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
   const [event, setEvent] = React.useState(initialValues.event);
   const [message, setMessage] = React.useState(initialValues.message);
-  const [time, setTime] = React.useState(initialValues.time);
-  const [target, setTarget] = React.useState(initialValues.target);
+  const [event_time, setEvent_time] = React.useState(initialValues.event_time);
+  const [event_target, setEvent_target] = React.useState(
+    initialValues.event_target
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
+    setCreated_at(initialValues.created_at);
     setEvent(initialValues.event);
     setMessage(initialValues.message);
-    setTime(initialValues.time);
-    setTarget(initialValues.target);
+    setEvent_time(initialValues.event_time);
+    setEvent_target(initialValues.event_target);
     setErrors({});
   };
   const validations = {
-    event: [],
-    message: [],
-    time: [],
-    target: [],
+    created_at: [{ type: "Required" }],
+    event: [{ type: "Required" }],
+    message: [{ type: "Required" }],
+    event_time: [{ type: "Required" }],
+    event_target: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -62,6 +68,12 @@ export default function NotificationCreateForm(props) {
     }
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
+  };
+  const convertTimeStampToDate = (ts) => {
+    if (Math.abs(Date.now() - ts) < Math.abs(Date.now() - ts * 1000)) {
+      return new Date(ts);
+    }
+    return new Date(ts * 1000);
   };
   const convertToLocal = (date) => {
     const df = new Intl.DateTimeFormat("default", {
@@ -89,10 +101,11 @@ export default function NotificationCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          created_at,
           event,
           message,
-          time,
-          target,
+          event_time,
+          event_target,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -147,18 +160,49 @@ export default function NotificationCreateForm(props) {
       {...rest}
     >
       <TextField
+        label="Created at"
+        isRequired={true}
+        isReadOnly={false}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              event,
+              message,
+              event_time,
+              event_target,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
         label="Event"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={event}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              created_at,
               event: value,
               message,
-              time,
-              target,
+              event_time,
+              event_target,
             };
             const result = onChange(modelFields);
             value = result?.event ?? value;
@@ -175,17 +219,18 @@ export default function NotificationCreateForm(props) {
       ></TextField>
       <TextField
         label="Message"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={message}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              created_at,
               event,
               message: value,
-              time,
-              target,
+              event_time,
+              event_target,
             };
             const result = onChange(modelFields);
             value = result?.message ?? value;
@@ -201,60 +246,62 @@ export default function NotificationCreateForm(props) {
         {...getOverrideProps(overrides, "message")}
       ></TextField>
       <TextField
-        label="Time"
-        isRequired={false}
+        label="Event time"
+        isRequired={true}
         isReadOnly={false}
         type="datetime-local"
-        value={time && convertToLocal(new Date(time))}
+        value={event_time && convertToLocal(convertTimeStampToDate(event_time))}
         onChange={(e) => {
           let value =
-            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+            e.target.value === "" ? "" : Number(new Date(e.target.value));
           if (onChange) {
             const modelFields = {
+              created_at,
               event,
               message,
-              time: value,
-              target,
+              event_time: value,
+              event_target,
             };
             const result = onChange(modelFields);
-            value = result?.time ?? value;
+            value = result?.event_time ?? value;
           }
-          if (errors.time?.hasError) {
-            runValidationTasks("time", value);
+          if (errors.event_time?.hasError) {
+            runValidationTasks("event_time", value);
           }
-          setTime(value);
+          setEvent_time(value);
         }}
-        onBlur={() => runValidationTasks("time", time)}
-        errorMessage={errors.time?.errorMessage}
-        hasError={errors.time?.hasError}
-        {...getOverrideProps(overrides, "time")}
+        onBlur={() => runValidationTasks("event_time", event_time)}
+        errorMessage={errors.event_time?.errorMessage}
+        hasError={errors.event_time?.hasError}
+        {...getOverrideProps(overrides, "event_time")}
       ></TextField>
       <TextField
-        label="Target"
+        label="Event target"
         isRequired={false}
         isReadOnly={false}
-        value={target}
+        value={event_target}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              created_at,
               event,
               message,
-              time,
-              target: value,
+              event_time,
+              event_target: value,
             };
             const result = onChange(modelFields);
-            value = result?.target ?? value;
+            value = result?.event_target ?? value;
           }
-          if (errors.target?.hasError) {
-            runValidationTasks("target", value);
+          if (errors.event_target?.hasError) {
+            runValidationTasks("event_target", value);
           }
-          setTarget(value);
+          setEvent_target(value);
         }}
-        onBlur={() => runValidationTasks("target", target)}
-        errorMessage={errors.target?.errorMessage}
-        hasError={errors.target?.hasError}
-        {...getOverrideProps(overrides, "target")}
+        onBlur={() => runValidationTasks("event_target", event_target)}
+        errorMessage={errors.event_target?.errorMessage}
+        hasError={errors.event_target?.hasError}
+        {...getOverrideProps(overrides, "event_target")}
       ></TextField>
       <Flex
         justifyContent="space-between"

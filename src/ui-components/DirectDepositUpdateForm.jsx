@@ -25,32 +25,35 @@ export default function DirectDepositUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    routingNumber: "",
-    accountNumber: "",
-    amountDesignated: "",
-    percentageDesignated: "",
+    created_at: "",
+    routing_number: "",
+    account_number: "",
+    amount_designated: "",
+    percent_designated: "",
   };
-  const [routingNumber, setRoutingNumber] = React.useState(
-    initialValues.routingNumber
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
+  const [routing_number, setRouting_number] = React.useState(
+    initialValues.routing_number
   );
-  const [accountNumber, setAccountNumber] = React.useState(
-    initialValues.accountNumber
+  const [account_number, setAccount_number] = React.useState(
+    initialValues.account_number
   );
-  const [amountDesignated, setAmountDesignated] = React.useState(
-    initialValues.amountDesignated
+  const [amount_designated, setAmount_designated] = React.useState(
+    initialValues.amount_designated
   );
-  const [percentageDesignated, setPercentageDesignated] = React.useState(
-    initialValues.percentageDesignated
+  const [percent_designated, setPercent_designated] = React.useState(
+    initialValues.percent_designated
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = directDepositRecord
       ? { ...initialValues, ...directDepositRecord }
       : initialValues;
-    setRoutingNumber(cleanValues.routingNumber);
-    setAccountNumber(cleanValues.accountNumber);
-    setAmountDesignated(cleanValues.amountDesignated);
-    setPercentageDesignated(cleanValues.percentageDesignated);
+    setCreated_at(cleanValues.created_at);
+    setRouting_number(cleanValues.routing_number);
+    setAccount_number(cleanValues.account_number);
+    setAmount_designated(cleanValues.amount_designated);
+    setPercent_designated(cleanValues.percent_designated);
     setErrors({});
   };
   const [directDepositRecord, setDirectDepositRecord] = React.useState(
@@ -72,10 +75,11 @@ export default function DirectDepositUpdateForm(props) {
   }, [idProp, directDepositModelProp]);
   React.useEffect(resetStateValues, [directDepositRecord]);
   const validations = {
-    routingNumber: [],
-    accountNumber: [],
-    amountDesignated: [],
-    percentageDesignated: [],
+    created_at: [],
+    routing_number: [{ type: "Required" }],
+    account_number: [{ type: "Required" }],
+    amount_designated: [],
+    percent_designated: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -94,6 +98,23 @@ export default function DirectDepositUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  };
   return (
     <Grid
       as="form"
@@ -103,10 +124,11 @@ export default function DirectDepositUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          routingNumber: routingNumber ?? null,
-          accountNumber: accountNumber ?? null,
-          amountDesignated: amountDesignated ?? null,
-          percentageDesignated: percentageDesignated ?? null,
+          created_at: created_at ?? null,
+          routing_number,
+          account_number,
+          amount_designated: amount_designated ?? null,
+          percent_designated: percent_designated ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -159,114 +181,158 @@ export default function DirectDepositUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Routing number"
+        label="Created at"
         isRequired={false}
         isReadOnly={false}
-        value={routingNumber}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              routing_number,
+              account_number,
+              amount_designated,
+              percent_designated,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
+        label="Routing number"
+        isRequired={true}
+        isReadOnly={false}
+        value={routing_number}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              routingNumber: value,
-              accountNumber,
-              amountDesignated,
-              percentageDesignated,
+              created_at,
+              routing_number: value,
+              account_number,
+              amount_designated,
+              percent_designated,
             };
             const result = onChange(modelFields);
-            value = result?.routingNumber ?? value;
+            value = result?.routing_number ?? value;
           }
-          if (errors.routingNumber?.hasError) {
-            runValidationTasks("routingNumber", value);
+          if (errors.routing_number?.hasError) {
+            runValidationTasks("routing_number", value);
           }
-          setRoutingNumber(value);
+          setRouting_number(value);
         }}
-        onBlur={() => runValidationTasks("routingNumber", routingNumber)}
-        errorMessage={errors.routingNumber?.errorMessage}
-        hasError={errors.routingNumber?.hasError}
-        {...getOverrideProps(overrides, "routingNumber")}
+        onBlur={() => runValidationTasks("routing_number", routing_number)}
+        errorMessage={errors.routing_number?.errorMessage}
+        hasError={errors.routing_number?.hasError}
+        {...getOverrideProps(overrides, "routing_number")}
       ></TextField>
       <TextField
         label="Account number"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
-        value={accountNumber}
+        value={account_number}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              routingNumber,
-              accountNumber: value,
-              amountDesignated,
-              percentageDesignated,
+              created_at,
+              routing_number,
+              account_number: value,
+              amount_designated,
+              percent_designated,
             };
             const result = onChange(modelFields);
-            value = result?.accountNumber ?? value;
+            value = result?.account_number ?? value;
           }
-          if (errors.accountNumber?.hasError) {
-            runValidationTasks("accountNumber", value);
+          if (errors.account_number?.hasError) {
+            runValidationTasks("account_number", value);
           }
-          setAccountNumber(value);
+          setAccount_number(value);
         }}
-        onBlur={() => runValidationTasks("accountNumber", accountNumber)}
-        errorMessage={errors.accountNumber?.errorMessage}
-        hasError={errors.accountNumber?.hasError}
-        {...getOverrideProps(overrides, "accountNumber")}
+        onBlur={() => runValidationTasks("account_number", account_number)}
+        errorMessage={errors.account_number?.errorMessage}
+        hasError={errors.account_number?.hasError}
+        {...getOverrideProps(overrides, "account_number")}
       ></TextField>
       <TextField
         label="Amount designated"
         isRequired={false}
         isReadOnly={false}
-        value={amountDesignated}
+        type="number"
+        step="any"
+        value={amount_designated}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              routingNumber,
-              accountNumber,
-              amountDesignated: value,
-              percentageDesignated,
+              created_at,
+              routing_number,
+              account_number,
+              amount_designated: value,
+              percent_designated,
             };
             const result = onChange(modelFields);
-            value = result?.amountDesignated ?? value;
+            value = result?.amount_designated ?? value;
           }
-          if (errors.amountDesignated?.hasError) {
-            runValidationTasks("amountDesignated", value);
+          if (errors.amount_designated?.hasError) {
+            runValidationTasks("amount_designated", value);
           }
-          setAmountDesignated(value);
-        }}
-        onBlur={() => runValidationTasks("amountDesignated", amountDesignated)}
-        errorMessage={errors.amountDesignated?.errorMessage}
-        hasError={errors.amountDesignated?.hasError}
-        {...getOverrideProps(overrides, "amountDesignated")}
-      ></TextField>
-      <TextField
-        label="Percentage designated"
-        isRequired={false}
-        isReadOnly={false}
-        value={percentageDesignated}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              routingNumber,
-              accountNumber,
-              amountDesignated,
-              percentageDesignated: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.percentageDesignated ?? value;
-          }
-          if (errors.percentageDesignated?.hasError) {
-            runValidationTasks("percentageDesignated", value);
-          }
-          setPercentageDesignated(value);
+          setAmount_designated(value);
         }}
         onBlur={() =>
-          runValidationTasks("percentageDesignated", percentageDesignated)
+          runValidationTasks("amount_designated", amount_designated)
         }
-        errorMessage={errors.percentageDesignated?.errorMessage}
-        hasError={errors.percentageDesignated?.hasError}
-        {...getOverrideProps(overrides, "percentageDesignated")}
+        errorMessage={errors.amount_designated?.errorMessage}
+        hasError={errors.amount_designated?.hasError}
+        {...getOverrideProps(overrides, "amount_designated")}
+      ></TextField>
+      <TextField
+        label="Percent designated"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={percent_designated}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              created_at,
+              routing_number,
+              account_number,
+              amount_designated,
+              percent_designated: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.percent_designated ?? value;
+          }
+          if (errors.percent_designated?.hasError) {
+            runValidationTasks("percent_designated", value);
+          }
+          setPercent_designated(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("percent_designated", percent_designated)
+        }
+        errorMessage={errors.percent_designated?.errorMessage}
+        hasError={errors.percent_designated?.hasError}
+        {...getOverrideProps(overrides, "percent_designated")}
       ></TextField>
       <Flex
         justifyContent="space-between"

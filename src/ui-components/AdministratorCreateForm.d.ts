@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -22,27 +22,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type AdministratorCreateFormInputValues = {
-    firstName?: string;
-    lastName?: string;
-    phoneNumber?: string;
-    emailAddress?: string;
-    dateRegistered?: string;
+    created_at?: string;
+    first_name?: string;
+    last_name?: string;
+    email_address?: string;
+    phone_number?: string;
+    form_of_id?: string;
 };
 export declare type AdministratorCreateFormValidationValues = {
-    firstName?: ValidationFunction<string>;
-    lastName?: ValidationFunction<string>;
-    phoneNumber?: ValidationFunction<string>;
-    emailAddress?: ValidationFunction<string>;
-    dateRegistered?: ValidationFunction<string>;
+    created_at?: ValidationFunction<string>;
+    first_name?: ValidationFunction<string>;
+    last_name?: ValidationFunction<string>;
+    email_address?: ValidationFunction<string>;
+    phone_number?: ValidationFunction<string>;
+    form_of_id?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type AdministratorCreateFormOverridesProps = {
     AdministratorCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    firstName?: PrimitiveOverrideProps<TextFieldProps>;
-    lastName?: PrimitiveOverrideProps<TextFieldProps>;
-    phoneNumber?: PrimitiveOverrideProps<TextFieldProps>;
-    emailAddress?: PrimitiveOverrideProps<TextFieldProps>;
-    dateRegistered?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    first_name?: PrimitiveOverrideProps<TextFieldProps>;
+    last_name?: PrimitiveOverrideProps<TextFieldProps>;
+    email_address?: PrimitiveOverrideProps<TextFieldProps>;
+    phone_number?: PrimitiveOverrideProps<TextFieldProps>;
+    form_of_id?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type AdministratorCreateFormProps = React.PropsWithChildren<{
     overrides?: AdministratorCreateFormOverridesProps | undefined | null;

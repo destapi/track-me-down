@@ -23,22 +23,34 @@ export default function PaymentCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    totalAmount: "",
-    datePaid: "",
+    created_at: "",
+    trip_charge: "",
+    total_amount: "",
+    time_of_payment: "",
   };
-  const [totalAmount, setTotalAmount] = React.useState(
-    initialValues.totalAmount
+  const [created_at, setCreated_at] = React.useState(initialValues.created_at);
+  const [trip_charge, setTrip_charge] = React.useState(
+    initialValues.trip_charge
   );
-  const [datePaid, setDatePaid] = React.useState(initialValues.datePaid);
+  const [total_amount, setTotal_amount] = React.useState(
+    initialValues.total_amount
+  );
+  const [time_of_payment, setTime_of_payment] = React.useState(
+    initialValues.time_of_payment
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setTotalAmount(initialValues.totalAmount);
-    setDatePaid(initialValues.datePaid);
+    setCreated_at(initialValues.created_at);
+    setTrip_charge(initialValues.trip_charge);
+    setTotal_amount(initialValues.total_amount);
+    setTime_of_payment(initialValues.time_of_payment);
     setErrors({});
   };
   const validations = {
-    totalAmount: [],
-    datePaid: [],
+    created_at: [{ type: "Required" }],
+    trip_charge: [{ type: "Required" }],
+    total_amount: [{ type: "Required" }],
+    time_of_payment: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,8 +95,10 @@ export default function PaymentCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          totalAmount,
-          datePaid,
+          created_at,
+          trip_charge,
+          total_amount,
+          time_of_payment,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -139,60 +153,124 @@ export default function PaymentCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Total amount"
-        isRequired={false}
+        label="Created at"
+        isRequired={true}
+        isReadOnly={false}
+        type="datetime-local"
+        value={created_at && convertToLocal(new Date(created_at))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              created_at: value,
+              trip_charge,
+              total_amount,
+              time_of_payment,
+            };
+            const result = onChange(modelFields);
+            value = result?.created_at ?? value;
+          }
+          if (errors.created_at?.hasError) {
+            runValidationTasks("created_at", value);
+          }
+          setCreated_at(value);
+        }}
+        onBlur={() => runValidationTasks("created_at", created_at)}
+        errorMessage={errors.created_at?.errorMessage}
+        hasError={errors.created_at?.hasError}
+        {...getOverrideProps(overrides, "created_at")}
+      ></TextField>
+      <TextField
+        label="Trip charge"
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"
-        value={totalAmount}
+        value={trip_charge}
         onChange={(e) => {
           let value = isNaN(parseFloat(e.target.value))
             ? e.target.value
             : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              totalAmount: value,
-              datePaid,
+              created_at,
+              trip_charge: value,
+              total_amount,
+              time_of_payment,
             };
             const result = onChange(modelFields);
-            value = result?.totalAmount ?? value;
+            value = result?.trip_charge ?? value;
           }
-          if (errors.totalAmount?.hasError) {
-            runValidationTasks("totalAmount", value);
+          if (errors.trip_charge?.hasError) {
+            runValidationTasks("trip_charge", value);
           }
-          setTotalAmount(value);
+          setTrip_charge(value);
         }}
-        onBlur={() => runValidationTasks("totalAmount", totalAmount)}
-        errorMessage={errors.totalAmount?.errorMessage}
-        hasError={errors.totalAmount?.hasError}
-        {...getOverrideProps(overrides, "totalAmount")}
+        onBlur={() => runValidationTasks("trip_charge", trip_charge)}
+        errorMessage={errors.trip_charge?.errorMessage}
+        hasError={errors.trip_charge?.hasError}
+        {...getOverrideProps(overrides, "trip_charge")}
       ></TextField>
       <TextField
-        label="Date paid"
-        isRequired={false}
+        label="Total amount"
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={total_amount}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              created_at,
+              trip_charge,
+              total_amount: value,
+              time_of_payment,
+            };
+            const result = onChange(modelFields);
+            value = result?.total_amount ?? value;
+          }
+          if (errors.total_amount?.hasError) {
+            runValidationTasks("total_amount", value);
+          }
+          setTotal_amount(value);
+        }}
+        onBlur={() => runValidationTasks("total_amount", total_amount)}
+        errorMessage={errors.total_amount?.errorMessage}
+        hasError={errors.total_amount?.hasError}
+        {...getOverrideProps(overrides, "total_amount")}
+      ></TextField>
+      <TextField
+        label="Time of payment"
+        isRequired={true}
         isReadOnly={false}
         type="datetime-local"
-        value={datePaid && convertToLocal(new Date(datePaid))}
+        value={time_of_payment && convertToLocal(new Date(time_of_payment))}
         onChange={(e) => {
           let value =
             e.target.value === "" ? "" : new Date(e.target.value).toISOString();
           if (onChange) {
             const modelFields = {
-              totalAmount,
-              datePaid: value,
+              created_at,
+              trip_charge,
+              total_amount,
+              time_of_payment: value,
             };
             const result = onChange(modelFields);
-            value = result?.datePaid ?? value;
+            value = result?.time_of_payment ?? value;
           }
-          if (errors.datePaid?.hasError) {
-            runValidationTasks("datePaid", value);
+          if (errors.time_of_payment?.hasError) {
+            runValidationTasks("time_of_payment", value);
           }
-          setDatePaid(value);
+          setTime_of_payment(value);
         }}
-        onBlur={() => runValidationTasks("datePaid", datePaid)}
-        errorMessage={errors.datePaid?.errorMessage}
-        hasError={errors.datePaid?.hasError}
-        {...getOverrideProps(overrides, "datePaid")}
+        onBlur={() => runValidationTasks("time_of_payment", time_of_payment)}
+        errorMessage={errors.time_of_payment?.errorMessage}
+        hasError={errors.time_of_payment?.hasError}
+        {...getOverrideProps(overrides, "time_of_payment")}
       ></TextField>
       <Flex
         justifyContent="space-between"

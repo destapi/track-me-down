@@ -22,15 +22,21 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type DriverPoolUpdateFormInputValues = {
-    poolName?: string;
+    created_at?: string;
+    title?: string;
+    description?: string;
 };
 export declare type DriverPoolUpdateFormValidationValues = {
-    poolName?: ValidationFunction<string>;
+    created_at?: ValidationFunction<string>;
+    title?: ValidationFunction<string>;
+    description?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DriverPoolUpdateFormOverridesProps = {
     DriverPoolUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    poolName?: PrimitiveOverrideProps<TextFieldProps>;
+    created_at?: PrimitiveOverrideProps<TextFieldProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
+    description?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type DriverPoolUpdateFormProps = React.PropsWithChildren<{
     overrides?: DriverPoolUpdateFormOverridesProps | undefined | null;

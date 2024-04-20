@@ -1,69 +1,72 @@
-import { withAuthenticator, } from '@aws-amplify/ui-react';
+// import { withAuthenticator, } from '@aws-amplify/ui-react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import AppLayout from './components/AppLayout';
-import { PaymentMethodService } from './tryout/PaymentMethod';
-// import AdministratorPanel from './components/AdministratorPanel';
-// import PassengerPanel from './components/PassengerPanel';
-// import DirectDepositPanel from './components/DirectDepositPanel';
-// import VehiclePanel from './components/VehiclePanel';
-// import VehicleFleetPanel from './components/VehicleFleetPanel';
+// import { PaymentMethodService } from './tryout/PaymentMethod';
+import AdministratorPanel from './components/AdministratorPanel';
+import PassengerPanel from './components/PassengerPanel';
+import DirectDepositPanel from './components/DirectDepositPanel';
+import VehiclePanel from './components/VehiclePanel';
+import VehicleFleetPanel from './components/VehicleFleetPanel';
+import TripChargePanel from './components/TripChargePanel';
 // import TripPlanPanel from './components/TripPlanPanel';
 // import GeoFencePanel from './components/GeoFencePanel';
-// import PaymentPanel from './components/PaymentPanel';
-// import PaymentMethodPanel from './components/PaymentMethodPanel';
-// import PhysicalAddrPanel from './components/PhysicalAddrPanel';
-// import DriverPanel from './components/DriverPanel';
-// import DriverPoolPanel from './components/DriverPoolPanel';
-// import MapBoxPanel from './components/MapBoxPanel';
+import PaymentPanel from './components/PaymentPanel';
+import PaymentMethodPanel from './components/PaymentMethodPanel';
+import PhysicalAddrPanel from './components/PhysicalAddrPanel';
+import DriverPanel from './components/DriverPanel';
+import DriverPoolPanel from './components/DriverPoolPanel';
+import MapBoxPanel from './components/MapBoxPanel';
 
 const tabPages = ['MapBox', 'Administrator', 'Passenger', 'Direct Deposit', 'Vehicle',
   'Vehicle Fleet', 'Driver', 'Driver Pool', 'GeoFence',
-  'Payment', 'Payment Method', 'Physical Address', 'Trip Plan']
+  'Payment', 'Payment Method', 'Physical Address', 'Trip Plan', 'Trip Charge']
 
 function resolveTabPage(page) {
   if (tabPages.includes(page)) {
     switch (page) {
       case 'MapBox': {
-        // return <MapBoxPanel />
-        return <PaymentMethodService></PaymentMethodService>
+        return <MapBoxPanel />
       }
-      // case 'Administrator': {
-      //   return <AdministratorPanel />
-      // }
-      // case 'Passenger': {
-      //   return <PassengerPanel />
-      // }
-      // case 'Direct Deposit': {
-      //   return <DirectDepositPanel />
-      // }
-      // case 'Vehicle': {
-      //   return <VehiclePanel />
-      // }
-      // case 'Vehicle Fleet': {
-      //   return <VehicleFleetPanel />
-      // }
-      // case 'Driver': {
-      //   return <DriverPanel />
-      // }
-      // case 'Driver Pool': {
-      //   return <DriverPoolPanel />
-      // }
+      case 'Administrator': {
+        return <AdministratorPanel />
+      }
+      case 'Passenger': {
+        return <PassengerPanel />
+      }
+      case 'Direct Deposit': {
+        return <DirectDepositPanel />
+      }
+      case 'Vehicle': {
+        return <VehiclePanel />
+      }
+      case 'Vehicle Fleet': {
+        return <VehicleFleetPanel />
+      }
+      case 'Driver': {
+        return <DriverPanel />
+      }
+      case 'Driver Pool': {
+        return <DriverPoolPanel />
+      }
+      case 'Trip Charge': {
+        return <TripChargePanel />
+      }
       // case 'Trip Plan': {
       //   return <TripPlanPanel />
       // }
       // case 'GeoFence': {
       //   return <GeoFencePanel />
       // }
-      // case 'Payment': {
-      //   return <PaymentPanel />
-      // }
-      // case 'Payment Method': {
-      //   return <PaymentMethodPanel />
-      // }
-      // case 'Physical Address': {
-      //   return <PhysicalAddrPanel />
-      // }
+      case 'Payment': {
+        return <PaymentPanel />
+      }
+      case 'Payment Method': {
+        return <PaymentMethodPanel />
+      }
+      case 'Physical Address': {
+        return <PhysicalAddrPanel />
+      }
       default:
         return null
     }
@@ -88,4 +91,5 @@ App.propTypes = {
   user: PropTypes.object
 }
 
-export default withAuthenticator(App);
+// export default withAuthenticator(App);
+export default App;
